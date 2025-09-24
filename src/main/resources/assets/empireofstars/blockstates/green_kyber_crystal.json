@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "empireofstars:block/green_kyber_crystal",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "empireofstars:block/green_kyber_crystal",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "empireofstars:block/green_kyber_crystal",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "empireofstars:block/green_kyber_crystal",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "empireofstars:block/green_kyber_crystal"
+    },
+    "facing=west": {
+      "model": "empireofstars:block/green_kyber_crystal",
+      "x": 90,
+      "y": 270
+    }
+  }
+}
