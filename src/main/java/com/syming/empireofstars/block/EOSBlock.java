@@ -1,13 +1,11 @@
 package com.syming.empireofstars.block;
 
 import com.syming.empireofstars.EmpireOfStarsMod;
-import com.syming.empireofstars.block.blockentity.KyberCrystalBlockEntity;
 import com.syming.empireofstars.item.EOSItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -23,11 +21,11 @@ public class EOSBlock {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, EmpireOfStarsMod.MOD_ID);
 
-    public static final Map<KyberCrystalColor, RegistryObject<KyberCrystalBlock>> KYBER_CRYSTAL_BLOCK_TYPES = new HashMap<>();
+    public static final Map<KyberCrystalColor, RegistryObject<KyberCrystalBlock>> KYBER_CRYSTAL_TYPES = new HashMap<>();
 
     static {
         for (KyberCrystalColor color : KyberCrystalColor.values()) {
-            KYBER_CRYSTAL_BLOCK_TYPES.put(color, registerBlock(color.name().toLowerCase(Locale.ROOT) + '_' + "kyber_crystal",
+            KYBER_CRYSTAL_TYPES.put(color, registerBlock(color.name().toLowerCase(Locale.ROOT) + '_' + "kyber_crystal",
                     () -> new KyberCrystalBlock(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK), color)));
         }
     }

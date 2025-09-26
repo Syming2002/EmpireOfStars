@@ -183,6 +183,15 @@ dependencies {
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
+    // Xaeros's Minimap
+    implementation fg.deobf("curse.maven:xaeros-minimap-263420:6778028")
+
+    // Ferrite Core
+    implementation fg.deobf("curse.maven:ferritecore-429235:4810975")
+
+    // Modern Fix
+    implementation fg.deobf("curse.maven:modernfix-790626:6837713")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

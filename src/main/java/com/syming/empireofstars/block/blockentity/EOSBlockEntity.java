@@ -22,7 +22,7 @@ public class EOSBlockEntity {
     static {
         for (KyberCrystalColor color : KyberCrystalColor.values()) {
             KYBER_CRYSTAL_BLOCK_ENTITY_TYPES.put(color, BLOCK_ENTITIES.register(color.name().toLowerCase(Locale.ROOT) + '_' + "kyber_crystal",
-                    () -> BlockEntityType.Builder.of((pos, state) -> new KyberCrystalBlockEntity(pos, state, color), EOSBlock.KYBER_CRYSTAL_BLOCK_TYPES.get(color).get()).build(null)));
+                    () -> BlockEntityType.Builder.of((pos, state) -> new KyberCrystalBlockEntity(pos, state, color), EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get()).build(null)));
         }
     }
 

@@ -2,9 +2,12 @@ package com.syming.empireofstars.block;
 
 public enum KyberCrystalColor {
     BLUE("blue",0x2E67F8),
-    GREEN("green",0x00FF00),
+    GREEN("green",0x2FF924),
     RED("red",0xEB212E),
-    PURPLE("purple", 0x730FF0);
+    PURPLE("purple", 0x730FF0),
+    YELLOW("yellow", 0xFFF738),
+    WHITE("white", 0xFFFFFF),
+    BLACK("black", 0x000000);
 
     private final float red, green, blue;
     private final String name;

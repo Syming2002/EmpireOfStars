@@ -4,5 +4,8 @@
   "block.empireofstars.red_kyber_crystal": "Red Kyber Crystal",
   "block.empireofstars.purple_kyber_crystal": "Purple Kyber Crystal",
 
-  "creativetab.empireofstars_tab": "Empire Of Stars"
+  "creativetab.empireofstars_tab": "Empire Of Stars",
+
+  "translation.empireofstars.blue_lightsaber": "Blue Lightsaber",
+  "translation.empireofstars.green_lightsaber": "Green Lightsaber"
 }

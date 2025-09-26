@@ -20,7 +20,7 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
 
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
-    private KyberCrystalColor color;
+    public KyberCrystalColor kyberCrystalColor;
 
     protected final VoxelShape upShape;
     protected final VoxelShape downShape;
@@ -33,7 +33,7 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
         super(pProperties);
         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.UP));
 
-        this.color = color;
+        this.kyberCrystalColor = color;
 
         this.upShape = Block.box(5.5D, 0.0D, 5.5D, 10.5D, 8.0D, 10.5D);
         this.downShape = Block.box(5.5D, 8.0D, 5.5D, 10.5D, 16.0D, 10.5D);
@@ -90,6 +90,10 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new KyberCrystalBlockEntity(pPos, pState, this.color);
+        return new KyberCrystalBlockEntity(pPos, pState, this.kyberCrystalColor);
+    }
+
+    public KyberCrystalColor getKyberCrystalColor() {
+        return this.kyberCrystalColor;
     }
 }

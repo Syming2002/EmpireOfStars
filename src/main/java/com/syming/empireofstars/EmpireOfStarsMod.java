@@ -1,14 +1,10 @@
 package com.syming.empireofstars;
 
 import com.syming.empireofstars.block.EOSBlock;
-import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.block.blockentity.EOSBlockEntity;
-import com.syming.empireofstars.block.blockentity.renderer.KyberCrystalBlockEntityRenderer;
 import com.syming.empireofstars.creativetab.EOSCreativeTab;
 import com.syming.empireofstars.item.EOSItem;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import com.syming.empireofstars.network.EOSPacketHandler;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -40,7 +36,9 @@ public class EmpireOfStarsMod
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-
+        event.enqueueWork(() -> {
+            EOSPacketHandler.register();
+        });
     }
 
     @SubscribeEvent
