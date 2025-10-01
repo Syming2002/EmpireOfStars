@@ -1,8 +1,10 @@
 package com.syming.empireofstars.item;
 
+import com.mojang.datafixers.util.Pair;
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.item.lightsaber.LightsaberItem;
+import com.syming.empireofstars.item.lightsaber.LightsaberKey;
 import com.syming.empireofstars.item.lightsaber.LightsaberType;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -22,7 +24,7 @@ public class EOSItem {
 
     static {
         for (LightsaberType type : LightsaberType.values()) {
-            LIGHTSABER_TYPES.put(type, ITEMS.register(type.name().toLowerCase(Locale.ROOT) + '_' + "lightsaber", () -> new LightsaberItem(new Item.Properties().stacksTo(1),16, -2.5F)));
+            LIGHTSABER_TYPES.put(type, ITEMS.register(type.name().toLowerCase(Locale.ROOT) + '_' + "lightsaber", LightsaberItem::new));
         }
     }
 

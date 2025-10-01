@@ -17,12 +17,10 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(EmpireOfStarsMod.MOD_ID)
-public class EmpireOfStarsMod
-{
+public class EmpireOfStarsMod {
     public static final String MOD_ID = "empireofstars";
 
-    public EmpireOfStarsMod()
-    {
+    public EmpireOfStarsMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         EOSBlock.register(modEventBus);
@@ -43,13 +41,5 @@ public class EmpireOfStarsMod
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-    }
-
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-        }
     }
 }

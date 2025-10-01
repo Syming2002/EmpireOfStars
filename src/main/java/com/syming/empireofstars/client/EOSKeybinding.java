@@ -17,8 +17,7 @@ public final class EOSKeybinding {
 
     public final KeyMapping ACTIVE_LIGHTSABER = new KeyMapping(
             "key." + EmpireOfStarsMod.MOD_ID + ".active_lightsaber_key",
-            KeyConflictContext.IN_GAME,
-            InputConstants.getKey(InputConstants.KEY_M, -1),
+            InputConstants.KEY_NUMPAD8,
             EMPIRE_OF_STARS_CATEGORY
 
     );

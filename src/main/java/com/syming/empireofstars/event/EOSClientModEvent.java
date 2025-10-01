@@ -8,11 +8,15 @@ import com.syming.empireofstars.block.blockentity.EOSBlockEntity;
 import com.syming.empireofstars.client.EOSKeybinding;
 import com.syming.empireofstars.client.kybercrystal.KyberCrystalBlockEntityRenderer;
 import com.syming.empireofstars.client.lightsaber.LightsaberBladeModel;
+import com.syming.empireofstars.client.lightsaber.LightsaberStandardModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.ModelEvent;
+import net.minecraftforge.client.event.RegisterItemDecorationsEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -22,8 +26,7 @@ public class EOSClientModEvent {
 
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-//        event.registerLayerDefinition(KyberCrystalBlockEntityRenderer.KYBER_CRYSTAL_LAYER_LOCATION, KyberCrystalBlockEntityRenderer::createShardLayer);
-    event.registerLayerDefinition(LightsaberBladeModel.BLADE_LAYER, LightsaberBladeModel::createBodyLayer);
+        event.registerLayerDefinition(LightsaberStandardModel.STANDARD_LIGHTSABER_LAYER, LightsaberStandardModel::createBodyLayer);
     }
 
     @SubscribeEvent
@@ -53,4 +56,9 @@ public class EOSClientModEvent {
         event.register(EOSKeybinding.INSTANCE.ACTIVE_LIGHTSABER);
     }
 
+
+    @SubscribeEvent
+    public static void registerModel(ModelEvent.RegisterAdditional event) {
+        event.register(new ResourceLocation(EmpireOfStarsMod.MOD_ID, "item/blade"));
+    }
 }

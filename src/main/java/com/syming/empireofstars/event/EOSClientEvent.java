@@ -2,6 +2,7 @@ package com.syming.empireofstars.event;
 
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.client.EOSKeybinding;
+import com.syming.empireofstars.item.lightsaber.LightsaberItem;
 import com.syming.empireofstars.network.ActiveLightsaber;
 import com.syming.empireofstars.network.EOSPacketHandler;
 import net.minecraftforge.api.distmarker.Dist;

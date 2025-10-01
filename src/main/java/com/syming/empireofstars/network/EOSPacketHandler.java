@@ -18,11 +18,7 @@ public class EOSPacketHandler {
     private static int id;
 
     public static synchronized void register() {
-        INSTANCE.messageBuilder(ActiveLightsaber.class, id++)
-                .encoder(ActiveLightsaber::encode)
-                .decoder(ActiveLightsaber::decode)
-                .consumerMainThread(ActiveLightsaber::handle)
-                .add();
+        INSTANCE.registerMessage(id++, ActiveLightsaber.class, ActiveLightsaber::encode, ActiveLightsaber::decode, ActiveLightsaber::handle);
     }
 
     public static void sendToPlayer(Object message, ServerPlayer player) {

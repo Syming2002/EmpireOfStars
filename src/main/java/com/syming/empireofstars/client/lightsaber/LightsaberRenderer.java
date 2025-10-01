@@ -1,37 +1,43 @@
 package com.syming.empireofstars.client.lightsaber;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.syming.empireofstars.EmpireOfStarsMod;
-import com.syming.empireofstars.block.KyberCrystalBlock;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.item.lightsaber.LightsaberItem;
-import com.syming.empireofstars.item.lightsaber.LightsaberType;
-import com.syming.empireofstars.item.lightsaber.LightsaberTypeBlade;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.checkerframework.checker.units.qual.A;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
 
     public static LightsaberRenderer INSTANCE;
     private final LightsaberBladeModel bladeModel;
+    private final LightsaberStandardModel standardModel;
+
+    private static final ResourceLocation INNER_BLADE = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/blade.png");
+    private static final ResourceLocation OUTER_BLADE = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/blade.png");
+
+    private static final ResourceLocation STANDARD_LIGHTSABER = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/standard_lightsaber.png");
+
 
     public LightsaberRenderer(BlockEntityRenderDispatcher pBlockEntityRenderDispatcher, EntityModelSet pEntityModelSet) {
         super(pBlockEntityRenderDispatcher, pEntityModelSet);
 
-        this.bladeModel = new LightsaberBladeModel(pEntityModelSet.bakeLayer(LightsaberBladeModel.BLADE_LAYER));
+        this.bladeModel = new LightsaberBladeModel();
+
+        this.standardModel = new LightsaberStandardModel(pEntityModelSet.bakeLayer(LightsaberStandardModel.STANDARD_LIGHTSABER_LAYER));
     }
 
     public static LightsaberRenderer getInstance() {
@@ -44,90 +50,63 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
     @Override
     public void renderByItem(ItemStack pStack, ItemDisplayContext pDisplayContext, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
         super.renderByItem(pStack, pDisplayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+        if (pStack.getItem() instanceof LightsaberItem lightsaberItem) {
+            CompoundTag tag = pStack.getTag();
 
-        CompoundTag tag = pStack.getTag();
+            if (LightsaberItem.isActive(pStack)) {
+                if (tag != null && tag.contains("kyberColor")) {
+                    KyberCrystalColor kyberCrystalColor = lightsaberItem.getColor(pStack);
 
-        String type = tag.getString("type");
+                    pPoseStack.pushPose();
 
-        if (LightsaberItem.isActive(pStack)) {
+                    pPoseStack.translate(0.5F, 0.0F, 0.5F);
 
-            if (pStack.hasTag()) {
-                LightsaberTypeBlade typeBlade = LightsaberTypeBlade.valueOf(type);
+                    RenderType solidType = RenderType.entityCutoutNoCull(INNER_BLADE);
+                    VertexConsumer inner = pBuffer.getBuffer(solidType);
+                    this.bladeModel.renderInner(pPoseStack, inner, pPackedLight, pPackedOverlay);
 
+                    RenderType glowType = RenderType.entityTranslucentEmissive(OUTER_BLADE);
+                    VertexConsumer outer = pBuffer.getBuffer(glowType);
+                    this.bladeModel.renderOuter(pPoseStack, outer, 0xF000F0, pPackedOverlay, kyberCrystalColor.getRed(), kyberCrystalColor.getGreen(), kyberCrystalColor.getBlue(), 0.2F);
 
-                switch (typeBlade) {
-                    case SINGLE -> renderSingleBlade(pDisplayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pStack);
+                    pPoseStack.popPose();
                 }
-
-                System.out.println("Rendering blade. Active tag = " + pStack.getOrCreateTag().getBoolean("active"));
             }
 
-            System.out.println("Lightsaber is Active !");
+            pPoseStack.pushPose();
+
+            switch (pDisplayContext) {
+                case GUI -> {
+                    pPoseStack.translate(0.0F, 0.25F, 0.0F);
+                    pPoseStack.mulPose(Axis.YP.rotationDegrees(45.0F));
+                    pPoseStack.scale(0.75F, 0.75F, 0.75F);
+                }
+                case FIRST_PERSON_RIGHT_HAND, FIRST_PERSON_LEFT_HAND -> {
+                    pPoseStack.translate(0.5F, 1.5F, 0.5F);
+                    pPoseStack.mulPose(Axis.XP.rotationDegrees(-180.0F));
+                    pPoseStack.mulPose(Axis.YP.rotationDegrees(-180.0F));
+                }
+                case THIRD_PERSON_RIGHT_HAND, THIRD_PERSON_LEFT_HAND -> {
+                    pPoseStack.translate(0.475F, 1.5F, 0.6F);
+                    pPoseStack.mulPose(Axis.XP.rotationDegrees(-180.0F));
+                    pPoseStack.mulPose(Axis.YP.rotationDegrees(-180.0F));
+                }
+                case GROUND -> {
+                    pPoseStack.translate(0.25F, 0.0F, 0.25F);
+                    pPoseStack.scale(0.5F, 0.5F, 0.5F);
+                }
+                case FIXED -> {
+                    pPoseStack.mulPose(Axis.ZP.rotationDegrees(90.0F));
+                    pPoseStack.scale(0.75F, 0.75F, 0.75F);
+                }
+            }
+
+            RenderType solidType = RenderType.entitySolid(STANDARD_LIGHTSABER);
+            VertexConsumer standard = pBuffer.getBuffer(solidType);
+            this.standardModel.renderToBuffer(pPoseStack, standard, pPackedLight, pPackedOverlay,
+                    1.0F, 1.0F, 1.0F, 1.0F);
+
+            pPoseStack.popPose();
         }
-
-        System.out.println("Rendering is called");
-    }
-
-    public void renderSingleBlade(ItemDisplayContext pContext, PoseStack pPoseStack, MultiBufferSource pBuffer, int pLight, int pOverlay, ItemStack pStack) {
-        CompoundTag tag = pStack.getTag();
-        pPoseStack.pushPose();
-        switch (pContext) {
-            case THIRD_PERSON_LEFT_HAND, THIRD_PERSON_RIGHT_HAND -> {
-                pPoseStack.translate(0.5F, 1.0F, 0.5F);
-            }
-            case FIRST_PERSON_RIGHT_HAND -> {
-                pPoseStack.translate(1, 0.1F, 0.0F);
-            }
-            case FIRST_PERSON_LEFT_HAND -> {
-
-            }
-            case GUI -> {
-                pPoseStack.mulPose(Axis.ZN.rotationDegrees(45));
-                pPoseStack.scale(1.9F, 1.9F, 1.9F);
-            }
-            case FIXED -> {
-                pPoseStack.mulPose(Axis.ZN.rotationDegrees(-45));
-                pPoseStack.mulPose(Axis.YP.rotationDegrees(180));
-                pPoseStack.translate(-0.7F, -0.5F, -0.5F);
-                pPoseStack.scale(1.9F, 1.9F, 1.9F);
-            }
-            case GROUND -> {
-                pPoseStack.translate(0.25F, 0.5F, 0.5F);
-                pPoseStack.mulPose(Axis.ZN.rotationDegrees(45));
-            }
-        }
-
-        if (tag != null) {
-            renderLightsaberBlade(tag, pBuffer, pPoseStack, pLight, pOverlay,1.5F);
-        }
-
-        pPoseStack.popPose();
-    }
-
-    private void renderLightsaberBlade(CompoundTag pTag, MultiBufferSource pBuffer, PoseStack pPoseStack, int pLight, int pOverlay, float pHeight) {
-        float length = 1.0F;
-
-        KyberCrystalBlock kyberCrystalBlock = (KyberCrystalBlock) ForgeRegistries.BLOCKS.getValue(new ResourceLocation(pTag.getString("kyberColor")));
-        float red = kyberCrystalBlock.getKyberCrystalColor().getRed();
-        float green = kyberCrystalBlock.getKyberCrystalColor().getGreen();
-        float blue = kyberCrystalBlock.getKyberCrystalColor().getBlue();
-
-        pPoseStack.scale(1.2F, 1.0F, 1.2F);
-        pPoseStack.translate(0.0F, pHeight * 1, 0.0F);
-
-        if (length > 0.1F) {
-            this.bladeModel.renderOuterBlade(pPoseStack, pBuffer.getBuffer(RenderType.solid()), pLight, pOverlay, red, green, blue, 0.5F);
-        }
-
-        pPoseStack.popPose();
-
-        pPoseStack.pushPose();
-        pPoseStack.scale(0.5F, 0.95F * length, 0.5F);
-        pPoseStack.translate(0.0F, pHeight * 1.06F, 0.0F);
-        if (length > 0.1F) {
-            this.bladeModel.renderInnerBlade(pPoseStack, pBuffer.getBuffer(RenderType.solid()), pLight, pOverlay, red, green, blue, 1.0F);
-        }
-
-        pPoseStack.popPose();
     }
 }
