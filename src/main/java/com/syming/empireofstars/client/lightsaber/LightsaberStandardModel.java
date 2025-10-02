@@ -39,21 +39,21 @@ public class LightsaberStandardModel extends Model {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
-        PartDefinition standardLightsaber = partdefinition.addOrReplaceChild("standardLightsaber", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
+        PartDefinition standardLightsaber = partdefinition.addOrReplaceChild("standardLightsaber", CubeListBuilder.create(), PartPose.offset(-0.5F, 18.75F, -0.2F));
 
-        PartDefinition emitter = standardLightsaber.addOrReplaceChild("emitter", CubeListBuilder.create().texOffs(8, 0).addBox(-1.0F, -0.5F, -1.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.1F)), PartPose.offset(-0.45F, -11.0F, -0.2F));
+        PartDefinition emitter = standardLightsaber.addOrReplaceChild("emitter", CubeListBuilder.create().texOffs(8, 0).addBox(-1.0F, -0.5F, -1.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.1F)), PartPose.offset(0.05F, -5.75F, 0.0F));
 
-        PartDefinition upperBody = standardLightsaber.addOrReplaceChild("upperBody", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -3.0F, -1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(-0.1F)), PartPose.offset(-0.45F, -8.9F, -0.2F));
+        PartDefinition upperBody = standardLightsaber.addOrReplaceChild("upperBody", CubeListBuilder.create().texOffs(0, 0).addBox(-1.0F, -3.0F, -1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(-0.1F)), PartPose.offset(0.05F, -3.65F, 0.0F));
 
-        PartDefinition lowerBody = standardLightsaber.addOrReplaceChild("lowerBody", CubeListBuilder.create().texOffs(6, 6).addBox(-1.0F, -2.0F, -1.0F, 2.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.45F, -4.0F, -0.2F));
+        PartDefinition lowerBody = standardLightsaber.addOrReplaceChild("lowerBody", CubeListBuilder.create().texOffs(6, 6).addBox(-1.0F, -2.0F, -1.0F, 2.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.05F, 1.25F, 0.0F));
 
-        PartDefinition upperButton = standardLightsaber.addOrReplaceChild("upperButton", CubeListBuilder.create().texOffs(6, 0).addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(-0.1F)), PartPose.offset(0.45F, -4.7F, 0.0F));
+        PartDefinition upperButton = standardLightsaber.addOrReplaceChild("upperButton", CubeListBuilder.create().texOffs(6, 0).addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(-0.1F)), PartPose.offset(0.95F, 0.75F, 0.2F));
 
-        PartDefinition lowerButton = standardLightsaber.addOrReplaceChild("lowerButton", CubeListBuilder.create().texOffs(0, 11).addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(-0.1F)), PartPose.offset(0.45F, -3.7F, 0.0F));
+        PartDefinition lowerButton = standardLightsaber.addOrReplaceChild("lowerButton", CubeListBuilder.create().texOffs(0, 11).addBox(-0.5F, -0.5F, -0.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(-0.1F)), PartPose.offset(0.95F, 1.75F, 0.2F));
 
-        PartDefinition grip = standardLightsaber.addOrReplaceChild("grip", CubeListBuilder.create().texOffs(0, 8).addBox(-1.0F, -1.0F, -0.5F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.45F, -1.0F, 0.3F));
+        PartDefinition grip = standardLightsaber.addOrReplaceChild("grip", CubeListBuilder.create().texOffs(0, 8).addBox(-1.0F, -1.0F, -0.5F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.05F, 4.25F, 0.5F));
 
-        PartDefinition attachment = standardLightsaber.addOrReplaceChild("attachment", CubeListBuilder.create().texOffs(8, 3).addBox(-0.5F, -1.0F, -0.5F, 1.0F, 2.0F, 1.0F, new CubeDeformation(-0.2F)), PartPose.offset(-0.45F, -1.3F, -0.3F));
+        PartDefinition attachment = standardLightsaber.addOrReplaceChild("attachment", CubeListBuilder.create().texOffs(8, 3).addBox(-0.5F, -1.0F, -0.5F, 1.0F, 2.0F, 1.0F, new CubeDeformation(-0.2F)), PartPose.offset(0.05F, 3.95F, -0.1F));
 
         return LayerDefinition.create(meshdefinition, 16, 16);
     }
