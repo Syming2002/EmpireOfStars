@@ -2,6 +2,7 @@ package com.syming.empireofstars.client.kybercrystal;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
 import com.syming.empireofstars.block.KyberCrystalBlock;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.client.EOSRenderType;
@@ -40,32 +41,51 @@ public class KyberCrystalItemRenderer extends BlockEntityWithoutLevelRenderer {
     public void renderByItem(ItemStack pStack, ItemDisplayContext pDisplayContext, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
         super.renderByItem(pStack, pDisplayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
 
-        pPoseStack.pushPose();
+        CompoundTag tag = pStack.getTag();
 
-        try {
-            CompoundTag tag = pStack.getTag();
+        if (pStack.getItem() instanceof BlockItem blockItem) {
+            if (blockItem.getBlock() instanceof KyberCrystalBlock kyberCrystalBlock) {
+                if (tag != null) {
+                    if (tag.contains("kyberColor")) {
+                        KyberCrystalColor kyberCrystalColor = kyberCrystalBlock.getColor();
 
-            if (pStack.getItem() instanceof BlockItem blockItem) {
-                if (blockItem.getBlock() instanceof KyberCrystalBlock kyberCrystalBlock) {
-                    if (tag != null) {
-                        if (tag.contains("kyberColor")) {
-                            KyberCrystalColor kyberCrystalColor = kyberCrystalBlock.getColor();
+                        pPoseStack.pushPose();
 
-                            VertexConsumer consumer = pBuffer.getBuffer(EOSRenderType.kyberCrystalGlow(KyberCrystalBlockEntityRenderer.KYBER_CRYSTAL_TEXTURE));
+                        switch (pDisplayContext) {
+                            case FIRST_PERSON_LEFT_HAND, FIRST_PERSON_RIGHT_HAND, THIRD_PERSON_LEFT_HAND, THIRD_PERSON_RIGHT_HAND -> {
+                                pPoseStack.translate(0.5D, 0.65D, 0.5D);
+                                pPoseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
+                            }
+                            case GUI -> {
+                                pPoseStack.translate(0.5D, 0.5D, 0.5D);
+                                pPoseStack.mulPose(Axis.XP.rotationDegrees(210.0F));
+                                pPoseStack.mulPose(Axis.YP.rotationDegrees(45.0F));
+                            }
+                            case FIXED -> {
+                                pPoseStack.translate(0.5D, 0.5D, 0.5D);
+                                pPoseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
 
-                            this.kyberCrystalModel.renderToBuffer(pPoseStack, consumer, pPackedLight, pPackedOverlay, kyberCrystalColor.getRed(), kyberCrystalColor.getGreen(), kyberCrystalColor.getBlue(), 0.5F);
+                            }
+                            case GROUND -> {
+                                pPoseStack.translate(0.5D, 0.4D, 0.5D);
+                                pPoseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
+                                pPoseStack.scale(0.5F, 0.5F, 0.5F);
+                            }
 
-                            switch (pDisplayContext) {
-                                case FIRST_PERSON_LEFT_HAND -> {
+                            case HEAD, NONE -> {
 
-                                }
                             }
                         }
+
+                        VertexConsumer consumer = pBuffer.getBuffer(EOSRenderType.kyberCrystalGlow(KyberCrystalBlockEntityRenderer.KYBER_CRYSTAL_TEXTURE));
+
+                        this.kyberCrystalModel.renderToBuffer(pPoseStack, consumer, pPackedLight, pPackedOverlay, kyberCrystalColor.getRed(), kyberCrystalColor.getGreen(), kyberCrystalColor.getBlue(), 0.5F);
+
+                        pPoseStack.popPose();
                     }
                 }
             }
-        } finally {
-            pPoseStack.popPose();
         }
+
     }
 }
