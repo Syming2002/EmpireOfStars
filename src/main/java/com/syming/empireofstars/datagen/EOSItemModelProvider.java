@@ -1,0 +1,37 @@
+package com.syming.empireofstars.datagen;
+
+import com.syming.empireofstars.EmpireOfStarsMod;
+import com.syming.empireofstars.block.KyberCrystalBlock;
+import com.syming.empireofstars.item.EOSItem;
+import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+
+public class EOSItemModelProvider extends ItemModelProvider {
+    public EOSItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+        super(output, EmpireOfStarsMod.MOD_ID, existingFileHelper);
+    }
+
+    @Override
+    protected void registerModels() {
+        for (RegistryObject<Item> registryObject : EOSItem.ITEMS.getEntries()) {
+
+            final Item item = registryObject.get();
+            final String path = ForgeRegistries.ITEMS.getKey(item).getPath();
+            if (item instanceof BlockItem blockItem && blockItem.getBlock() instanceof KyberCrystalBlock kyberCrystalBlock) {
+                registerKyberCrystalBlockItem(path);
+            }
+        }
+    }
+
+    private void registerKyberCrystalBlockItem(String name) {
+        getBuilder(name).parent(new ModelFile.UncheckedModelFile("builtin/entity"));
+        getBuilder(name).texture("particle", modLoc("block/kyber_crystal"));
+    }
+}

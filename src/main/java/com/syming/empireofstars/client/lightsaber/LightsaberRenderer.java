@@ -1,18 +1,16 @@
 package com.syming.empireofstars.client.lightsaber;
 
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Axis;
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.KyberCrystalColor;
+import com.syming.empireofstars.client.EOSRenderType;
 import com.syming.empireofstars.item.lightsaber.LightsaberItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.nbt.CompoundTag;
@@ -95,11 +93,11 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
                         }
                     }
 
-                    RenderType solidType = LightsaberRenderType.lightsaberAdditive(INNER_BLADE);
+                    RenderType solidType = EOSRenderType.lightsaberAdditive(INNER_BLADE);
                     VertexConsumer inner = pBuffer.getBuffer(solidType);
                     this.bladeModel.renderInner(pPoseStack, inner, 0xF000F0, pPackedOverlay);
 
-                    RenderType glowType = LightsaberRenderType.lightsaberGlow(OUTER_BLADE);
+                    RenderType glowType = EOSRenderType.lightsaberGlow(OUTER_BLADE);
                     VertexConsumer outer = pBuffer.getBuffer(glowType);
                     this.bladeModel.renderOuter(pPoseStack, outer, pPackedLight, pPackedOverlay, kyberCrystalColor.getRed(), kyberCrystalColor.getGreen(), kyberCrystalColor.getBlue(), 1.0F);
 

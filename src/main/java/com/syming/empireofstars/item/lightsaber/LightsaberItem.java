@@ -2,6 +2,7 @@ package com.syming.empireofstars.item.lightsaber;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import com.syming.empireofstars.block.KyberCrystalBlock;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.client.lightsaber.LightsaberRenderer;
 import com.syming.empireofstars.network.ActiveLightsaber;
@@ -10,6 +11,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -69,14 +72,6 @@ public class LightsaberItem extends Item {
         });
     }
 
-//    @Override
-//    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-//        ItemStack stack = pPlayer.getItemInHand(pUsedHand);
-//
-//        EOSPacketHandler.sendToServer(new ActiveLightsaber());
-//        return InteractionResultHolder.sidedSuccess(stack, pLevel.isClientSide());
-//    }
-
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
@@ -85,25 +80,25 @@ public class LightsaberItem extends Item {
             if (pStack.getTag() != null && pStack.getTag().contains("kyberColor")) {
                 KyberCrystalColor color = getColor(pStack);
                 if (color == KyberCrystalColor.BLUE) {
-                    pTooltipComponents.add(Component.translatable("translation.empireofstars.blue_lightsaber").withStyle(ChatFormatting.BLUE));
+                    pTooltipComponents.add(Component.translatable("translation.empireofstars.blue_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x2E67F8))));
                 }
                 if (color == KyberCrystalColor.GREEN) {
-                    pTooltipComponents.add(Component.translatable("translation.empireofstars.green_lightsaber").withStyle(ChatFormatting.GREEN));
+                    pTooltipComponents.add(Component.translatable("translation.empireofstars.green_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x2FF924))));
                 }
                 if (color == KyberCrystalColor.RED) {
-                    pTooltipComponents.add(Component.translatable("translation.empireofstars.red_lightsaber").withStyle(ChatFormatting.RED));
+                    pTooltipComponents.add(Component.translatable("translation.empireofstars.red_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xEB212E))));
                 }
                 if (color == KyberCrystalColor.PURPLE) {
-                    pTooltipComponents.add(Component.translatable("translation.empireofstars.purple_lightsaber").withStyle(ChatFormatting.DARK_PURPLE));
+                    pTooltipComponents.add(Component.translatable("translation.empireofstars.purple_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x730FF0))));
                 }
                 if (color == KyberCrystalColor.YELLOW) {
-                    pTooltipComponents.add(Component.translatable("translation.empireofstars.yellow_lightsaber").withStyle(ChatFormatting.YELLOW));
+                    pTooltipComponents.add(Component.translatable("translation.empireofstars.yellow_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFF738))));
                 }
                 if (color == KyberCrystalColor.WHITE) {
-                    pTooltipComponents.add(Component.translatable("translation.empireofstars.white_lightsaber").withStyle(ChatFormatting.WHITE));
+                    pTooltipComponents.add(Component.translatable("translation.empireofstars.white_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFFFFF))));
                 }
                 if (color == KyberCrystalColor.BLACK) {
-                    pTooltipComponents.add(Component.translatable("translation.empireofstars.black_lightsaber").withStyle(ChatFormatting.BLACK));
+                    pTooltipComponents.add(Component.translatable("translation.empireofstars.black_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x000000))));
                 }
             }
         }

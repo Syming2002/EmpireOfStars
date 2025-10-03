@@ -4,7 +4,6 @@ import com.mojang.datafixers.util.Pair;
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.item.lightsaber.LightsaberItem;
-import com.syming.empireofstars.item.lightsaber.LightsaberKey;
 import com.syming.empireofstars.item.lightsaber.LightsaberType;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
