@@ -1,14 +1,16 @@
 {
+  "block.empireofstars.aquamarine_kyber_crystal": "Aquamarine Kyber Crystal",
+  "block.empireofstars.black_kyber_crystal": "Black Kyber Crystal",
   "block.empireofstars.blue_kyber_crystal": "Blue Kyber Crystal",
   "block.empireofstars.green_kyber_crystal": "Green Kyber Crystal",
-  "block.empireofstars.red_kyber_crystal": "Red Kyber Crystal",
   "block.empireofstars.purple_kyber_crystal": "Purple Kyber Crystal",
-  "block.empireofstars.yellow_kyber_crystal": "Yellow Kyber Crystal",
+  "block.empireofstars.red_kyber_crystal": "Red Kyber Crystal",
   "block.empireofstars.white_kyber_crystal": "White Kyber Crystal",
-  "block.empireofstars.black_kyber_crystal": "Black Kyber Crystal",
+  "block.empireofstars.yellow_kyber_crystal": "Yellow Kyber Crystal",
 
   "creativetab.empireofstars_tab": "Empire Of Stars",
 
+  "translation.empireofstars.aquamarine_kyber_crystal": "Aquamarine",
   "translation.empireofstars.blue_kyber_crystal": "Blue",
   "translation.empireofstars.green_kyber_crystal": "Green",
   "translation.empireofstars.red_kyber_crystal": "Red",
@@ -17,6 +19,7 @@
   "translation.empireofstars.white_kyber_crystal": "White",
   "translation.empireofstars.black_kyber_crystal": "Black",
 
+  "translation.empireofstars.aquamarine_lightsaber": "Aquamarine",
   "translation.empireofstars.blue_lightsaber": "Blue",
   "translation.empireofstars.green_lightsaber": "Green",
   "translation.empireofstars.red_lightsaber": "Red",

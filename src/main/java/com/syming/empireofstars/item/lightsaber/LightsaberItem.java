@@ -35,24 +35,26 @@ public class LightsaberItem extends Item {
 
     private float attackDamage;
     private float attackSpeed;
-    private final Multimap<Attribute, AttributeModifier> defaultModifiers;
 
     public LightsaberItem() {
         super(new Properties().stacksTo(1));
-
-        this.attackDamage = 15;
-        this.attackSpeed = -2.5F;
-
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", (double)this.attackDamage, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", (double)this.attackSpeed, AttributeModifier.Operation.ADDITION));
-        this.defaultModifiers = builder.build();
-
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pSlot) {
-        return pSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(pSlot);
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
+
+        if (slot == EquipmentSlot.MAINHAND) {
+            ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+
+            this.attackDamage = isActive(stack) ? 15 : 2;
+            this.attackSpeed = -2.5F;
+
+
+            builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", (double)this.attackDamage, AttributeModifier.Operation.ADDITION));
+            builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", (double)this.attackSpeed, AttributeModifier.Operation.ADDITION));
+            return builder.build();
+        }
+        return super.getAttributeModifiers(slot, stack);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -79,26 +81,29 @@ public class LightsaberItem extends Item {
         if (pStack.hasTag()) {
             if (pStack.getTag() != null && pStack.getTag().contains("kyberColor")) {
                 KyberCrystalColor color = getColor(pStack);
+                if (color == KyberCrystalColor.AQUAMARINE) {
+                    pTooltipComponents.add(Component.translatable("translation.empireofstars.aquamarine_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x7FFFD4))));
+                }
+                if (color == KyberCrystalColor.BLACK) {
+                    pTooltipComponents.add(Component.translatable("translation.empireofstars.black_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x000000))));
+                }
                 if (color == KyberCrystalColor.BLUE) {
                     pTooltipComponents.add(Component.translatable("translation.empireofstars.blue_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x2E67F8))));
                 }
                 if (color == KyberCrystalColor.GREEN) {
                     pTooltipComponents.add(Component.translatable("translation.empireofstars.green_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x2FF924))));
                 }
-                if (color == KyberCrystalColor.RED) {
-                    pTooltipComponents.add(Component.translatable("translation.empireofstars.red_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xEB212E))));
-                }
                 if (color == KyberCrystalColor.PURPLE) {
                     pTooltipComponents.add(Component.translatable("translation.empireofstars.purple_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x730FF0))));
                 }
-                if (color == KyberCrystalColor.YELLOW) {
-                    pTooltipComponents.add(Component.translatable("translation.empireofstars.yellow_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFF738))));
+                if (color == KyberCrystalColor.RED) {
+                    pTooltipComponents.add(Component.translatable("translation.empireofstars.red_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xEB212E))));
                 }
                 if (color == KyberCrystalColor.WHITE) {
                     pTooltipComponents.add(Component.translatable("translation.empireofstars.white_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFFFFF))));
                 }
-                if (color == KyberCrystalColor.BLACK) {
-                    pTooltipComponents.add(Component.translatable("translation.empireofstars.black_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x000000))));
+                if (color == KyberCrystalColor.YELLOW) {
+                    pTooltipComponents.add(Component.translatable("translation.empireofstars.yellow_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFF738))));
                 }
             }
         }

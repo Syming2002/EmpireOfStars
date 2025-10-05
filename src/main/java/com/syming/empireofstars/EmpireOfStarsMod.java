@@ -5,6 +5,7 @@ import com.syming.empireofstars.block.blockentity.EOSBlockEntity;
 import com.syming.empireofstars.creativetab.EOSCreativeTab;
 import com.syming.empireofstars.item.EOSItem;
 import com.syming.empireofstars.network.EOSPacketHandler;
+import com.syming.empireofstars.world.feature.EOSFeature;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -24,6 +25,7 @@ public class EmpireOfStarsMod {
         EOSBlock.register(modEventBus);
         EOSBlockEntity.register(modEventBus);
         EOSCreativeTab.register(modEventBus);
+        EOSFeature.register(modEventBus);
         EOSItem.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);

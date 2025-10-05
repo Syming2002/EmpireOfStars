@@ -23,15 +23,19 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import static com.syming.empireofstars.block.KyberCrystalBlockKey.KYBER_CRYSTAL_TYPES;
+
 public class EOSBlock {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, EmpireOfStarsMod.MOD_ID);
 
-    public static final Map<KyberCrystalColor, RegistryObject<KyberCrystalBlock>> KYBER_CRYSTAL_TYPES = new HashMap<>();
 
     static {
         for (KyberCrystalColor color : KyberCrystalColor.values()) {
-            KYBER_CRYSTAL_TYPES.put(color, registerKyberCrystalBlock(color, () -> new KyberCrystalBlock(color)));
+            for (int shardCount = 1; shardCount <= 5; shardCount++) {
+                int finalShardCount = shardCount;
+                KYBER_CRYSTAL_TYPES.put(new KyberCrystalBlockKey(finalShardCount, color), registerKyberCrystalBlock(finalShardCount, color, () -> new KyberCrystalBlock(color, finalShardCount)));
+            }
         }
     }
 
@@ -41,9 +45,9 @@ public class EOSBlock {
         return blockToRegister;
     }
 
-    private static <T extends Block> RegistryObject<T> registerKyberCrystalBlock(KyberCrystalColor color, Supplier<T> block) {
-        RegistryObject<T> blockToRegister = BLOCKS.register(color.getName() + '_' + "kyber_crystal", block);
-        registerBlockItemKyberCrystal(color, blockToRegister);
+    private static <T extends Block> RegistryObject<T> registerKyberCrystalBlock(int shardCount, KyberCrystalColor color, Supplier<T> block) {
+        RegistryObject<T> blockToRegister = BLOCKS.register(String.valueOf(shardCount) + '_' + color.getName() + '_' + "kyber_crystal", block);
+        registerBlockItemKyberCrystal(shardCount, color, blockToRegister);
         return blockToRegister;
     }
 
@@ -51,8 +55,8 @@ public class EOSBlock {
         return EOSItem.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
-    private static <T extends Block> RegistryObject<Item> registerBlockItemKyberCrystal(KyberCrystalColor color, RegistryObject<T> block) {
-        return EOSItem.ITEMS.register(color.getName() + '_' + "kyber_crystal", () -> new BlockItem(block.get(), new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)) {
+    private static <T extends Block> RegistryObject<Item> registerBlockItemKyberCrystal(int shardCount, KyberCrystalColor color, RegistryObject<T> block) {
+        return EOSItem.ITEMS.register(String.valueOf(shardCount) + '_' + color.getName() + '_' + "kyber_crystal", () -> new BlockItem(block.get(), new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)) {
             @Override
             public void initializeClient(Consumer<IClientItemExtensions> consumer) {
                 consumer.accept(new IClientItemExtensions() {

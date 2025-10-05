@@ -3,6 +3,7 @@ package com.syming.empireofstars.datagen;
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.KyberCrystalBlock;
 import com.syming.empireofstars.item.EOSItem;
+import com.syming.empireofstars.item.KyberCrystalShardItem;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
@@ -24,8 +25,12 @@ public class EOSItemModelProvider extends ItemModelProvider {
 
             final Item item = registryObject.get();
             final String path = ForgeRegistries.ITEMS.getKey(item).getPath();
-            if (item instanceof BlockItem blockItem && blockItem.getBlock() instanceof KyberCrystalBlock kyberCrystalBlock) {
+            if (item instanceof BlockItem blockItem && blockItem.getBlock() instanceof KyberCrystalBlock) {
                 registerKyberCrystalBlockItem(path);
+            }
+
+            if (item instanceof KyberCrystalShardItem) {
+                registerKyberCrystalShardItem(path);
             }
         }
     }
@@ -33,5 +38,10 @@ public class EOSItemModelProvider extends ItemModelProvider {
     private void registerKyberCrystalBlockItem(String name) {
         getBuilder(name).parent(new ModelFile.UncheckedModelFile("builtin/entity"));
         getBuilder(name).texture("particle", modLoc("block/kyber_crystal"));
+    }
+
+    private void registerKyberCrystalShardItem(String name) {
+        getBuilder(name).parent(new ModelFile.UncheckedModelFile("item/generated"));
+        getBuilder(name).texture("layer0", modLoc("item/kyber_crystal_shard"));
     }
 }

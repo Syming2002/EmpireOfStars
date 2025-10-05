@@ -2,7 +2,7 @@ package com.syming.empireofstars.creativetab;
 
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.EOSBlock;
-import com.syming.empireofstars.block.KyberCrystalBlock;
+import com.syming.empireofstars.block.KyberCrystalBlockKey;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.item.EOSItem;
 import com.syming.empireofstars.item.lightsaber.LightsaberItem;
@@ -10,6 +10,7 @@ import com.syming.empireofstars.item.lightsaber.LightsaberType;
 import com.syming.empireofstars.item.lightsaber.LightsaberTypeBlade;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -38,12 +39,20 @@ public class EOSCreativeTab {
                     }
                     )
                     .title(Component.translatable("creativetab.empireofstars_tab"))
+
                     .displayItems((itemDisplayParameters, output) -> {
                         for (KyberCrystalColor color : KyberCrystalColor.values()) {
-                            ItemStack kyberCrystal = new ItemStack(EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get());
-                            kyberCrystal.setTag(new CompoundTag());
-                            kyberCrystal.getTag().putString("kyberColor", color.getName().toString());
-                            output.accept(kyberCrystal);
+                            for (int shardCount = 1; shardCount <= 5; shardCount++) {
+                                ItemStack kyberCrystal = new ItemStack(KyberCrystalBlockKey.KYBER_CRYSTAL_TYPES.get(new KyberCrystalBlockKey(shardCount, color)).get());
+
+                                CompoundTag tag = new CompoundTag();
+                                tag.putString("kyberColor", color.getName());
+                                tag.putInt("shardCount", shardCount);
+
+                                kyberCrystal.setTag(tag);
+
+                                output.accept(kyberCrystal);
+                            }
                         }
 
                         for (KyberCrystalColor color : KyberCrystalColor.values()) {

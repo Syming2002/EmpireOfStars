@@ -4,12 +4,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.blockentity.KyberCrystalBlockEntity;
+import com.syming.empireofstars.client.EOSRenderType;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 
 public class KyberCrystalModel extends Model {
@@ -25,7 +25,7 @@ public class KyberCrystalModel extends Model {
     protected final ModelPart fifthShard;
 
     public KyberCrystalModel(ModelPart pRoot) {
-        super(RenderType::entityTranslucentEmissive);
+        super(EOSRenderType::kyberCrystalGlow);
         this.kyberCrystal = pRoot.getChild("kyberCrystal");
         this.firstShard = this.kyberCrystal.getChild("firstShard");
         this.secondShard = this.kyberCrystal.getChild("secondShard");
@@ -59,11 +59,11 @@ public class KyberCrystalModel extends Model {
     }
 
     public void renderShards(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay,
-                             float red, float green, float blue, float alpha, KyberCrystalBlockEntity blockEntity) {
-        if (blockEntity.hasShards(0)) this.firstShard.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        if (blockEntity.hasShards(1)) this.secondShard.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        if (blockEntity.hasShards(2)) this.thirdShard.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        if (blockEntity.hasShards(3)) this.fourthShard.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        if (blockEntity.hasShards(4)) this.fifthShard.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+                             float red, float green, float blue, float alpha, KyberCrystalBlockEntity kyberCrystalBlockEntity) {
+        if (kyberCrystalBlockEntity.hasShards(0)) this.firstShard.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        if (kyberCrystalBlockEntity.hasShards(1)) this.secondShard.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        if (kyberCrystalBlockEntity.hasShards(2)) this.thirdShard.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        if (kyberCrystalBlockEntity.hasShards(3)) this.fourthShard.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        if (kyberCrystalBlockEntity.hasShards(4)) this.fifthShard.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }
