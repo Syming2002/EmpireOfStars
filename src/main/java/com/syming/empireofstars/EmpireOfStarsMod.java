@@ -1,45 +1,63 @@
 package com.syming.empireofstars;
 
-import com.syming.empireofstars.block.EOSBlock;
-import com.syming.empireofstars.block.blockentity.EOSBlockEntity;
-import com.syming.empireofstars.creativetab.EOSCreativeTab;
-import com.syming.empireofstars.item.EOSItem;
-import com.syming.empireofstars.network.EOSPacketHandler;
-import com.syming.empireofstars.world.feature.EOSFeature;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-// The value here should match an entry in the META-INF/mods.toml file
-@Mod(EmpireOfStarsMod.MOD_ID)
+@Mod(modid = Tags.MODID, version = Tags.VERSION, name = Tags.MODNAME, acceptedMinecraftVersions = "[1.12.2]")
 public class EmpireOfStarsMod {
-    public static final String MOD_ID = "empireofstars";
 
-    public EmpireOfStarsMod() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public static final Logger LOGGER = LogManager.getLogger(Tags.MODID);
 
-        EOSBlock.register(modEventBus);
-        EOSBlockEntity.register(modEventBus);
-        EOSCreativeTab.register(modEventBus);
-        EOSFeature.register(modEventBus);
-        EOSItem.register(modEventBus);
-
-        modEventBus.addListener(this::commonSetup);
-
+    @EventHandler
+    // preInit "Run before anything else. Read your config, create blocks, items, etc. (Remove if not needed)
+    public void preInit(FMLPreInitializationEvent event) {
+        // register to the event bus so that we can listen to events
         MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    private void commonSetup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            EOSPacketHandler.register();
-        });
+        LOGGER.info("I am " + Tags.MODNAME + " + at version " + Tags.VERSION);
     }
 
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
+    // Register recipes here (Remove if not needed)
+    public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+
+    }
+
+    @SubscribeEvent
+    // Register items here (Remove if not needed)
+    public void registerItems(RegistryEvent.Register<Item> event) {
+
+    }
+
+    @SubscribeEvent
+    // Register blocks here (Remove if not needed)
+    public void registerBlocks(RegistryEvent.Register<Block> event) {
+
+    }
+
+    @EventHandler
+    // load "Do your mod setup. Build whatever data structures you care about." (Remove if not needed)
+    public void init(FMLInitializationEvent event) {
+    }
+
+    @EventHandler
+    // postInit "Handle interaction with other mods, complete your setup based on this." (Remove if not needed)
+    public void postInit(FMLPostInitializationEvent event) {
+    }
+
+    @EventHandler
+    // register server commands in this event handler (Remove if not needed)
+    public void serverStarting(FMLServerStartingEvent event) {
     }
 }
