@@ -8,8 +8,8 @@ import com.syming.empireofstars.block.KyberCrystalBlock;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.block.blockentity.KyberCrystalBlockEntity;
 import com.syming.empireofstars.client.EOSRenderType;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
@@ -62,16 +62,16 @@ public class KyberCrystalBlockEntityRenderer implements BlockEntityRenderer<Kybe
                     break;
             }
 
-            KyberCrystalColor kyberCrystalColor = kyberCrystalBlock.getColor();
+            KyberCrystalColor kyberCrystalColor = pBlockEntity.getColor();
 
             float red = kyberCrystalColor.getRed();
             float blue = kyberCrystalColor.getBlue();
             float green = kyberCrystalColor.getGreen();
-            float alpha = 0.5F;
+            float alpha = 0.75F;
 
-            VertexConsumer builder = pBuffer.getBuffer(EOSRenderType.kyberCrystalGlow(KYBER_CRYSTAL_TEXTURE));
+            VertexConsumer emissive = pBuffer.getBuffer(EOSRenderType.kyberCrystalEmissive(KYBER_CRYSTAL_TEXTURE));
 
-            this.kyberCrystalModel.renderShards(pPoseStack, builder, pPackedLight, pPackedOverlay, red, green, blue, alpha, pBlockEntity);
+            this.kyberCrystalModel.renderShards(pPoseStack, emissive, LightTexture.FULL_BRIGHT, pPackedOverlay, red, green, blue, alpha, pBlockEntity);
 
             pPoseStack.popPose();
         }

@@ -1,6 +1,10 @@
 package com.syming.empireofstars.block;
 
-public enum KyberCrystalColor {
+import net.minecraft.util.StringRepresentable;
+
+import java.util.Locale;
+
+public enum KyberCrystalColor implements StringRepresentable {
     AQUAMARINE("aquamarine", 0x7FFFD4),
     BLACK("black", 0x000000),
     BLUE("blue",0x2E67F8),
@@ -42,5 +46,23 @@ public enum KyberCrystalColor {
 
     public int getColor() {
         return this.color;
+    }
+
+    public static KyberCrystalColor fromName(String name) {
+        for (KyberCrystalColor color : values()) {
+            if (color.getSerializedName().equals(name)) {
+                return color;
+            }
+        }
+        return GREEN;
+    }
+
+    public static KyberCrystalColor fromSerialized(String name) {
+        return KyberCrystalColor.valueOf(name.toUpperCase(Locale.ROOT));
+    }
+
+    @Override
+    public String getSerializedName() {
+        return this.name;
     }
 }

@@ -3,9 +3,7 @@ package com.syming.empireofstars.world.feature;
 import com.mojang.serialization.Codec;
 import com.syming.empireofstars.block.EOSBlock;
 import com.syming.empireofstars.block.KyberCrystalBlock;
-import com.syming.empireofstars.block.KyberCrystalBlockKey;
 import com.syming.empireofstars.block.KyberCrystalColor;
-import com.syming.empireofstars.world.EOSBiomeModifier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -43,11 +41,13 @@ public class KyberCrystalFeature extends Feature<NoneFeatureConfiguration> {
 
                     for (KyberCrystalColor color : KyberCrystalColor.values()) {
                         for (int shardCount = 1; shardCount <= 5; shardCount++) {
-                            BlockState crystalState = KyberCrystalBlockKey.KYBER_CRYSTAL_TYPES.get(new KyberCrystalBlockKey(shardCount, color)).get()
+                            BlockState crystalState = EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get()
                                     .defaultBlockState()
                                     .setValue(KyberCrystalBlock.FACING, facing);
 
-                            worldGenLevel.setBlock(pos, crystalState, 2);
+                            worldGenLevel.setBlock(pos, crystalState, 3);
+
+                            System.out.println("Kyber crystal has spawned at: " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
                         }
                     }
                     break;

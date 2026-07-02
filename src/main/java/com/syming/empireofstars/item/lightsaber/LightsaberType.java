@@ -1,7 +1,7 @@
 package com.syming.empireofstars.item.lightsaber;
 
 public enum LightsaberType {
-    STANDARD("standard");
+    QUI_GON_JINN("qui_gon_jinn");
 
     private final String name;
 

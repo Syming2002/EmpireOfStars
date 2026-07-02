@@ -2,13 +2,10 @@ package com.syming.empireofstars.datagen;
 
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.EOSBlock;
-import com.syming.empireofstars.block.KyberCrystalBlock;
-import com.syming.empireofstars.block.KyberCrystalBlockKey;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -25,10 +22,10 @@ public class EOSBlockTagsProvider extends BlockTagsProvider {
         for (KyberCrystalColor color : KyberCrystalColor.values()) {
             for (int shardCount = 1; shardCount <= 5; shardCount++) {
                 tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                        .add(KyberCrystalBlockKey.KYBER_CRYSTAL_TYPES.get(new KyberCrystalBlockKey(shardCount, color)).get());
+                        .add(EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get());
 
                 tag(BlockTags.NEEDS_IRON_TOOL)
-                        .add(KyberCrystalBlockKey.KYBER_CRYSTAL_TYPES.get(new KyberCrystalBlockKey(shardCount, color)).get());
+                        .add(EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get());
             }
         }
     }

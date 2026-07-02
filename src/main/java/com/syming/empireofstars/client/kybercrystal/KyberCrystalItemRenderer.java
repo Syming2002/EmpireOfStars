@@ -10,7 +10,9 @@ import com.syming.empireofstars.client.EOSRenderType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -48,14 +50,17 @@ public class KyberCrystalItemRenderer extends BlockEntityWithoutLevelRenderer {
         if (pStack.getItem() instanceof BlockItem blockItem) {
             if (blockItem.getBlock() instanceof KyberCrystalBlock kyberCrystalBlock) {
                 if (tag != null) {
-                    if (tag.contains("kyberColor")) {
-                        KyberCrystalColor kyberCrystalColor = kyberCrystalBlock.getColor();
-                        if (tag.contains("shardCount", Tag.TAG_INT)) {
-                            int shardCount = tag.getInt("shardCount");
-                            KyberCrystalBlockEntity tempEntity = new KyberCrystalBlockEntity(BlockPos.ZERO, kyberCrystalBlock.defaultBlockState(), kyberCrystalColor, shardCount);
-                            tempEntity.setShardCount(shardCount);
+                    if (tag.contains("Color")) {
+                        KyberCrystalColor kyberCrystalColor = kyberCrystalBlock.getColor(pStack);
+                        if (tag.contains("Shards")) {
+                            int shardCount = tag.getInt("Shards");
+                            KyberCrystalBlockEntity tempEntity = new KyberCrystalBlockEntity(BlockPos.ZERO, kyberCrystalBlock.defaultBlockState(), kyberCrystalColor);
+                            tempEntity.setShards(shardCount);
 
                             pPoseStack.pushPose();
+
+                            VertexConsumer emissiveConsumer = pBuffer.getBuffer(EOSRenderType.kyberCrystalEmissive(KyberCrystalBlockEntityRenderer.KYBER_CRYSTAL_TEXTURE));
+
 
                             switch (pDisplayContext) {
                                 case FIRST_PERSON_LEFT_HAND, FIRST_PERSON_RIGHT_HAND, THIRD_PERSON_LEFT_HAND,
@@ -71,22 +76,17 @@ public class KyberCrystalItemRenderer extends BlockEntityWithoutLevelRenderer {
                                 case FIXED -> {
                                     pPoseStack.translate(0.5D, 0.5D, 0.5D);
                                     pPoseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
-
                                 }
                                 case GROUND -> {
                                     pPoseStack.translate(0.5D, 0.4D, 0.5D);
                                     pPoseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
                                     pPoseStack.scale(0.5F, 0.5F, 0.5F);
                                 }
-
-                                case HEAD, NONE -> {
-
-                                }
                             }
 
-                            VertexConsumer consumer = pBuffer.getBuffer(EOSRenderType.kyberCrystalGlow(KyberCrystalBlockEntityRenderer.KYBER_CRYSTAL_TEXTURE));
 
-                            this.kyberCrystalModel.renderShards(pPoseStack, consumer, pPackedLight, pPackedOverlay, kyberCrystalColor.getRed(), kyberCrystalColor.getGreen(), kyberCrystalColor.getBlue(), 0.5F, tempEntity);
+
+                            this.kyberCrystalModel.renderShards(pPoseStack, emissiveConsumer, LightTexture.FULL_BRIGHT, pPackedOverlay, kyberCrystalColor.getRed(), kyberCrystalColor.getGreen(), kyberCrystalColor.getBlue(), 0.75F, tempEntity);
 
                             pPoseStack.popPose();
                         }

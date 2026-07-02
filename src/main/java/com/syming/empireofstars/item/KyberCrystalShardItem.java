@@ -15,12 +15,12 @@ public class KyberCrystalShardItem extends Item {
 
 
     public static void setColor(ItemStack pStack, KyberCrystalColor pColor) {
-        pStack.getOrCreateTag().putString("kyberColor", pColor.getName().toUpperCase(Locale.ROOT));
+        pStack.getOrCreateTag().putString("Color", pColor.getSerializedName().toUpperCase(Locale.ROOT));
     }
 
     public KyberCrystalColor getColor(ItemStack pStack) {
-        if (pStack.getTag() != null && pStack.getTag().contains("kyberColor")) {
-            return KyberCrystalColor.valueOf(pStack.getTag().getString("kyberColor").toUpperCase(Locale.ROOT));
+        if (pStack.getTag() != null && pStack.getTag().contains("Color")) {
+            return KyberCrystalColor.valueOf(pStack.getTag().getString("Color").toUpperCase(Locale.ROOT));
         }
         return null;
     }

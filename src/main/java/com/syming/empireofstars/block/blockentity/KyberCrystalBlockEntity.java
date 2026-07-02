@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -13,42 +14,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KyberCrystalBlockEntity extends BlockEntity {
-    private final int MAX_SHARDS = 5;
-    private int shardCount;
     private KyberCrystalColor color;
+    private int shards = 1;
 
-    public KyberCrystalBlockEntity(BlockPos pPos, BlockState pBlockState, KyberCrystalColor pColor, int pShardCount) {
-        super(KyberCrystalBlockEntityKey.KYBER_CRYSTAL_BLOCK_ENTITY_TYPES.get(new KyberCrystalBlockEntityKey(pShardCount, pColor)).get(), pPos, pBlockState);
+    public KyberCrystalBlockEntity(BlockPos pPos, BlockState pBlockState, KyberCrystalColor pColor) {
+        super(EOSBlockEntity.KYBER_CRYSTAL_BLOCK_ENTITY_TYPES.get(pColor).get(), pPos, pBlockState);
 
         this.color = pColor;
-
-        this.shardCount = pShardCount;
-    }
-
-    public void setShardCount(int count) {
-        this.shardCount = Math.min(count, MAX_SHARDS);
-    }
-
-    public int getShardCount() {
-        return shardCount;
-    }
-
-    public boolean hasShards(int index) {
-        return index < shardCount;
     }
 
     @Override
     public void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
-        tag.putInt("shardCount", this.shardCount);
+        tag.putInt("Shards", this.shards);
+        tag.putString("Color", this.color.getName());
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
-        if (tag.contains("shardCount", Tag.TAG_INT)) {
-            this.shardCount = Math.min(tag.getInt("shardCount"), MAX_SHARDS);
-        }
+        this.shards = tag.getInt("Shards");
+        this.color = KyberCrystalColor.fromSerialized(tag.getString("Color"));
     }
 
     public void setColor(KyberCrystalColor pColor) {
@@ -58,4 +44,15 @@ public class KyberCrystalBlockEntity extends BlockEntity {
     public KyberCrystalColor getColor() {
         return this.color;
     }
+
+    public int getShards() {
+        return this.shards;
+    }
+
+    public void setShards(int shards) {
+        this.shards = Mth.clamp(shards, 1, 5);
+        setChanged();
+    }
+
+
 }

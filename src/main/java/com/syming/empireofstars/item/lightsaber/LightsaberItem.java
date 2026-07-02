@@ -79,7 +79,7 @@ public class LightsaberItem extends Item {
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
 
         if (pStack.hasTag()) {
-            if (pStack.getTag() != null && pStack.getTag().contains("kyberColor")) {
+            if (pStack.getTag() != null && pStack.getTag().contains("Color")) {
                 KyberCrystalColor color = getColor(pStack);
                 if (color == KyberCrystalColor.AQUAMARINE) {
                     pTooltipComponents.add(Component.translatable("translation.empireofstars.aquamarine_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x7FFFD4))));
@@ -118,12 +118,12 @@ public class LightsaberItem extends Item {
     }
 
     public static void setColor(ItemStack pStack, KyberCrystalColor pColor) {
-        pStack.getOrCreateTag().putString("kyberColor", pColor.getName().toUpperCase(Locale.ROOT));
+        pStack.getOrCreateTag().putString("Color", pColor.getSerializedName().toUpperCase(Locale.ROOT));
     }
 
     public KyberCrystalColor getColor(ItemStack pStack) {
-        if (pStack.getTag() != null && pStack.getTag().contains("kyberColor")) {
-            return KyberCrystalColor.valueOf(pStack.getTag().getString("kyberColor").toUpperCase(Locale.ROOT));
+        if (pStack.getTag() != null && pStack.getTag().contains("Color")) {
+            return KyberCrystalColor.valueOf(pStack.getTag().getString("Color").toUpperCase(Locale.ROOT));
         }
         return null;
     }

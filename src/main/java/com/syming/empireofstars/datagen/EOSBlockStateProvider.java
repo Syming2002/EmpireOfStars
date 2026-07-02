@@ -1,7 +1,7 @@
 package com.syming.empireofstars.datagen;
 
 import com.syming.empireofstars.EmpireOfStarsMod;
-import com.syming.empireofstars.block.KyberCrystalBlockKey;
+import com.syming.empireofstars.block.EOSBlock;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -15,9 +15,7 @@ public class EOSBlockStateProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         for (KyberCrystalColor color : KyberCrystalColor.values()) {
-            for (int shardCount = 1; shardCount <= 5; shardCount++) {
-                simpleBlock(KyberCrystalBlockKey.KYBER_CRYSTAL_TYPES.get(new KyberCrystalBlockKey(shardCount, color)).get(), models().getExistingFile(modLoc("block/kyber_crystal")));
-            }
+            simpleBlock(EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get(), models().getExistingFile(modLoc("block/kyber_crystal")));
         }
     }
 

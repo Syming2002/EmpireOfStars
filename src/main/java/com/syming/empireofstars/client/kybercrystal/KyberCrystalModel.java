@@ -10,6 +10,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 
 public class KyberCrystalModel extends Model {
@@ -18,20 +19,19 @@ public class KyberCrystalModel extends Model {
     public static final ModelLayerLocation KYBER_CRYSTAL_LAYER = new ModelLayerLocation(new ResourceLocation(EmpireOfStarsMod.MOD_ID, "kyber_crystal"), "main");
 
     protected final ModelPart kyberCrystal;
-    protected final ModelPart firstShard;
-    protected final ModelPart secondShard;
-    protected final ModelPart thirdShard;
-    protected final ModelPart fourthShard;
-    protected final ModelPart fifthShard;
+
+    protected final ModelPart[] shards;
 
     public KyberCrystalModel(ModelPart pRoot) {
-        super(EOSRenderType::kyberCrystalGlow);
+        super(RenderType::entityCutout);
         this.kyberCrystal = pRoot.getChild("kyberCrystal");
-        this.firstShard = this.kyberCrystal.getChild("firstShard");
-        this.secondShard = this.kyberCrystal.getChild("secondShard");
-        this.thirdShard = this.kyberCrystal.getChild("thirdShard");
-        this.fourthShard = this.kyberCrystal.getChild("fourthShard");
-        this.fifthShard = this.kyberCrystal.getChild("fifthShard");
+        this.shards = new ModelPart[]{
+                this.kyberCrystal.getChild("firstShard"),
+                this.kyberCrystal.getChild("secondShard"),
+                this.kyberCrystal.getChild("thirdShard"),
+                this.kyberCrystal.getChild("fourthShard"),
+                this.kyberCrystal.getChild("fifthShard")
+        };
     }
 
     public static LayerDefinition createShardLayer() {
@@ -60,10 +60,8 @@ public class KyberCrystalModel extends Model {
 
     public void renderShards(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay,
                              float red, float green, float blue, float alpha, KyberCrystalBlockEntity kyberCrystalBlockEntity) {
-        if (kyberCrystalBlockEntity.hasShards(0)) this.firstShard.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        if (kyberCrystalBlockEntity.hasShards(1)) this.secondShard.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        if (kyberCrystalBlockEntity.hasShards(2)) this.thirdShard.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        if (kyberCrystalBlockEntity.hasShards(3)) this.fourthShard.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-        if (kyberCrystalBlockEntity.hasShards(4)) this.fifthShard.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        for (int i = 0; i < kyberCrystalBlockEntity.getShards(); i++) {
+            this.shards[i].render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        }
     }
 }

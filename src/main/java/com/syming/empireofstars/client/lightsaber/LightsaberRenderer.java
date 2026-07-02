@@ -10,6 +10,7 @@ import com.syming.empireofstars.item.lightsaber.LightsaberItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
@@ -20,17 +21,19 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
+
 @OnlyIn(Dist.CLIENT)
 public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
 
     public static LightsaberRenderer INSTANCE;
     private final LightsaberBladeModel bladeModel;
-    private final LightsaberStandardModel standardModel;
+    private final QuiGonJinnLightsaberModel quiGonJinnLightsaberModel;
 
     private static final ResourceLocation INNER_BLADE = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/inner_blade.png");
     private static final ResourceLocation OUTER_BLADE = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/outer_blade.png");
 
-    private static final ResourceLocation STANDARD_LIGHTSABER = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/standard_lightsaber.png");
+    private static final ResourceLocation QUI_GON_JINN_LIGHTSABER = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/qui_gon_jinn_lightsaber.png");
 
 
     public LightsaberRenderer(BlockEntityRenderDispatcher pBlockEntityRenderDispatcher, EntityModelSet pEntityModelSet) {
@@ -38,7 +41,7 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
 
         this.bladeModel = new LightsaberBladeModel();
 
-        this.standardModel = new LightsaberStandardModel(pEntityModelSet.bakeLayer(LightsaberStandardModel.STANDARD_LIGHTSABER_LAYER));
+        this.quiGonJinnLightsaberModel = new QuiGonJinnLightsaberModel(pEntityModelSet.bakeLayer(QuiGonJinnLightsaberModel.QUI_GON_JINN_LIGHTSABER_LAYER));
     }
 
     public static LightsaberRenderer getInstance() {
@@ -56,7 +59,7 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
             CompoundTag tag = pStack.getTag();
 
             if (LightsaberItem.isActive(pStack)) {
-                if (tag != null && tag.contains("kyberColor")) {
+                if (tag != null && tag.contains("Color")) {
                     KyberCrystalColor kyberCrystalColor = lightsaberItem.getColor(pStack);
 
                     pPoseStack.pushPose();
@@ -71,13 +74,13 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
                             pPoseStack.scale(0.75F, 0.75F, 0.75F);
                         }
                         case FIRST_PERSON_RIGHT_HAND -> {
-                            pPoseStack.translate(0.5F, 0.75F, 0.533F);
+                            pPoseStack.translate(0.4925F, 0.75F, 0.525F);
                         }
                         case FIRST_PERSON_LEFT_HAND -> {
                             pPoseStack.translate(0.55F, 0.75F, 0.533F);
                         }
                         case THIRD_PERSON_RIGHT_HAND, THIRD_PERSON_LEFT_HAND -> {
-                            pPoseStack.translate(0.5F, 0.725F, 0.6F);
+                            pPoseStack.translate(0.4725F, 0.725F, 0.6125F);
                         }
                         case GROUND -> {
                             pPoseStack.translate(0.5, 0.25, 0.5);
@@ -93,13 +96,13 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
                         }
                     }
 
-                    RenderType solidType = EOSRenderType.lightsaberAdditive(INNER_BLADE);
+                    RenderType solidType = EOSRenderType.lightsaberInner(INNER_BLADE);
                     VertexConsumer inner = pBuffer.getBuffer(solidType);
-                    this.bladeModel.renderInner(pPoseStack, inner, 0xF000F0, pPackedOverlay);
+                    this.bladeModel.renderInner(pPoseStack, inner, LightTexture.FULL_BRIGHT, NO_OVERLAY);
 
-                    RenderType glowType = EOSRenderType.lightsaberGlow(OUTER_BLADE);
+                    RenderType glowType = EOSRenderType.lightsaberOuter(OUTER_BLADE);
                     VertexConsumer outer = pBuffer.getBuffer(glowType);
-                    this.bladeModel.renderOuter(pPoseStack, outer, pPackedLight, pPackedOverlay, kyberCrystalColor.getRed(), kyberCrystalColor.getGreen(), kyberCrystalColor.getBlue(), 1.0F);
+                    this.bladeModel.renderOuter(pPoseStack, outer, LightTexture.FULL_BRIGHT, NO_OVERLAY, kyberCrystalColor.getRed(), kyberCrystalColor.getGreen(), kyberCrystalColor.getBlue(), 0.75F);
 
                     pPoseStack.popPose();
                 }
@@ -141,9 +144,9 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
                 }
             }
 
-            RenderType solidType = RenderType.entitySolid(STANDARD_LIGHTSABER);
+            RenderType solidType = RenderType.entitySolid(QUI_GON_JINN_LIGHTSABER);
             VertexConsumer standard = pBuffer.getBuffer(solidType);
-            this.standardModel.renderToBuffer(pPoseStack, standard, pPackedLight, pPackedOverlay,
+            this.quiGonJinnLightsaberModel.renderToBuffer(pPoseStack, standard, pPackedLight, pPackedOverlay,
                     1.0F, 1.0F, 1.0F, 1.0F);
 
             pPoseStack.popPose();

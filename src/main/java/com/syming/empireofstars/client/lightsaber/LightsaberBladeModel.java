@@ -17,7 +17,7 @@ public class LightsaberBladeModel {
         poseStack.scale(0.75f, 0.75f, 0.75f);
         drawCuboid(poseStack, buffer, packedLight, packedOverlay,
                 1f, 1f, 1f, 1f,
-                -0.033f, 0f, -0.033f, 0.033f, 1.45f, 0.033f);
+                -0.025f, 0f, -0.025f, 0.025f, 1.45f, 0.025f);
         poseStack.popPose();
     }
 
@@ -30,6 +30,15 @@ public class LightsaberBladeModel {
         drawCuboid(poseStack, buffer, packedLight, packedOverlay,
                 r, g, b, a,
                 -0.03f, 0f, -0.03f, 0.03f, 1.0f, 0.03f);
+        drawCuboid(poseStack, buffer, packedLight, packedOverlay,
+                r, g, b, 0.5F,
+                -0.035f, 0f, -0.035f, 0.035f, 1.0f, 0.035f);
+        drawCuboid(poseStack, buffer, packedLight, packedOverlay,
+                r, g, b, 0.25F,
+                -0.04f, 0f, -0.04f, 0.04f, 1.0f, 0.04f);
+        drawCuboid(poseStack, buffer, packedLight, packedOverlay,
+                r, g, b, 0.125F,
+                -0.045f, 0f, -0.045f, 0.045f, 1.0f, 0.045f);
         poseStack.popPose();
     }
 
@@ -80,18 +89,4 @@ public class LightsaberBladeModel {
         c.vertex(mat, x3, y3, z3).color(r, g, b, a).uv(1, 1).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
         c.vertex(mat, x4, y4, z4).color(r, g, b, a).uv(0, 1).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
     }
-
-//    private void quadBloom(VertexConsumer c, Matrix4f mat, Matrix3f normal,
-//                               int packedLight, int packedOverlay,
-//                               float r, float g, float b, float a,
-//                               float x1, float y1, float z1, float u1,
-//                               float x2, float y2, float z2, float u2,
-//                               float x3, float y3, float z3, float u3,
-//                               float x4, float y4, float z4, float u4,
-//                               float nx, float ny, float nz) {
-//        c.vertex(mat, x1, y1, z1).color(r, g, b, a).uv(u1, 0).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
-//        c.vertex(mat, x2, y2, z2).color(r, g, b, a).uv(u2, 0).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
-//        c.vertex(mat, x3, y3, z3).color(r, g, b, a).uv(u3, 1).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
-//        c.vertex(mat, x4, y4, z4).color(r, g, b, a).uv(u4, 1).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
-//    }
 }
