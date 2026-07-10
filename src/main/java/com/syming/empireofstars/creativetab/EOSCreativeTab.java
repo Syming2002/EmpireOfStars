@@ -11,7 +11,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -51,9 +53,9 @@ public class EOSCreativeTab {
 
                                 output.accept(kyberCrystal);
                             }
-                        }
 
-                        for (KyberCrystalColor color : KyberCrystalColor.values()) {
+                            output.accept(EOSItem.KYBER_CRYSTAL_SHARD_TYPES.get(color).get());
+
                             for (LightsaberType type : LightsaberType.values()) {
                                 ItemStack standard = new ItemStack(EOSItem.LIGHTSABER_TYPES.get(type).get());
                                 standard.setTag(new CompoundTag());
@@ -61,6 +63,13 @@ public class EOSCreativeTab {
                                 standard.getTag().putString("type", LightsaberTypeBlade.SINGLE.toString());
                                 standard.getTag().putBoolean("active", false);
                                 output.accept(standard);
+                            }
+                        }
+
+                        // Spawn Eggs
+                        for (RegistryObject<Item> itemRegistryObject : EOSItem.ITEMS.getEntries()) {
+                            if (itemRegistryObject.get() instanceof SpawnEggItem spawnEggItem) {
+                                output.accept(spawnEggItem);
                             }
                         }
                     })

@@ -31,6 +31,7 @@ public class EOSDataGenerator {
         generator.addProvider(event.includeClient(), new EOSBlockStateProvider(packOutput, existingFileHelper));
 
         generator.addProvider(event.includeServer(), new EOSBlockTagsProvider(packOutput, lookupProvider, existingFileHelper));
+        generator.addProvider(event.includeClient(), new EOSLangENProvider(packOutput));
         generator.addProvider(event.includeServer(), new EOSWorldGen(packOutput, lookupProvider));
     }
 

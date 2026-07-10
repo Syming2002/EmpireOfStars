@@ -1,0 +1,13 @@
+{
+  "type": "forge:add_features",
+  "biomes": [
+    "minecraft:snowy_plains",
+    "minecraft:snowy_beach",
+    "minecraft:snowy_slopes",
+    "minecraft:snowy_taiga",
+    "minecraft:ice_spikes",
+    "minecraft:taiga"
+  ],
+  "features": "empireofstars:blue_kyber_crystal_geode_placed",
+  "step": "underground_decoration"
+}

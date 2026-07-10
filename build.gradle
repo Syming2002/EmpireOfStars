@@ -55,7 +55,7 @@ minecraft {
     // However, it must be at "META-INF/accesstransformer.cfg" in the final mod jar to be loaded by Forge.
     // This default location is a best practice to automatically put the file in the right place in the final jar.
     // See https://docs.minecraftforge.net/en/latest/advanced/accesstransformers/ for more information.
-    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
@@ -146,6 +146,10 @@ repositories {
         }
     }
     maven {
+        name = "Modrinth Maven"
+        url = "https://api.modrinth.com/maven"
+    }
+    maven {
         name = "Illusive Soulworks maven"
         url = "https://maven.theillusivec4.top/"
     }
@@ -153,6 +157,9 @@ repositories {
     maven {
         name = "TerraformersMC"
         url = "https://maven.terraformersmc.com/"
+    }
+    maven {
+        url = "https://maven.teamresourceful.com/repository/maven-public/"
     }
 }
 
@@ -177,6 +184,11 @@ dependencies {
 
     // Item Zoom
     implementation fg.deobf("curse.maven:itemzoom-261725:5043628")
+
+    // Cosmic Horizons
+    implementation fg.deobf("maven.modrinth:cosmic-horizons-cosmos:${cosmic_horizons_version}")
+
+//    implementation fg.deobf('com.github.glitchfiend:TerraBlender-forge:1.20.1-3.0.1.10')
 
     // Example mod dependency using a mod jar from ./libs with a flat dir repository
     // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar

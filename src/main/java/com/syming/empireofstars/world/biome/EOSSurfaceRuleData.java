@@ -1,0 +1,57 @@
+package com.syming.empireofstars.world.biome;
+
+import com.google.common.collect.ImmutableList;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.SurfaceRules;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
+
+public class EOSSurfaceRuleData {
+
+    private static final SurfaceRules.RuleSource DEEPSLATE = makeStateRule(Blocks.DEEPSLATE);
+    private static final SurfaceRules.RuleSource BEDROCK = makeStateRule(Blocks.BEDROCK);
+
+    public static SurfaceRules.RuleSource tatooineSurface() {
+
+        return SurfaceRules.sequence(
+
+                SurfaceRules.ifTrue(
+                        SurfaceRules.verticalGradient(
+                                "bedrock_floor",
+                                VerticalAnchor.bottom(),
+                                VerticalAnchor.aboveBottom(5)
+                        ),
+                        BEDROCK
+                ),
+
+                SurfaceRules.ifTrue(
+                        SurfaceRules.verticalGradient(
+                                "deepslate",
+                                VerticalAnchor.absolute(0),
+                                VerticalAnchor.absolute(8)
+                        ),
+                        DEEPSLATE
+                ),
+
+                SurfaceRules.ifTrue(
+                        SurfaceRules.isBiome(EOSBiome.TATOOINE_DESERT),
+                        SurfaceRules.sequence(
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.ON_FLOOR,
+                                        SurfaceRules.state(Blocks.SAND.defaultBlockState())
+                                ),
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.UNDER_FLOOR,
+                                        SurfaceRules.state(Blocks.SANDSTONE.defaultBlockState())
+                                )
+                        )
+                ),
+
+                SurfaceRules.state(Blocks.STONE.defaultBlockState())
+        );
+    }
+
+    private static SurfaceRules.RuleSource makeStateRule(Block pBlock) {
+        return SurfaceRules.state(pBlock.defaultBlockState());
+    }
+}

@@ -4,11 +4,14 @@ import com.mojang.serialization.Codec;
 import com.syming.empireofstars.block.EOSBlock;
 import com.syming.empireofstars.block.KyberCrystalBlock;
 import com.syming.empireofstars.block.KyberCrystalColor;
+import com.syming.empireofstars.block.blockentity.KyberCrystalBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
@@ -26,9 +29,9 @@ public class KyberCrystalFeature extends Feature<NoneFeatureConfiguration> {
 
         for (int i = 0; i < 10; i++) {
             BlockPos pos = origin.offset(
-                    randomSource.nextInt(16) - 4,
-                    randomSource.nextInt(12) - 3,
-                    randomSource.nextInt(16) - 4);
+                    randomSource.nextInt(16) - 8,
+                    randomSource.nextInt(8) - 3,
+                    randomSource.nextInt(16) - 8);
 
             if (!worldGenLevel.getBlockState(pos).isAir()) continue;
 
@@ -39,22 +42,27 @@ public class KyberCrystalFeature extends Feature<NoneFeatureConfiguration> {
                 if (neighborState.isSolid()) {
                     Direction facing = dir.getOpposite();
 
-                    for (KyberCrystalColor color : KyberCrystalColor.values()) {
-                        for (int shardCount = 1; shardCount <= 5; shardCount++) {
-                            BlockState crystalState = EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get()
-                                    .defaultBlockState()
-                                    .setValue(KyberCrystalBlock.FACING, facing);
+                    KyberCrystalColor color =
+                            KyberCrystalColor.values()[randomSource.nextInt(KyberCrystalColor.values().length)];
 
-                            worldGenLevel.setBlock(pos, crystalState, 3);
+                    int shards = 1 + randomSource.nextInt(5);
 
-                            System.out.println("Kyber crystal has spawned at: " + pos.getX() + " " + pos.getY() + " " + pos.getZ());
-                        }
+                    BlockState crystalState = EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get()
+                            .defaultBlockState()
+                            .setValue(KyberCrystalBlock.FACING, facing)
+                            .setValue(KyberCrystalBlock.COLOR, color)
+                            .setValue(KyberCrystalBlock.SHARDS, shards);
+
+                    worldGenLevel.setBlock(pos, crystalState, 3);
+
+                    if (worldGenLevel.getBlockEntity(pos) instanceof KyberCrystalBlockEntity kyberCrystalBlockEntity) {
+                        kyberCrystalBlockEntity.setColor(color);
+                        kyberCrystalBlockEntity.setShards(shards);
                     }
                     break;
                 }
             }
         }
-
         return true;
     }
 }

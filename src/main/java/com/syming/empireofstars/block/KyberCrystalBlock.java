@@ -19,6 +19,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -42,6 +43,7 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
 
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     public static final EnumProperty<KyberCrystalColor> COLOR = EnumProperty.create("color", KyberCrystalColor.class);
+    public static final IntegerProperty SHARDS = IntegerProperty.create("shards", 1, 5);
 
     protected final VoxelShape upShape;
     protected final VoxelShape downShape;
@@ -84,7 +86,7 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING, COLOR);
+        pBuilder.add(FACING, COLOR, SHARDS);
     }
 
     @Override
@@ -203,6 +205,15 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
         }
 
         return stack;
+    }
+
+    @Override
+    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+        Direction facing = pState.getValue(FACING);
+
+        BlockPos blockPos = pPos.relative(facing);
+
+        return pLevel.getBlockState(blockPos).isFaceSturdy(pLevel, blockPos, facing.getOpposite());
     }
 
     public KyberCrystalColor getColor(ItemStack pStack) {

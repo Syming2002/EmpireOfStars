@@ -1,0 +1,24 @@
+{
+  "name": "empireofstars:village/tusken/streets",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "terrain_matching",
+        "location": "empireofstars:village/tusken/streets/straight",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "terrain_matching",
+        "location": "empireofstars:village/tusken/streets/left_turn",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

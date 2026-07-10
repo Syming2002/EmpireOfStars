@@ -1,0 +1,15 @@
+{
+  "name": "empireofstars:village/tusken/houses",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "empireofstars:village/tusken/houses/tusken_hut",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

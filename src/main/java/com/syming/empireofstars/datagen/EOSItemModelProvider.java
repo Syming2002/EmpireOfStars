@@ -8,6 +8,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -22,6 +23,9 @@ public class EOSItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         for (RegistryObject<Item> registryObject : EOSItem.ITEMS.getEntries()) {
+            if (registryObject.get() instanceof SpawnEggItem) {
+                withExistingParent(registryObject.getId().getPath(), mcLoc("item/template_spawn_egg"));
+            }
 
             final Item item = registryObject.get();
             final String path = ForgeRegistries.ITEMS.getKey(item).getPath();

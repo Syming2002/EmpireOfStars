@@ -1,17 +1,12 @@
 package com.syming.empireofstars.block.blockentity;
 
+import com.syming.empireofstars.block.KyberCrystalBlock;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class KyberCrystalBlockEntity extends BlockEntity {
     private KyberCrystalColor color;
@@ -21,6 +16,15 @@ public class KyberCrystalBlockEntity extends BlockEntity {
         super(EOSBlockEntity.KYBER_CRYSTAL_BLOCK_ENTITY_TYPES.get(pColor).get(), pPos, pBlockState);
 
         this.color = pColor;
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+
+        if (this.getLevel() != null) {
+            this.shards = getBlockState().getValue(KyberCrystalBlock.SHARDS);
+        }
     }
 
     @Override

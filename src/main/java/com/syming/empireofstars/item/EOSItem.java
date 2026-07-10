@@ -3,9 +3,12 @@ package com.syming.empireofstars.item;
 import com.mojang.datafixers.util.Pair;
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.KyberCrystalColor;
+import com.syming.empireofstars.entity.EOSEntity;
 import com.syming.empireofstars.item.lightsaber.LightsaberItem;
 import com.syming.empireofstars.item.lightsaber.LightsaberType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -34,6 +37,23 @@ public class EOSItem {
             KYBER_CRYSTAL_SHARD_TYPES.put(color, ITEMS.register(color.name().toLowerCase(Locale.ROOT) + '_' + "kyber_crystal_shard", KyberCrystalShardItem::new));
         }
     }
+
+
+    // Spawn Egg
+
+    public static final RegistryObject<SpawnEggItem> BANTHA_SPAWN_EGG = ITEMS.register("bantha_spawn_egg",
+            () -> new ForgeSpawnEggItem(
+                    EOSEntity.BANTHA,
+                    0x4B331B,
+                    0x7A502A,
+                    new Item.Properties()));
+
+    public static final RegistryObject<SpawnEggItem> TUSKEN_RAIDER_SPAWN_EGG = ITEMS.register("tusken_raider_spawn_egg",
+            () -> new ForgeSpawnEggItem(
+                    EOSEntity.TUSKEN_RAIDER,
+                    0xB59D7D,
+                    0x705E41,
+                    new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

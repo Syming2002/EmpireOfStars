@@ -1,0 +1,18 @@
+{
+  "type": "cosmos:tatoo_system",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "cosmos:space",
+      "lakes": false,
+      "features": false,
+      "layers": [
+        {
+          "block": "cosmos:height_limiter",
+          "height": 1
+        }
+      ],
+      "structure_overrides": ""
+    }
+  }
+}

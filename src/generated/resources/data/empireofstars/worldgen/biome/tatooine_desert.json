@@ -1,0 +1,46 @@
+{
+  "carvers": {},
+  "downfall": 0.0,
+  "effects": {
+    "fog_color": 14072964,
+    "foliage_color": 9406290,
+    "grass_color": 11509851,
+    "sky_color": 14205050,
+    "water_color": 4159204,
+    "water_fog_color": 4159204
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:patch_dead_bush_2"
+    ]
+  ],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "empireofstars:bantha",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 25
+      }
+    ],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 35.0
+}

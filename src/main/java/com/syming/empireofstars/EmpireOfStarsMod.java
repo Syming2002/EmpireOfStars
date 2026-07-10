@@ -3,9 +3,17 @@ package com.syming.empireofstars;
 import com.syming.empireofstars.block.EOSBlock;
 import com.syming.empireofstars.block.blockentity.EOSBlockEntity;
 import com.syming.empireofstars.creativetab.EOSCreativeTab;
+import com.syming.empireofstars.entity.EOSEntity;
+import com.syming.empireofstars.entity.animal.BanthaEntity;
 import com.syming.empireofstars.item.EOSItem;
 import com.syming.empireofstars.network.EOSPacketHandler;
+import com.syming.empireofstars.world.biome.EOSBiome;
+import com.syming.empireofstars.world.biome.EOSSurfaceRuleData;
+//import com.syming.empireofstars.world.biome.TatooineRegion;
 import com.syming.empireofstars.world.feature.EOSFeature;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -25,6 +33,7 @@ public class EmpireOfStarsMod {
         EOSBlock.register(modEventBus);
         EOSBlockEntity.register(modEventBus);
         EOSCreativeTab.register(modEventBus);
+        EOSEntity.register(modEventBus);
         EOSFeature.register(modEventBus);
         EOSItem.register(modEventBus);
 
@@ -36,6 +45,8 @@ public class EmpireOfStarsMod {
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             EOSPacketHandler.register();
+
+            SpawnPlacements.register(EOSEntity.BANTHA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BanthaEntity::checkBanthaSpawnRules);
         });
     }
 
