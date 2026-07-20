@@ -1,6 +1,5 @@
 package com.syming.empireofstars.item;
 
-import com.mojang.datafixers.util.Pair;
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.entity.EOSEntity;
@@ -48,9 +47,23 @@ public class EOSItem {
                     0x7A502A,
                     new Item.Properties()));
 
+    public static final RegistryObject<SpawnEggItem> SARLACC_BEAK_SPAWN_EGG = ITEMS.register("sarlacc_beak_spawn_egg",
+            () -> new ForgeSpawnEggItem(
+                    EOSEntity.SARLACC_BEAK,
+                    0xB1A688,
+                    0xD1908E,
+                    new Item.Properties()));
+
+    public static final RegistryObject<SpawnEggItem> SARLACC_TENTACLE_SPAWN_EGG = ITEMS.register("sarlacc_tentacle_spawn_egg",
+            () -> new ForgeSpawnEggItem(
+                    EOSEntity.SARLACC_TENTACLE,
+                    0xB1A688,
+                    0x766F5B,
+                    new Item.Properties()));
+
     public static final RegistryObject<SpawnEggItem> TUSKEN_RAIDER_SPAWN_EGG = ITEMS.register("tusken_raider_spawn_egg",
             () -> new ForgeSpawnEggItem(
-                    EOSEntity.TUSKEN_RAIDER,
+                    EOSEntity.RAIDER_TUSKEN,
                     0xB59D7D,
                     0x705E41,
                     new Item.Properties()));

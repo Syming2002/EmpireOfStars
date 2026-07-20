@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/pointed_dripstone",
+  "textures": {
+    "cross": "empireofstars:block/sarlacc_spear_tooth"
+  }
+}

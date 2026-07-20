@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1573429737,
+    "separation": 16,
+    "spacing": 78
+  },
+  "structures": [
+    {
+      "structure": "empireofstars:sarlacc_pit",
+      "weight": 1
+    }
+  ]
+}

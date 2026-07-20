@@ -1,0 +1,102 @@
+{
+  "attached_dimention_id": "empireofstars:ghomrassen",
+  "skybox_data": {
+    "texture_id": "skybox_solar",
+    "alpha": 125,
+    "yaw": -50,
+    "pitch": 20,
+    "roll": 32,
+    "rotation_plane": "pitch"
+  },
+  "dimensional_data": {
+    "dimension_type": "planet",
+    "weather": false,
+    "clouds": false,
+    "sky_objects": false,
+    "gravity": 16.6,
+    "air_resistance": 0.65,
+    "atmospheric_data": {
+      "atmosphere_y": 660,
+      "travel_to": "cosmos:tatoo_system",
+      "origin_x": 52000,
+      "origin_y": 1250,
+      "origin_z": -44000
+    }
+  },
+  "sky_data": {
+    "tatoo_1": {
+      "type": "object",
+      "phased": true,
+      "object_yaw": 0,
+      "object_pitch": 0,
+      "object_roll": 0,
+      "yaw": 0,
+      "pitch": 0,
+      "roll": 0,
+      "yaw_speed": 0,
+      "pitch_speed": 0,
+      "roll_speed": 0,
+      "scale": 0.14,
+      "core_color": {
+        "r": 255,
+        "g": 255,
+        "b": 255
+      },
+      "bloom_color": {
+        "r": 25,
+        "g": 22,
+        "b": 14
+      }
+    },
+    "tatoo_2": {
+      "type": "object",
+      "phased": true,
+      "object_yaw": 0,
+      "object_pitch": 0,
+      "object_roll": 0,
+      "yaw": 0,
+      "pitch": 0,
+      "roll": 0,
+      "yaw_speed": 0,
+      "pitch_speed": 0,
+      "roll_speed": 0,
+      "scale": 0.14,
+      "core_color": {
+        "r": 255,
+        "g": 255,
+        "b": 255
+      },
+      "bloom_color": {
+        "r": 25,
+        "g": 18,
+        "b": 9
+      }
+    },
+    "tatooine": {
+      "type": "object",
+      "phased": true,
+      "texture_id": "tatooine",
+      "object_yaw": 20,
+      "object_pitch": 15,
+      "object_roll": 15,
+      "yaw": 0,
+      "pitch": 0,
+      "roll": 180,
+      "yaw_speed": 0,
+      "pitch_speed": 0,
+      "roll_speed": 1,
+      "scale": 0.52,
+      "cloud_data": {
+        "animation_folder": "clouds/high/",
+        "tick_delay": 40,
+        "frames": 30,
+        "cloud_color": {
+          "r": 255,
+          "g": 255,
+          "b": 255,
+          "alpha": 255
+        }
+      }
+    }
+  }
+}

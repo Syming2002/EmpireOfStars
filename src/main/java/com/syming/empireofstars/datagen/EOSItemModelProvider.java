@@ -27,6 +27,9 @@ public class EOSItemModelProvider extends ItemModelProvider {
                 withExistingParent(registryObject.getId().getPath(), mcLoc("item/template_spawn_egg"));
             }
 
+            withExistingParent("sarlacc_spear_tooth", mcLoc("item/generated"))
+                    .texture("layer0", modLoc("item/sarlacc_spear_tooth"));
+
             final Item item = registryObject.get();
             final String path = ForgeRegistries.ITEMS.getKey(item).getPath();
             if (item instanceof BlockItem blockItem && blockItem.getBlock() instanceof KyberCrystalBlock) {

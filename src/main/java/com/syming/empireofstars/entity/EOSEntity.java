@@ -2,11 +2,12 @@ package com.syming.empireofstars.entity;
 
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.entity.animal.BanthaEntity;
-import com.syming.empireofstars.entity.tusken.TuskenRaiderEntity;
+import com.syming.empireofstars.entity.sarlacc.SarlaccBeakEntity;
+import com.syming.empireofstars.entity.sarlacc.SarlaccTentacleEntity;
+import com.syming.empireofstars.entity.tusken.RaiderTuskenEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.internal.ForgeBindings;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -26,12 +27,27 @@ public class EOSEntity {
             .build("bantha"));
 
     // Humanoid
-    public static final RegistryObject<EntityType<TuskenRaiderEntity>> TUSKEN_RAIDER = ENTITY_TYPES.register("tusken_raider", () -> EntityType.Builder.<TuskenRaiderEntity>of(TuskenRaiderEntity::new, MobCategory.CREATURE)
+    public static final RegistryObject<EntityType<RaiderTuskenEntity>> RAIDER_TUSKEN = ENTITY_TYPES.register("raider_tusken", () -> EntityType.Builder.<RaiderTuskenEntity>of(RaiderTuskenEntity::new, MobCategory.CREATURE)
             .sized(0.5F, 1.99F)
             .setTrackingRange(64)
             .setShouldReceiveVelocityUpdates(true)
             .updateInterval(1)
-            .build("tusken_raider"));
+            .build("raider_tusken"));
+
+    // Sarlacc
+    public static final RegistryObject<EntityType<SarlaccBeakEntity>> SARLACC_BEAK = ENTITY_TYPES.register("sarlacc_beak", () -> EntityType.Builder.<SarlaccBeakEntity>of(SarlaccBeakEntity::new, MobCategory.CREATURE)
+            .sized(1.125F, 1.0625F)
+            .setTrackingRange(64)
+            .setShouldReceiveVelocityUpdates(true)
+            .updateInterval(1)
+            .build("sarlacc_beak"));
+
+    public static final RegistryObject<EntityType<SarlaccTentacleEntity>> SARLACC_TENTACLE = ENTITY_TYPES.register("sarlacc_tentacle", () -> EntityType.Builder.<SarlaccTentacleEntity>of(SarlaccTentacleEntity::new, MobCategory.CREATURE)
+            .sized(0.25F, 2.125F)
+            .setTrackingRange(64)
+            .setShouldReceiveVelocityUpdates(true)
+            .updateInterval(1)
+            .build("sarlacc_tentacle"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

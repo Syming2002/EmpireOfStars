@@ -76,6 +76,21 @@
         "g": 18,
         "b": 9
       }
+    },
+    "ghomrassen": {
+      "type": "object",
+      "phased": true,
+      "texture_id": "ghomrassen",
+      "object_yaw": 45,
+      "object_pitch": 40,
+      "object_roll": 45,
+      "yaw": 0,
+      "pitch": 0,
+      "roll": 180,
+      "yaw_speed": 0,
+      "pitch_speed": 0,
+      "roll_speed": 1,
+      "scale": 0.135
     }
   }
 }

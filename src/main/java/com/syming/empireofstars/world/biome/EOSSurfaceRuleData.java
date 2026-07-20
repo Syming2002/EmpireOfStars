@@ -1,6 +1,7 @@
 package com.syming.empireofstars.world.biome;
 
 import com.google.common.collect.ImmutableList;
+import net.lointain.cosmos.init.CosmosModBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SurfaceRules;
@@ -42,12 +43,56 @@ public class EOSSurfaceRuleData {
                                 ),
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.UNDER_FLOOR,
+                                        SurfaceRules.state(Blocks.SAND.defaultBlockState())
+                                ),
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.DEEP_UNDER_FLOOR,
                                         SurfaceRules.state(Blocks.SANDSTONE.defaultBlockState())
                                 )
                         )
                 ),
 
                 SurfaceRules.state(Blocks.STONE.defaultBlockState())
+        );
+    }
+
+    public static SurfaceRules.RuleSource ghomrassenRockyDesertSurface() {
+
+        return SurfaceRules.sequence(
+
+                SurfaceRules.ifTrue(
+                        SurfaceRules.verticalGradient(
+                                "bedrock_floor",
+                                VerticalAnchor.bottom(),
+                                VerticalAnchor.aboveBottom(5)
+                        ),
+                        BEDROCK
+                ),
+
+                SurfaceRules.ifTrue(
+                        SurfaceRules.verticalGradient(
+                                "deepslate",
+                                VerticalAnchor.absolute(0),
+                                VerticalAnchor.absolute(8)
+                        ),
+                        DEEPSLATE
+                ),
+
+                SurfaceRules.ifTrue(
+                        SurfaceRules.isBiome(EOSBiome.GHOMRASSEN_ROCKY_DESERT),
+                        SurfaceRules.sequence(
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.ON_FLOOR,
+                                        SurfaceRules.state(CosmosModBlocks.MOON_CLAYDUST.get().defaultBlockState())
+                                ),
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.UNDER_FLOOR,
+                                        SurfaceRules.state(CosmosModBlocks.SILICONEDMOONCLAY.get().defaultBlockState())
+                                )
+                        )
+                ),
+
+                SurfaceRules.state(CosmosModBlocks.SILICONEDMOONCLAY.get().defaultBlockState())
         );
     }
 

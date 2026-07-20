@@ -6,6 +6,7 @@ import com.syming.empireofstars.world.biome.EOSBiome;
 import com.syming.empireofstars.world.biome.EOSNoiseGeneratorSettings;
 import com.syming.empireofstars.world.dimension.EOSDimension;
 import com.syming.empireofstars.world.feature.EOSFeature;
+import com.syming.empireofstars.world.structure.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -19,13 +20,17 @@ import java.util.concurrent.CompletableFuture;
 public class EOSWorldGen extends DatapackBuiltinEntriesProvider {
 
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
-            .add(Registries.NOISE_SETTINGS, EOSNoiseGeneratorSettings::bootstrap)
-            .add(Registries.DIMENSION_TYPE, EOSDimension::bootstrapType)
             .add(Registries.CONFIGURED_FEATURE, EOSFeature::bootstrapConfiguredFeature)
             .add(Registries.PLACED_FEATURE, EOSFeature::bootstrapPlacedFeature)
-            .add(ForgeRegistries.Keys.BIOME_MODIFIERS, EOSBiomeModifier::bootstrap)
             .add(Registries.BIOME, EOSBiome::bootstrapBiome)
-            .add(Registries.LEVEL_STEM, EOSDimension::bootstrapStem);
+//            .add(Registries.PROCESSOR_LIST, EOSProcessorList::bootstrap)
+            .add(Registries.TEMPLATE_POOL, EOSTemplatePool::bootstrap)
+            .add(Registries.STRUCTURE, EOSStructure::bootstrap)
+            .add(Registries.STRUCTURE_SET, EOSStructureSet::bootstrap)
+            .add(Registries.NOISE_SETTINGS, EOSNoiseGeneratorSettings::bootstrap)
+            .add(Registries.DIMENSION_TYPE, EOSDimension::bootstrapType)
+            .add(Registries.LEVEL_STEM, EOSDimension::bootstrapStem)
+            .add(ForgeRegistries.Keys.BIOME_MODIFIERS, EOSBiomeModifier::bootstrap);
 
     public EOSWorldGen(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, BUILDER, Set.of(EmpireOfStarsMod.MOD_ID));

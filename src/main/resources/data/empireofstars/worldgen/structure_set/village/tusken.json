@@ -1,7 +1,7 @@
 {
   "structures": [
     {
-      "structure": "empireofstars:tusken_village",
+      "structure": "empireofstars:village/tusken/tusken_village",
       "weight": 1
     }
   ],

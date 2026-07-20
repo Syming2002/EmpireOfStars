@@ -4,13 +4,13 @@ import com.syming.empireofstars.entity.EOSEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 
-public class TuskenRaiderEntity extends TuskenEntity {
-    public TuskenRaiderEntity(EntityType<? extends TuskenEntity> pEntityType, Level pLevel) {
+public class RaiderTuskenEntity extends TuskenEntity {
+    public RaiderTuskenEntity(EntityType<? extends TuskenEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
-    public TuskenRaiderEntity(Level pLevel) {
-        super(EOSEntity.TUSKEN_RAIDER.get(), pLevel);
+    public RaiderTuskenEntity(Level pLevel) {
+        super(EOSEntity.RAIDER_TUSKEN.get(), pLevel);
     }
 
     @Override

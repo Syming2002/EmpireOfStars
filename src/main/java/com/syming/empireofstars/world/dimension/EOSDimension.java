@@ -5,17 +5,16 @@ import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.world.biome.EOSBiome;
 import com.syming.empireofstars.world.biome.EOSNoiseGeneratorSettings;
 import net.lointain.cosmos.CosmosMod;
+import net.lointain.cosmos.network.CosmosModVariables;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.*;
-import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
@@ -26,6 +25,8 @@ import java.util.OptionalLong;
 
 public class EOSDimension {
 
+    // Planets
+
     public static final ResourceKey<LevelStem> TATOOINE_KEY = ResourceKey.create(Registries.LEVEL_STEM,
             new ResourceLocation(EmpireOfStarsMod.MOD_ID, "tatooine"));
 
@@ -35,10 +36,21 @@ public class EOSDimension {
     public static final ResourceKey<DimensionType> TATOOINE_DIMENSION_TYPE_KEY = ResourceKey.create(Registries.DIMENSION_TYPE,
             new ResourceLocation(EmpireOfStarsMod.MOD_ID, "tatooine_type"));
 
+    // Moons
+
+    public static final ResourceKey<LevelStem> GHOMRASSEN_KEY = ResourceKey.create(Registries.LEVEL_STEM,
+            new ResourceLocation(EmpireOfStarsMod.MOD_ID, "ghomrassen"));
+
+    public static final ResourceKey<Level> GHOMRASSEN_LEVEL_KEY = ResourceKey.create(Registries.DIMENSION,
+            new ResourceLocation(EmpireOfStarsMod.MOD_ID, "ghomrassen"));
+
+    public static final ResourceKey<DimensionType> GHOMRASSEN_DIMENSION_TYPE_KEY = ResourceKey.create(Registries.DIMENSION_TYPE,
+            new ResourceLocation(EmpireOfStarsMod.MOD_ID, "ghomrassen_type"));
+
 
     public static void bootstrapType(BootstapContext<DimensionType> context) {
         context.register(TATOOINE_DIMENSION_TYPE_KEY, new DimensionType(
-                OptionalLong.of(6000),
+                OptionalLong.empty(),
                 true,
                 false,
                 false,
@@ -52,6 +64,23 @@ public class EOSDimension {
                 new ResourceLocation(CosmosMod.MODID, "solar_system"),
                 1.0F,
                 new DimensionType.MonsterSettings(false, false, ConstantInt.of(0), 0)));
+
+        context.register(GHOMRASSEN_DIMENSION_TYPE_KEY, new DimensionType(
+                OptionalLong.empty(),
+                false,
+                false,
+                false,
+                false,
+                1.0F,
+                true,
+                false,
+                0,
+                256, 256,
+                BlockTags.INFINIBURN_OVERWORLD,
+                new ResourceLocation(CosmosMod.MODID, "solar_system"),
+                1.0F,
+                new DimensionType.MonsterSettings(false, false, ConstantInt.of(0), 0)));
+
     }
 
     public static void bootstrapStem(BootstapContext<LevelStem> context) {
@@ -59,7 +88,7 @@ public class EOSDimension {
         HolderGetter<DimensionType>  dimensionTypeHolderGetter = context.lookup(Registries.DIMENSION_TYPE);
         HolderGetter<NoiseGeneratorSettings> noiseGeneratorSettingsHolderGetter = context.lookup(Registries.NOISE_SETTINGS);
 
-        NoiseBasedChunkGenerator noiseBasedChunkGenerator = new NoiseBasedChunkGenerator(
+        NoiseBasedChunkGenerator tatooineNoiseBasedChunkGenerator = new NoiseBasedChunkGenerator(
                 MultiNoiseBiomeSource.createFromList(
                         new Climate.ParameterList<>(List.of(Pair.of(
                                         Climate.parameters(0.8F, 0.2F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F), biomeHolderGetter.getOrThrow(EOSBiome.TATOOINE_DESERT))
@@ -67,8 +96,20 @@ public class EOSDimension {
                         ))),
                 noiseGeneratorSettingsHolderGetter.getOrThrow(EOSNoiseGeneratorSettings.TATOOINE));
 
-        LevelStem stem = new LevelStem(dimensionTypeHolderGetter.getOrThrow(TATOOINE_DIMENSION_TYPE_KEY), noiseBasedChunkGenerator);
+        NoiseBasedChunkGenerator ghomrassenNoiseBasedChunkGenerator = new NoiseBasedChunkGenerator(
+                MultiNoiseBiomeSource.createFromList(
+                        new Climate.ParameterList<>(List.of(Pair.of(
+                                Climate.parameters(0.8F, 0.2F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F), biomeHolderGetter.getOrThrow(EOSBiome.GHOMRASSEN_ROCKY_DESERT))
 
-        context.register(TATOOINE_KEY, stem);
+                        ))),
+                noiseGeneratorSettingsHolderGetter.getOrThrow(EOSNoiseGeneratorSettings.GHOMRASSEN));
+
+        LevelStem tatooineStem = new LevelStem(dimensionTypeHolderGetter.getOrThrow(TATOOINE_DIMENSION_TYPE_KEY), tatooineNoiseBasedChunkGenerator);
+
+        LevelStem ghomrassenStem = new LevelStem(dimensionTypeHolderGetter.getOrThrow(GHOMRASSEN_DIMENSION_TYPE_KEY), ghomrassenNoiseBasedChunkGenerator);
+
+        context.register(TATOOINE_KEY, tatooineStem);
+
+        context.register(GHOMRASSEN_KEY, ghomrassenStem);
     }
 }

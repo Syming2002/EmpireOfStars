@@ -7,11 +7,10 @@ import com.syming.empireofstars.entity.EOSEntity;
 import com.syming.empireofstars.entity.animal.BanthaEntity;
 import com.syming.empireofstars.item.EOSItem;
 import com.syming.empireofstars.network.EOSPacketHandler;
-import com.syming.empireofstars.world.biome.EOSBiome;
-import com.syming.empireofstars.world.biome.EOSSurfaceRuleData;
-//import com.syming.empireofstars.world.biome.TatooineRegion;
 import com.syming.empireofstars.world.feature.EOSFeature;
-import net.minecraft.resources.ResourceLocation;
+//import com.syming.empireofstars.world.structure.EOSStructurePlacement;
+//import com.syming.empireofstars.world.structure.EOSStructureProcessor;
+import com.syming.empireofstars.world.structure.EOSStructureTypes;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
@@ -36,6 +35,10 @@ public class EmpireOfStarsMod {
         EOSEntity.register(modEventBus);
         EOSFeature.register(modEventBus);
         EOSItem.register(modEventBus);
+//        EOSStructurePlacement.register(modEventBus);
+//        EOSStructureProcessor.register(modEventBus);
+        EOSStructureTypes.register(modEventBus);
+
 
         modEventBus.addListener(this::commonSetup);
 

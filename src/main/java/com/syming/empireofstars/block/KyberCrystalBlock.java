@@ -142,28 +142,28 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
                     if (blockItem.getBlock() instanceof KyberCrystalBlock) {
                         KyberCrystalColor color = getColor(pStack);
                         if (color == KyberCrystalColor.AQUAMARINE) {
-                            pTooltip.add(Component.translatable("translation.empireofstars.aquamarine_kyber_crystal").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x7FFFD4))));
+                            pTooltip.add(Component.translatable("translation.empireofstars.aquamarine").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x7FFFD4))));
                         }
                         if (color == KyberCrystalColor.BLACK) {
-                            pTooltip.add(Component.translatable("translation.empireofstars.black_kyber_crystal").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x000000))));
+                            pTooltip.add(Component.translatable("translation.empireofstars.black").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x000000))));
                         }
                         if (color == KyberCrystalColor.BLUE) {
-                            pTooltip.add(Component.translatable("translation.empireofstars.blue_kyber_crystal").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x2E67F8))));
+                            pTooltip.add(Component.translatable("translation.empireofstars.blue").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x2E67F8))));
                         }
                         if (color == KyberCrystalColor.GREEN) {
-                            pTooltip.add(Component.translatable("translation.empireofstars.green_kyber_crystal").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x2FF924))));
+                            pTooltip.add(Component.translatable("translation.empireofstars.green").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x2FF924))));
                         }
                         if (color == KyberCrystalColor.PURPLE) {
-                            pTooltip.add(Component.translatable("translation.empireofstars.purple_kyber_crystal").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x730FF0))));
+                            pTooltip.add(Component.translatable("translation.empireofstars.purple").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x730FF0))));
                         }
                         if (color == KyberCrystalColor.RED) {
-                            pTooltip.add(Component.translatable("translation.empireofstars.red_kyber_crystal").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xEB212E))));
+                            pTooltip.add(Component.translatable("translation.empireofstars.red").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xEB212E))));
                         }
                         if (color == KyberCrystalColor.WHITE) {
-                            pTooltip.add(Component.translatable("translation.empireofstars.white_kyber_crystal").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFFFFF))));
+                            pTooltip.add(Component.translatable("translation.empireofstars.white").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFFFFF))));
                         }
                         if (color == KyberCrystalColor.YELLOW) {
-                            pTooltip.add(Component.translatable("translation.empireofstars.yellow_kyber_crystal").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFF738))));
+                            pTooltip.add(Component.translatable("translation.empireofstars.yellow").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFF738))));
                         }
                     }
                 }

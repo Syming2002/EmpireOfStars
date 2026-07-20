@@ -41,6 +41,9 @@ public class EOSCreativeTab {
                     .title(Component.translatable("creativetab.empireofstars_tab"))
 
                     .displayItems((itemDisplayParameters, output) -> {
+
+                        output.accept(EOSBlock.SARLACC_SPEAR_TOOTH.get());
+
                         for (KyberCrystalColor color : KyberCrystalColor.values()) {
                             for (int shardCount = 1; shardCount <= 5; shardCount++) {
                                 ItemStack kyberCrystal = new ItemStack(EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get());

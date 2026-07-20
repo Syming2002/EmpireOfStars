@@ -2,7 +2,6 @@ package com.syming.empireofstars.world.feature;
 
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.EOSBlock;
-import com.syming.empireofstars.block.KyberCrystalBlock;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -24,7 +23,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
-import java.util.Random;
 
 public class EOSFeature {
 
@@ -34,7 +32,6 @@ public class EOSFeature {
     public static final RegistryObject<KyberCrystalFeature> KYBER_CRYSTAL_FEATURE = FEATURES.register("kyber_crystal", () -> new KyberCrystalFeature(NoneFeatureConfiguration.CODEC));
 
     public static final RegistryObject<KyberCrystalClusterFeature> KYBER_CRYSTAL_GEODE_FEATURE = FEATURES.register("kyber_crystal_geode", () -> new KyberCrystalClusterFeature(GeodeConfiguration.CODEC));
-
 
 
 
