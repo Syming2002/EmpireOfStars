@@ -43,6 +43,7 @@ public class EOSCreativeTab {
                     .displayItems((itemDisplayParameters, output) -> {
 
                         output.accept(EOSBlock.SARLACC_SPEAR_TOOTH.get());
+                        output.accept(EOSBlock.TATOOINE_SAND.get());
 
                         for (KyberCrystalColor color : KyberCrystalColor.values()) {
                             for (int shardCount = 1; shardCount <= 5; shardCount++) {

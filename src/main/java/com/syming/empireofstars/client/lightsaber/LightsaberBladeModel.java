@@ -14,31 +14,37 @@ public class LightsaberBladeModel {
                             int packedLight, int packedOverlay) {
         poseStack.pushPose();
         poseStack.translate(0.0F, 0.0F, -0.0133F);
-        poseStack.scale(0.75f, 0.75f, 0.75f);
+        poseStack.scale(0.8f, 0.75f, 0.8f);
         drawCuboid(poseStack, buffer, packedLight, packedOverlay,
                 1f, 1f, 1f, 1f,
-                -0.025f, 0f, -0.025f, 0.025f, 1.45f, 0.025f);
+                -0.025f, 0f, -0.025f, 0.025f, 1.35f, 0.025f);
         poseStack.popPose();
     }
 
     public void renderOuter(PoseStack poseStack, VertexConsumer buffer,
                             int packedLight, int packedOverlay,
-                            float r, float g, float b, float a) {
+                            float r, float g, float b) {
         poseStack.pushPose();
-        poseStack.translate(0.0F, -0.0F, -0.0133F);
-        poseStack.scale(1.1f, 1.1f, 1.1f);
-        drawCuboid(poseStack, buffer, packedLight, packedOverlay,
-                r, g, b, a,
-                -0.03f, 0f, -0.03f, 0.03f, 1.0f, 0.03f);
-        drawCuboid(poseStack, buffer, packedLight, packedOverlay,
-                r, g, b, 0.5F,
-                -0.035f, 0f, -0.035f, 0.035f, 1.0f, 0.035f);
-        drawCuboid(poseStack, buffer, packedLight, packedOverlay,
-                r, g, b, 0.25F,
-                -0.04f, 0f, -0.04f, 0.04f, 1.0f, 0.04f);
-        drawCuboid(poseStack, buffer, packedLight, packedOverlay,
-                r, g, b, 0.125F,
-                -0.045f, 0f, -0.045f, 0.045f, 1.0f, 0.045f);
+        poseStack.translate(0.0F, 0.0F, -0.0133F);
+        poseStack.scale(1.05F, 1.05F, 1.05F);
+
+        int layers = 24;
+
+        for (int i = 0; i < layers; i++) {
+
+            float t = (float) i / (layers - 1);
+
+            float radius = 0.03F + t * 0.060F;
+
+            float alpha = (1.0F - t);
+            alpha = alpha * alpha * alpha * 0.45F;
+
+            drawCuboid(poseStack, buffer, packedLight, packedOverlay,
+                    r, g, b, alpha,
+                    -radius, 0f, -radius,
+                    radius, 1.0f, radius);
+        }
+
         poseStack.popPose();
     }
 

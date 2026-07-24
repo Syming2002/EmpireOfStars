@@ -1,26 +1,20 @@
 package com.syming.empireofstars.datagen;
 
 import com.syming.empireofstars.EmpireOfStarsMod;
-import com.syming.empireofstars.block.EOSBlock;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.entity.EOSEntity;
 import com.syming.empireofstars.item.EOSItem;
+import com.syming.empireofstars.sound.EOSSound;
 import com.syming.empireofstars.world.biome.EOSBiome;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.Resource;
-import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class EOSLangENProvider extends LanguageProvider {
     public EOSLangENProvider(PackOutput output) {
@@ -49,6 +43,14 @@ public class EOSLangENProvider extends LanguageProvider {
 
         for (ResourceKey<Biome> biome : EOSBiome.EOS_BIOMES_LIST) {
             add("biome" + '.' + EmpireOfStarsMod.MOD_ID + '.' + biome.location().getPath(), getBiomeDisplayName(biome.location()));
+        }
+
+        // Sounds
+
+        for (RegistryObject<SoundEvent> sound : EOSSound.SOUNDS.getEntries()) {
+            if (sound.getId() != null) {
+                add("sounds.empireofstars" + '.' + sound.get().getLocation().getPath(), getSoundDisplayName(sound.getId()));
+            }
         }
     }
 
@@ -81,6 +83,20 @@ public class EOSLangENProvider extends LanguageProvider {
     }
 
     private String getBiomeDisplayName(ResourceLocation id) {
+        String raw = id.getPath();
+        String[] parts = raw.split("_");
+        StringBuilder builder = new StringBuilder();
+
+        for (String part : parts) {
+            if (!builder.isEmpty()) builder.append(' ');
+            builder.append(Character.toUpperCase(part.charAt(0)))
+                    .append(part.substring(1));
+        }
+
+        return builder.toString();
+    }
+
+    private String getSoundDisplayName(ResourceLocation id) {
         String raw = id.getPath();
         String[] parts = raw.split("_");
         StringBuilder builder = new StringBuilder();

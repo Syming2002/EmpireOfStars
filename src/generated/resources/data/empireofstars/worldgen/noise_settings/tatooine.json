@@ -1,7 +1,7 @@
 {
   "aquifers_enabled": false,
   "default_block": {
-    "Name": "minecraft:sand"
+    "Name": "empireofstars:tatooine_sand"
   },
   "default_fluid": {
     "Name": "minecraft:air"
@@ -388,7 +388,7 @@
         "if_true": {
           "type": "minecraft:vertical_gradient",
           "false_at_and_above": {
-            "above_bottom": 5
+            "above_bottom": 2
           },
           "random_name": "minecraft:bedrock_floor",
           "true_at_and_below": {
@@ -447,7 +447,7 @@
               "then_run": {
                 "type": "minecraft:block",
                 "result_state": {
-                  "Name": "minecraft:sand"
+                  "Name": "empireofstars:tatooine_sand"
                 }
               }
             },
@@ -463,7 +463,7 @@
               "then_run": {
                 "type": "minecraft:block",
                 "result_state": {
-                  "Name": "minecraft:sand"
+                  "Name": "empireofstars:tatooine_sand"
                 }
               }
             },

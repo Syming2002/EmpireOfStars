@@ -14,7 +14,7 @@ public class EOSRenderType extends RenderType {
     public static RenderType kyberCrystalEmissive(ResourceLocation pTextureLocation) {
         RenderType.CompositeState state = RenderType.CompositeState.builder()
                 .setShaderState(RenderType.RENDERTYPE_ENTITY_TRANSLUCENT_EMISSIVE_SHADER)
-                .setTextureState(new RenderStateShard.TextureStateShard(pTextureLocation, false, false))
+                .setTextureState(new RenderStateShard.TextureStateShard(pTextureLocation, false, true))
                 .setTransparencyState(RenderType.TRANSLUCENT_TRANSPARENCY)
                 .setCullState(RenderType.NO_CULL)
                 .setLightmapState(RenderType.LIGHTMAP)
@@ -25,45 +25,48 @@ public class EOSRenderType extends RenderType {
                 DefaultVertexFormat.NEW_ENTITY,
                 VertexFormat.Mode.QUADS,
                 256,
-                true,
+                false,
                 true,
                 state);
     }
 
-    public static RenderType lightsaberOuter(ResourceLocation pTextureLocation) {
+    public static RenderType lightsaberOuter() {
         RenderType.CompositeState state = RenderType.CompositeState.builder()
-                .setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
-                .setTextureState(new TextureStateShard(pTextureLocation, false, false))
+                .setShaderState(RenderStateShard.RENDERTYPE_LIGHTNING_SHADER)
                 .setTransparencyState(EOSRenderState.ADDITIVE_GLOW)
                 .setCullState(NO_CULL)
-                .setLightmapState(LIGHTMAP)
-                .setOverlayState(OVERLAY)
-                .createCompositeState(true);
+                .setLightmapState(NO_LIGHTMAP)
+                .setOverlayState(NO_OVERLAY)
+                .setWriteMaskState(RenderStateShard.COLOR_WRITE)
+                .setDepthTestState(new DepthTestStateShard("lequal_depth", 515))
+                .setOutputState(EOSRenderState.TRANSLUCENT_TARGET)
+                .createCompositeState(false);
 
         return RenderType.create("lightsaber_outer",
-                DefaultVertexFormat.NEW_ENTITY,
+                DefaultVertexFormat.POSITION_COLOR,
                 VertexFormat.Mode.QUADS,
                 256,
-                true,
+                false,
                 true,
                 state);
     }
 
-    public static RenderType lightsaberInner(ResourceLocation pTextureLocation) {
+    public static RenderType lightsaberInner() {
         RenderType.CompositeState state = RenderType.CompositeState.builder()
-                .setShaderState(RenderType.RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
-                .setTextureState(new RenderStateShard.TextureStateShard(pTextureLocation, false, false))
+                .setShaderState(RenderType.POSITION_COLOR_SHADER)
                 .setTransparencyState(RenderType.NO_TRANSPARENCY)
                 .setCullState(RenderType.NO_CULL)
-                .setLightmapState(RenderType.LIGHTMAP)
-                .setOverlayState(RenderType.OVERLAY)
+                .setLightmapState(RenderType.NO_LIGHTMAP)
+                .setOverlayState(RenderType.NO_OVERLAY)
+                .setWriteMaskState(RenderStateShard.COLOR_DEPTH_WRITE)
+                .setDepthTestState(new DepthTestStateShard("lequal_depth", 515))
                 .createCompositeState(false);
 
         return RenderType.create("lightsaber_inner",
-                DefaultVertexFormat.NEW_ENTITY,
+                DefaultVertexFormat.POSITION_COLOR,
                 VertexFormat.Mode.QUADS,
                 256,
-                true,
+                false,
                 true,
                 state);
     }

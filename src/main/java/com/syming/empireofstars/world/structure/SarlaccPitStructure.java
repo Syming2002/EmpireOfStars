@@ -34,7 +34,7 @@ public class SarlaccPitStructure extends Structure {
             pInstance.group(SarlaccPitStructure.settingsCodec(pInstance),
                     StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
                     ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),
-                    Codec.intRange(0, 25).fieldOf("size").forGetter(structure -> structure.size),
+                    Codec.intRange(0, 30).fieldOf("size").forGetter(structure -> structure.size),
                     HeightProvider.CODEC.fieldOf("start_height").forGetter(structure -> structure.startHeight),
                     Heightmap.Types.CODEC.optionalFieldOf("project_start_to_heightmap").forGetter(structure -> structure.projectStartToHeightmap),
                     Codec.BOOL.fieldOf("use_expansion_hack").forGetter(structure -> structure.useExpansionHack),
@@ -68,7 +68,7 @@ public class SarlaccPitStructure extends Structure {
         int centerZ = chunkPos.getMiddleBlockZ();
 
         int structureWidth = 9;
-        int structureHeight = 22;
+        int structureHeight = 24;
         int structureDepth = 9;
 
         int highestSurface = Integer.MIN_VALUE;
@@ -121,7 +121,7 @@ public class SarlaccPitStructure extends Structure {
         ),
                 context.lookup(Registries.TEMPLATE_POOL).getOrThrow(EOSTemplatePool.SARLACC_PIT),
                 Optional.empty(),
-                15,
+                30,
                 ConstantHeight.of(VerticalAnchor.absolute(0)),
                 Optional.empty(),
                 false,

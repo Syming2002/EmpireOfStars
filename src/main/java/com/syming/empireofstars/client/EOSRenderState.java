@@ -2,6 +2,7 @@ package com.syming.empireofstars.client;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderStateShard;
 import org.embeddedt.modernfix.render.RenderState;
 
@@ -24,4 +25,20 @@ public class EOSRenderState {
                     }
             );
 
+    public static final RenderStateShard.OutputStateShard TRANSLUCENT_TARGET =
+            new RenderStateShard.OutputStateShard(
+                    "translucent_target",
+                    () -> {
+                        if (Minecraft.useShaderTransparency()) {
+                            Minecraft.getInstance().levelRenderer
+                                    .getTranslucentTarget().bindWrite(false);
+                        }
+                    },
+                    () -> {
+                        if (Minecraft.useShaderTransparency()) {
+                            Minecraft.getInstance()
+                                    .getMainRenderTarget().bindWrite(false);
+                        }
+                    }
+            );
 }

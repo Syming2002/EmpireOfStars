@@ -7,6 +7,7 @@ import com.syming.empireofstars.entity.EOSEntity;
 import com.syming.empireofstars.entity.animal.BanthaEntity;
 import com.syming.empireofstars.item.EOSItem;
 import com.syming.empireofstars.network.EOSPacketHandler;
+import com.syming.empireofstars.sound.EOSSound;
 import com.syming.empireofstars.world.feature.EOSFeature;
 //import com.syming.empireofstars.world.structure.EOSStructurePlacement;
 //import com.syming.empireofstars.world.structure.EOSStructureProcessor;
@@ -38,6 +39,7 @@ public class EmpireOfStarsMod {
 //        EOSStructurePlacement.register(modEventBus);
 //        EOSStructureProcessor.register(modEventBus);
         EOSStructureTypes.register(modEventBus);
+        EOSSound.register(modEventBus);
 
 
         modEventBus.addListener(this::commonSetup);

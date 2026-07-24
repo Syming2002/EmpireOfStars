@@ -51,6 +51,8 @@ public class SarlaccTentacleModel<T extends SarlaccTentacleEntity> extends Hiera
         root().getAllParts().forEach(ModelPart::resetPose);
 
         animate(pEntity.idleAnimationState, EOSAnimation.SARLACC_TENTACLE_IDLE_ANIMATION, pAgeInTicks);
+        animate(pEntity.grabAnimationState, EOSAnimation.SARLACC_TENTACLE_GRAB_ANIMATION, pAgeInTicks);
+
     }
 
     @Override

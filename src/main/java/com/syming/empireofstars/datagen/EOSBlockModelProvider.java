@@ -4,6 +4,7 @@ import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.EOSBlock;
 import com.syming.empireofstars.block.KyberCrystalBlock;
 import com.syming.empireofstars.block.SarlaccSpearToothBlock;
+import com.syming.empireofstars.block.TatooineSandBlock;
 import com.syming.empireofstars.item.EOSItem;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
@@ -41,7 +42,7 @@ public class EOSBlockModelProvider extends BlockModelProvider {
             if (block instanceof SarlaccSpearToothBlock) {
                 for (Direction direction : Direction.values()) {
                     if (direction == Direction.DOWN) {
-                        registerSarlaccSpearToothBlock(path, direction);
+                        registerSarlaccSpearToothBlock(path);
                     }
                 }
             }
@@ -53,7 +54,7 @@ public class EOSBlockModelProvider extends BlockModelProvider {
         getBuilder(name).texture("particle", modLoc("block/kyber_crystal_particle"));
     }
 
-    private void registerSarlaccSpearToothBlock(String name, Direction direction) {
+    private void registerSarlaccSpearToothBlock(String name) {
         getBuilder(name).parent(new ModelFile.UncheckedModelFile(mcLoc("block/pointed_dripstone")));
         getBuilder(name).texture("cross", modLoc("block/sarlacc_spear_tooth"));
     }

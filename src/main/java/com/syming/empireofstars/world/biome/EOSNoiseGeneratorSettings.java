@@ -1,6 +1,7 @@
 package com.syming.empireofstars.world.biome;
 
 import com.syming.empireofstars.EmpireOfStarsMod;
+import com.syming.empireofstars.block.EOSBlock;
 import net.lointain.cosmos.init.CosmosModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -32,7 +33,7 @@ public class EOSNoiseGeneratorSettings {
 
 
     private static NoiseGeneratorSettings tatooine(BootstapContext<?> context) {
-        return new NoiseGeneratorSettings(TATOOINE_NOISE_SETTINGS, Blocks.SAND.defaultBlockState(), Blocks.AIR.defaultBlockState(), NoiseRouterData.overworld(context.lookup(Registries.DENSITY_FUNCTION), context.lookup(Registries.NOISE), false, false), EOSSurfaceRuleData.tatooineSurface(), (new OverworldBiomeBuilder()).spawnTarget(), -64, false, false, true, false);
+        return new NoiseGeneratorSettings(TATOOINE_NOISE_SETTINGS, EOSBlock.TATOOINE_SAND.get().defaultBlockState(), Blocks.AIR.defaultBlockState(), NoiseRouterData.overworld(context.lookup(Registries.DENSITY_FUNCTION), context.lookup(Registries.NOISE), false, false), EOSSurfaceRuleData.tatooineSurface(), (new OverworldBiomeBuilder()).spawnTarget(), -64, false, false, true, false);
     }
 
     private static NoiseGeneratorSettings ghomrassen(BootstapContext<?> context) {

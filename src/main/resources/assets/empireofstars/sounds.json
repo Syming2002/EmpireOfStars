@@ -1,0 +1,8 @@
+{
+  "bantha_ambient": {
+    "subtitles": "sounds.empireofstars.bantha_ambient",
+    "sounds": [
+      "empireofstars:bantha_ambient"
+    ]
+  }
+}

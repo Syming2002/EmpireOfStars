@@ -30,8 +30,8 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
     private final LightsaberBladeModel bladeModel;
     private final QuiGonJinnLightsaberModel quiGonJinnLightsaberModel;
 
-    private static final ResourceLocation INNER_BLADE = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/inner_blade.png");
-    private static final ResourceLocation OUTER_BLADE = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/outer_blade.png");
+//    private static final ResourceLocation INNER_BLADE = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/inner_blade.png");
+//    private static final ResourceLocation OUTER_BLADE = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/outer_blade.png");
 
     private static final ResourceLocation QUI_GON_JINN_LIGHTSABER = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/qui_gon_jinn_lightsaber.png");
 
@@ -96,13 +96,13 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
                         }
                     }
 
-                    RenderType solidType = EOSRenderType.lightsaberInner(INNER_BLADE);
+                    RenderType solidType = EOSRenderType.lightsaberInner();
                     VertexConsumer inner = pBuffer.getBuffer(solidType);
                     this.bladeModel.renderInner(pPoseStack, inner, LightTexture.FULL_BRIGHT, NO_OVERLAY);
 
-                    RenderType glowType = EOSRenderType.lightsaberOuter(OUTER_BLADE);
+                    RenderType glowType = EOSRenderType.lightsaberOuter();
                     VertexConsumer outer = pBuffer.getBuffer(glowType);
-                    this.bladeModel.renderOuter(pPoseStack, outer, LightTexture.FULL_BRIGHT, NO_OVERLAY, kyberCrystalColor.getRed(), kyberCrystalColor.getGreen(), kyberCrystalColor.getBlue(), 0.75F);
+                    this.bladeModel.renderOuter(pPoseStack, outer, 0xF000F0, NO_OVERLAY, kyberCrystalColor.getRed(), kyberCrystalColor.getGreen(), kyberCrystalColor.getBlue());
 
                     pPoseStack.popPose();
                 }

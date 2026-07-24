@@ -1,6 +1,7 @@
 package com.syming.empireofstars.world.biome;
 
 import com.google.common.collect.ImmutableList;
+import com.syming.empireofstars.block.EOSBlock;
 import net.lointain.cosmos.init.CosmosModBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -20,7 +21,7 @@ public class EOSSurfaceRuleData {
                         SurfaceRules.verticalGradient(
                                 "bedrock_floor",
                                 VerticalAnchor.bottom(),
-                                VerticalAnchor.aboveBottom(5)
+                                VerticalAnchor.aboveBottom(2)
                         ),
                         BEDROCK
                 ),
@@ -39,11 +40,11 @@ public class EOSSurfaceRuleData {
                         SurfaceRules.sequence(
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.ON_FLOOR,
-                                        SurfaceRules.state(Blocks.SAND.defaultBlockState())
+                                        SurfaceRules.state(EOSBlock.TATOOINE_SAND.get().defaultBlockState())
                                 ),
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.UNDER_FLOOR,
-                                        SurfaceRules.state(Blocks.SAND.defaultBlockState())
+                                        SurfaceRules.state(EOSBlock.TATOOINE_SAND.get().defaultBlockState())
                                 ),
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.DEEP_UNDER_FLOOR,
