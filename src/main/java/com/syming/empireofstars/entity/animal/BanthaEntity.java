@@ -1,5 +1,6 @@
 package com.syming.empireofstars.entity.animal;
 
+import com.syming.empireofstars.block.EOSBlock;
 import com.syming.empireofstars.entity.EOSEntity;
 import com.syming.empireofstars.sound.EOSSound;
 import net.minecraft.core.BlockPos;
@@ -56,7 +57,7 @@ public class BanthaEntity extends AbstractChestedHorse {
         super.registerGoals();
 
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(4, new TemptGoal(this, 1.2D, WHEAT_FOOD, false));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.2D, WHEAT_FOOD, false));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
@@ -134,6 +135,24 @@ public class BanthaEntity extends AbstractChestedHorse {
     }
 
     @Override
+    public boolean canMate(Animal pOtherAnimal) {
+        if (pOtherAnimal == this) {
+            return false;
+        }
+
+        if (!(pOtherAnimal instanceof BanthaEntity bantha)) {
+            return false;
+        }
+
+        return this.canParent() && bantha.canParent();
+    }
+
+    @Override
+    protected boolean canParent() {
+        return super.canParent();
+    }
+
+    @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         boolean flag = !this.isBaby() && this.isTamed() && pPlayer.isSecondaryUseActive();
         if (!this.isVehicle() && !flag) {
@@ -145,12 +164,38 @@ public class BanthaEntity extends AbstractChestedHorse {
 
                 if (!this.isTamed()) {
                     this.makeMad();
-                    return InteractionResult.sidedSuccess(this.level().isClientSide);
+                    return InteractionResult.sidedSuccess(this.level().isClientSide());
                 }
             }
 
         }
         return super.mobInteract(pPlayer, pHand);
+    }
+
+    @Override
+    protected boolean handleEating(Player pPlayer, ItemStack pStack) {
+        boolean handled = false;
+
+        if (WHEAT_FOOD.test(pStack)) {
+            if (this.getHealth() < this.getMaxHealth()) {
+                this.heal(2.0F);
+                handled = true;
+            }
+
+            if (this.isBaby()) {
+                this.ageUp(20, true);
+                handled = true;
+            }
+
+            if (!this.level().isClientSide()
+                    && this.getAge() == 0
+                    && this.canFallInLove()) {
+                this.setInLove(pPlayer);
+                handled = true;
+            }
+        }
+
+        return handled;
     }
 
     @Override
@@ -164,6 +209,6 @@ public class BanthaEntity extends AbstractChestedHorse {
     }
 
     public static boolean checkBanthaSpawnRules(EntityType<? extends Animal> pAnimal, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
-        return pLevel.getBlockState(pPos.below()).is(Blocks.SAND) && isBrightEnoughToSpawn(pLevel, pPos);
+        return pLevel.getBlockState(pPos.below()).is(EOSBlock.TATOOINE_SAND.get()) && isBrightEnoughToSpawn(pLevel, pPos);
     }
 }

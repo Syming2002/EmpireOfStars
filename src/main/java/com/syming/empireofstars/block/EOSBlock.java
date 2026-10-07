@@ -42,6 +42,8 @@ public class EOSBlock {
 
     public static final RegistryObject<Block> TATOOINE_SAND = registerBlock("tatooine_sand", () -> new TatooineSandBlock(0xE2B266, BlockBehaviour.Properties.copy(Blocks.SAND)));
 
+    public static final RegistryObject<Block> TATOOINE_SANDSTONE = registerBlock("tatooine_sandstone", () -> new TatooineSandstoneBlock(BlockBehaviour.Properties.copy(Blocks.SANDSTONE)));
+
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> blockToRegister = BLOCKS.register(name, block);
         registerBlockItem(name, blockToRegister);

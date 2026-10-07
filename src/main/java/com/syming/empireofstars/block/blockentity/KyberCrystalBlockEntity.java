@@ -31,14 +31,14 @@ public class KyberCrystalBlockEntity extends BlockEntity {
     public void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.putInt("Shards", this.shards);
-        tag.putString("Color", this.color.getName());
+        tag.putString("color", this.color.getName());
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
         this.shards = tag.getInt("Shards");
-        this.color = KyberCrystalColor.fromSerialized(tag.getString("Color"));
+        this.color = KyberCrystalColor.fromSerialized(tag.getString("color"));
     }
 
     public void setColor(KyberCrystalColor pColor) {

@@ -30,7 +30,7 @@ public class EOSCreativeTab {
                             ItemStack standard = new ItemStack(EOSItem.LIGHTSABER_TYPES.get(type).get());
                             LightsaberItem.setColor(standard, KyberCrystalColor.BLUE);
                             standard.setTag(new CompoundTag());
-                            standard.getTag().putString("Color", KyberCrystalColor.BLUE.getSerializedName());
+                            standard.getTag().putString("color", KyberCrystalColor.BLUE.getSerializedName());
                             standard.getTag().putString("type", LightsaberTypeBlade.SINGLE.toString());
                             standard.getTag().putBoolean("active", true);
                             return standard;
@@ -44,13 +44,14 @@ public class EOSCreativeTab {
 
                         output.accept(EOSBlock.SARLACC_SPEAR_TOOTH.get());
                         output.accept(EOSBlock.TATOOINE_SAND.get());
+                        output.accept(EOSBlock.TATOOINE_SANDSTONE.get());
 
                         for (KyberCrystalColor color : KyberCrystalColor.values()) {
                             for (int shardCount = 1; shardCount <= 5; shardCount++) {
                                 ItemStack kyberCrystal = new ItemStack(EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get());
 
                                 CompoundTag tag = new CompoundTag();
-                                tag.putString("Color", color.getSerializedName());
+                                tag.putString("color", color.getSerializedName());
                                 tag.putInt("Shards", shardCount);
 
                                 kyberCrystal.setTag(tag);
@@ -63,7 +64,7 @@ public class EOSCreativeTab {
                             for (LightsaberType type : LightsaberType.values()) {
                                 ItemStack standard = new ItemStack(EOSItem.LIGHTSABER_TYPES.get(type).get());
                                 standard.setTag(new CompoundTag());
-                                standard.getTag().putString("Color", color.getSerializedName());
+                                standard.getTag().putString("color", color.getSerializedName());
                                 standard.getTag().putString("type", LightsaberTypeBlade.SINGLE.toString());
                                 standard.getTag().putBoolean("active", false);
                                 output.accept(standard);

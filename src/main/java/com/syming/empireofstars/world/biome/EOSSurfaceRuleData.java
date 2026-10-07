@@ -48,12 +48,12 @@ public class EOSSurfaceRuleData {
                                 ),
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.DEEP_UNDER_FLOOR,
-                                        SurfaceRules.state(Blocks.SANDSTONE.defaultBlockState())
+                                        SurfaceRules.state(EOSBlock.TATOOINE_SANDSTONE.get().defaultBlockState())
                                 )
                         )
                 ),
 
-                SurfaceRules.state(Blocks.STONE.defaultBlockState())
+                SurfaceRules.state(Blocks.BASALT.defaultBlockState())
         );
     }
 

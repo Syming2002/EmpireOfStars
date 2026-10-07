@@ -6,10 +6,14 @@ import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.block.SarlaccSpearToothBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class EOSBlockStateProvider extends BlockStateProvider {
     public EOSBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -18,7 +22,10 @@ public class EOSBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
+
         simpleBlockWithItem(EOSBlock.TATOOINE_SAND.get(), cubeAll(EOSBlock.TATOOINE_SAND.get()));
+
+        simpleBlockWithItem(EOSBlock.TATOOINE_SANDSTONE.get(), models().cubeBottomTop("tatooine_sandstone", modLoc( "block/tatooine_sandstone"), modLoc("block/tatooine_sandstone_bottom"), modLoc("block/tatooine_sandstone_top")));
 
         for (KyberCrystalColor color : KyberCrystalColor.values()) {
             simpleBlock(EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get(), models().getExistingFile(modLoc("block/kyber_crystal")));

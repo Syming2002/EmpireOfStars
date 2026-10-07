@@ -2,13 +2,19 @@ package com.syming.empireofstars.client;
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import net.irisshaders.iris.api.v0.IrisApi;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 
-public class EOSRenderType extends RenderType {
-    public EOSRenderType(String pName, VertexFormat pFormat, VertexFormat.Mode pMode, int pBufferSize, boolean pAffectsCrumbling, boolean pSortOnUpload, Runnable pSetupState, Runnable pClearState) {
-        super(pName, pFormat, pMode, pBufferSize, pAffectsCrumbling, pSortOnUpload, pSetupState, pClearState);
+public class EOSRenderType extends RenderStateShard {
+
+    private EOSRenderType() {
+        super("eos_render_type", () -> {
+
+        }, () -> {
+
+        });
     }
 
     public static RenderType kyberCrystalEmissive(ResourceLocation pTextureLocation) {
@@ -32,14 +38,15 @@ public class EOSRenderType extends RenderType {
 
     public static RenderType lightsaberOuter() {
         RenderType.CompositeState state = RenderType.CompositeState.builder()
-                .setShaderState(RenderStateShard.RENDERTYPE_LIGHTNING_SHADER)
-                .setTransparencyState(EOSRenderState.ADDITIVE_GLOW)
-                .setCullState(NO_CULL)
-                .setLightmapState(NO_LIGHTMAP)
-                .setOverlayState(NO_OVERLAY)
+                .setShaderState(RenderStateShard.POSITION_COLOR_SHADER)
+                .setTextureState(RenderStateShard.NO_TEXTURE)
+                .setTransparencyState(IrisApi.getInstance().isShaderPackInUse() ? RenderStateShard.GLINT_TRANSPARENCY : EOSRenderState.VANILLA_LIGHTSABER_OUTER)
+                .setCullState(RenderStateShard.NO_CULL)
+                .setLightmapState(RenderStateShard.LIGHTMAP)
+                .setOverlayState(RenderStateShard.NO_OVERLAY)
                 .setWriteMaskState(RenderStateShard.COLOR_WRITE)
                 .setDepthTestState(new DepthTestStateShard("lequal_depth", 515))
-                .setOutputState(EOSRenderState.TRANSLUCENT_TARGET)
+//                .setOutputState(EOSRenderState.TRANSLUCENT_TARGET)
                 .createCompositeState(false);
 
         return RenderType.create("lightsaber_outer",
@@ -54,9 +61,9 @@ public class EOSRenderType extends RenderType {
     public static RenderType lightsaberInner() {
         RenderType.CompositeState state = RenderType.CompositeState.builder()
                 .setShaderState(RenderType.POSITION_COLOR_SHADER)
-                .setTransparencyState(RenderType.NO_TRANSPARENCY)
-                .setCullState(RenderType.NO_CULL)
-                .setLightmapState(RenderType.NO_LIGHTMAP)
+                .setTransparencyState(RenderStateShard.LIGHTNING_TRANSPARENCY)
+                .setCullState(CullStateShard.NO_CULL)
+                .setLightmapState(LightmapStateShard.LIGHTMAP)
                 .setOverlayState(RenderType.NO_OVERLAY)
                 .setWriteMaskState(RenderStateShard.COLOR_DEPTH_WRITE)
                 .setDepthTestState(new DepthTestStateShard("lequal_depth", 515))
@@ -67,7 +74,7 @@ public class EOSRenderType extends RenderType {
                 VertexFormat.Mode.QUADS,
                 256,
                 false,
-                true,
+                false,
                 state);
     }
 }

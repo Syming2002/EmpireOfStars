@@ -479,7 +479,7 @@
               "then_run": {
                 "type": "minecraft:block",
                 "result_state": {
-                  "Name": "minecraft:sandstone"
+                  "Name": "empireofstars:tatooine_sandstone"
                 }
               }
             }
@@ -489,7 +489,10 @@
       {
         "type": "minecraft:block",
         "result_state": {
-          "Name": "minecraft:stone"
+          "Name": "minecraft:basalt",
+          "Properties": {
+            "axis": "y"
+          }
         }
       }
     ]

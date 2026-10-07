@@ -16,19 +16,14 @@ import com.syming.empireofstars.client.entity.renderer.SarlaccTentacleRenderer;
 import com.syming.empireofstars.client.entity.renderer.TuskenRenderer;
 import com.syming.empireofstars.client.kybercrystal.KyberCrystalBlockEntityRenderer;
 import com.syming.empireofstars.client.kybercrystal.KyberCrystalModel;
-import com.syming.empireofstars.client.lightsaber.QuiGonJinnLightsaberModel;
+import com.syming.empireofstars.client.lightsaber.StandardLightsaberModel;
 import com.syming.empireofstars.entity.EOSEntity;
-import com.syming.empireofstars.entity.animal.BanthaEntity;
-import com.syming.empireofstars.entity.sarlacc.SarlaccTentacleEntity;
 import com.syming.empireofstars.item.EOSItem;
 import com.syming.empireofstars.item.KyberCrystalShardItem;
-import com.syming.empireofstars.network.EOSPacketHandler;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -47,7 +42,7 @@ public class EOSClientModEvent {
 
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(QuiGonJinnLightsaberModel.QUI_GON_JINN_LIGHTSABER_LAYER, QuiGonJinnLightsaberModel::createHiltLayer);
+        event.registerLayerDefinition(StandardLightsaberModel.STANDARD_LIGHTSABER_LAYER, StandardLightsaberModel::createBodyLayer);
         event.registerLayerDefinition(KyberCrystalModel.KYBER_CRYSTAL_LAYER, KyberCrystalModel::createShardLayer);
 
         event.registerLayerDefinition(BanthaModel.BANTHA_LAYER, () -> LayerDefinition.create(BanthaModel.createBanthaMesh(15.0F), 128, 128));

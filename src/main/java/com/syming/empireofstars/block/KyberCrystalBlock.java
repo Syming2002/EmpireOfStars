@@ -126,7 +126,7 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
         ItemStack stack = new ItemStack(shardItem, totalShards);
 
         CompoundTag tag = new CompoundTag();
-        tag.putString("Color", kyberCrystalBlockEntity.getColor().getName());
+        tag.putString("color", kyberCrystalBlockEntity.getColor().getName());
         stack.setTag(tag);
 
         return List.of(stack);
@@ -137,7 +137,7 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
 
         if (pStack.hasTag()) {
-            if (pStack.getTag() != null && pStack.getTag().contains("Color")) {
+            if (pStack.getTag() != null && pStack.getTag().contains("color")) {
                 if (pStack.getItem() instanceof BlockItem blockItem) {
                     if (blockItem.getBlock() instanceof KyberCrystalBlock) {
                         KyberCrystalColor color = getColor(pStack);
@@ -183,7 +183,7 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
             kyberCrystalBlockEntity.setShards(tag.getInt("Shards"));
         }
 
-        if (tag.contains("Color")) {
+        if (tag.contains("color")) {
             kyberCrystalBlockEntity.setColor(getColor(pStack));
         }
     }
@@ -198,7 +198,7 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
         if (blockEntity instanceof KyberCrystalBlockEntity kyberCrystalBlockEntity) {
             CompoundTag tag = new CompoundTag();
 
-            tag.putString("Color", kyberCrystalBlockEntity.getColor().getName());
+            tag.putString("color", kyberCrystalBlockEntity.getColor().getName());
             tag.putInt("Shards", kyberCrystalBlockEntity.getShards());
 
             stack.setTag(tag);
@@ -217,8 +217,8 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
     }
 
     public KyberCrystalColor getColor(ItemStack pStack) {
-        if (pStack.getTag() != null && pStack.getTag().contains("Color")) {
-            return KyberCrystalColor.fromSerialized(pStack.getTag().getString("Color"));
+        if (pStack.getTag() != null && pStack.getTag().contains("color")) {
+            return KyberCrystalColor.fromSerialized(pStack.getTag().getString("color"));
         }
         return null;
     }

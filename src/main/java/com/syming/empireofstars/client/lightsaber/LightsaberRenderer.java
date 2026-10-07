@@ -22,18 +22,19 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
+import static net.minecraft.world.item.ItemDisplayContext.FIRST_PERSON_RIGHT_HAND;
 
 @OnlyIn(Dist.CLIENT)
 public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
 
     public static LightsaberRenderer INSTANCE;
     private final LightsaberBladeModel bladeModel;
-    private final QuiGonJinnLightsaberModel quiGonJinnLightsaberModel;
+    private final StandardLightsaberModel standardLightsaberModel;
 
 //    private static final ResourceLocation INNER_BLADE = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/inner_blade.png");
 //    private static final ResourceLocation OUTER_BLADE = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/outer_blade.png");
 
-    private static final ResourceLocation QUI_GON_JINN_LIGHTSABER = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/qui_gon_jinn_lightsaber.png");
+    private static final ResourceLocation STANDARD_LIGHTSABER_LIGHTSABER = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/standard_lightsaber.png");
 
 
     public LightsaberRenderer(BlockEntityRenderDispatcher pBlockEntityRenderDispatcher, EntityModelSet pEntityModelSet) {
@@ -41,7 +42,7 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
 
         this.bladeModel = new LightsaberBladeModel();
 
-        this.quiGonJinnLightsaberModel = new QuiGonJinnLightsaberModel(pEntityModelSet.bakeLayer(QuiGonJinnLightsaberModel.QUI_GON_JINN_LIGHTSABER_LAYER));
+        this.standardLightsaberModel = new StandardLightsaberModel(pEntityModelSet.bakeLayer(StandardLightsaberModel.STANDARD_LIGHTSABER_LAYER));
     }
 
     public static LightsaberRenderer getInstance() {
@@ -59,50 +60,46 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
             CompoundTag tag = pStack.getTag();
 
             if (LightsaberItem.isActive(pStack)) {
-                if (tag != null && tag.contains("Color")) {
+                if (tag != null && tag.contains("color")) {
                     KyberCrystalColor kyberCrystalColor = lightsaberItem.getColor(pStack);
 
                     pPoseStack.pushPose();
 
                     switch (pDisplayContext) {
                         case GUI -> {
-                            pPoseStack.translate(0.95F, 0.975F, 0.48F);
+                            pPoseStack.translate(1.125F, 1.125F, 0.0F);
                             pPoseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
                             pPoseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
                             pPoseStack.mulPose(Axis.ZP.rotationDegrees(90.0F));
                             pPoseStack.mulPose(Axis.XP.rotationDegrees(45.0F));
-                            pPoseStack.scale(0.75F, 0.75F, 0.75F);
                         }
-                        case FIRST_PERSON_RIGHT_HAND -> {
-                            pPoseStack.translate(0.4925F, 0.75F, 0.525F);
-                        }
-                        case FIRST_PERSON_LEFT_HAND -> {
-                            pPoseStack.translate(0.55F, 0.75F, 0.533F);
+                        case FIRST_PERSON_RIGHT_HAND, FIRST_PERSON_LEFT_HAND -> {
+                            pPoseStack.translate(0.5F, 0.8F, 0.475F);
+                            pPoseStack.mulPose(Axis.XP.rotationDegrees(15.0F));
                         }
                         case THIRD_PERSON_RIGHT_HAND, THIRD_PERSON_LEFT_HAND -> {
-                            pPoseStack.translate(0.4725F, 0.725F, 0.6125F);
+                            pPoseStack.translate(0.5F, 0.625F, 0.6375F);
                         }
                         case GROUND -> {
-                            pPoseStack.translate(0.5, 0.25, 0.5);
-                            pPoseStack.scale(0.5F, 0.5F, 0.5F);
+                            pPoseStack.translate(0.510, 0.55, 0.5);
                         }
                         case FIXED -> {
-                            pPoseStack.translate(0.25F, 0.75F, 0.52F);
+                            pPoseStack.translate(-0.125F, 1.125F, 0.525F);
                             pPoseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
                             pPoseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
                             pPoseStack.mulPose(Axis.ZP.rotationDegrees(90.0F));
                             pPoseStack.mulPose(Axis.XP.rotationDegrees(-45.0F));
-                            pPoseStack.scale(0.5F, 0.5F, 0.5F);
                         }
                     }
+
+                    RenderType glowType = EOSRenderType.lightsaberOuter();
+                    VertexConsumer outer = pBuffer.getBuffer(glowType);
+                    this.bladeModel.renderOuter(pPoseStack, outer, pPackedLight, NO_OVERLAY, kyberCrystalColor.getRed(), kyberCrystalColor.getGreen(), kyberCrystalColor.getBlue());
 
                     RenderType solidType = EOSRenderType.lightsaberInner();
                     VertexConsumer inner = pBuffer.getBuffer(solidType);
                     this.bladeModel.renderInner(pPoseStack, inner, LightTexture.FULL_BRIGHT, NO_OVERLAY);
 
-                    RenderType glowType = EOSRenderType.lightsaberOuter();
-                    VertexConsumer outer = pBuffer.getBuffer(glowType);
-                    this.bladeModel.renderOuter(pPoseStack, outer, 0xF000F0, NO_OVERLAY, kyberCrystalColor.getRed(), kyberCrystalColor.getGreen(), kyberCrystalColor.getBlue());
 
                     pPoseStack.popPose();
                 }
@@ -112,22 +109,25 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
 
             switch (pDisplayContext) {
                 case GUI -> {
-                    pPoseStack.translate(0.85F, 0.85F, 0.5F);
+                    pPoseStack.translate(0.525F, 0.5F, 0.0F);
                     pPoseStack.mulPose(Axis.XP.rotationDegrees(-180.0F));
                     pPoseStack.mulPose(Axis.YP.rotationDegrees(-180.0F));
                     pPoseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
                     pPoseStack.mulPose(Axis.XP.rotationDegrees(-45.0F));
-                    pPoseStack.scale(0.75F, 0.75F, 0.75F);
+                    pPoseStack.scale(0.5F, 0.5F, 0.5F);
                 }
                 case FIRST_PERSON_RIGHT_HAND, FIRST_PERSON_LEFT_HAND -> {
-                    pPoseStack.translate(0.5F, 1.5F, 0.5F);
+                    pPoseStack.translate(0.5F, 0.95F, 0.5F);
                     pPoseStack.mulPose(Axis.XP.rotationDegrees(-180.0F));
+                    pPoseStack.mulPose(Axis.XP.rotationDegrees(15.0F));
                     pPoseStack.mulPose(Axis.YP.rotationDegrees(-180.0F));
+                    pPoseStack.scale(0.5F, 0.5F, 0.5F);
                 }
                 case THIRD_PERSON_RIGHT_HAND, THIRD_PERSON_LEFT_HAND -> {
-                    pPoseStack.translate(0.475F, 1.5F, 0.6F);
+                    pPoseStack.translate(0.5F, 0.75F, 0.625F);
                     pPoseStack.mulPose(Axis.XP.rotationDegrees(-180.0F));
                     pPoseStack.mulPose(Axis.YP.rotationDegrees(-180.0F));
+                    pPoseStack.scale(0.5F, 0.5F, 0.5F);
                 }
                 case GROUND -> {
                     pPoseStack.translate(0.51F, 0.65F, 0.49F);
@@ -135,7 +135,7 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
                     pPoseStack.scale(0.5F, 0.5F, 0.5F);
                 }
                 case FIXED -> {
-                    pPoseStack.translate(0.35F, 0.65F, 0.5F);
+                    pPoseStack.translate(0.525F, 0.5F, 0.525F);
                     pPoseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
                     pPoseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
                     pPoseStack.mulPose(Axis.ZP.rotationDegrees(90.0F));
@@ -144,9 +144,9 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
                 }
             }
 
-            RenderType solidType = RenderType.entitySolid(QUI_GON_JINN_LIGHTSABER);
+            RenderType solidType = RenderType.entitySolid(STANDARD_LIGHTSABER_LIGHTSABER);
             VertexConsumer standard = pBuffer.getBuffer(solidType);
-            this.quiGonJinnLightsaberModel.renderToBuffer(pPoseStack, standard, pPackedLight, pPackedOverlay,
+            this.standardLightsaberModel.renderToBuffer(pPoseStack, standard, pPackedLight, pPackedOverlay,
                     1.0F, 1.0F, 1.0F, 1.0F);
 
             pPoseStack.popPose();

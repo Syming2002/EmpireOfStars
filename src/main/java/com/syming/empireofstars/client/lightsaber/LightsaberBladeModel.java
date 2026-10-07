@@ -25,8 +25,10 @@ public class LightsaberBladeModel {
                             int packedLight, int packedOverlay,
                             float r, float g, float b) {
         poseStack.pushPose();
-        poseStack.translate(0.0F, 0.0F, -0.0133F);
+        poseStack.translate(0.0F, 0.01F, -0.0133F);
         poseStack.scale(1.05F, 1.05F, 1.05F);
+
+//        drawCuboid(poseStack, buffer, packedLight, packedOverlay, r, g ,b, 1.0F, -0.035F, 0.0F, -0.035F, 0.035F, 1.0F, 0.035F);
 
         int layers = 24;
 
@@ -82,7 +84,7 @@ public class LightsaberBladeModel {
                 0, -1, 0);
     }
 
-    private void quad(VertexConsumer c, Matrix4f mat, Matrix3f normal,
+    private void quad(VertexConsumer vertexConsumer, Matrix4f mat, Matrix3f normal,
                       int packedLight, int packedOverlay,
                       float r, float g, float b, float a,
                       float x1, float y1, float z1,
@@ -90,9 +92,9 @@ public class LightsaberBladeModel {
                       float x3, float y3, float z3,
                       float x4, float y4, float z4,
                       float nx, float ny, float nz) {
-        c.vertex(mat, x1, y1, z1).color(r, g, b, a).uv(0, 0).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
-        c.vertex(mat, x2, y2, z2).color(r, g, b, a).uv(1, 0).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
-        c.vertex(mat, x3, y3, z3).color(r, g, b, a).uv(1, 1).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
-        c.vertex(mat, x4, y4, z4).color(r, g, b, a).uv(0, 1).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
+        vertexConsumer.vertex(mat, x1, y1, z1).color(r, g, b, a).uv(0, 0).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
+        vertexConsumer.vertex(mat, x2, y2, z2).color(r, g, b, a).uv(1, 0).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
+        vertexConsumer.vertex(mat, x3, y3, z3).color(r, g, b, a).uv(1, 1).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
+        vertexConsumer.vertex(mat, x4, y4, z4).color(r, g, b, a).uv(0, 1).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
     }
 }

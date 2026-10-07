@@ -50,7 +50,7 @@ public class KyberCrystalItemRenderer extends BlockEntityWithoutLevelRenderer {
         if (pStack.getItem() instanceof BlockItem blockItem) {
             if (blockItem.getBlock() instanceof KyberCrystalBlock kyberCrystalBlock) {
                 if (tag != null) {
-                    if (tag.contains("Color")) {
+                    if (tag.contains("color")) {
                         KyberCrystalColor kyberCrystalColor = kyberCrystalBlock.getColor(pStack);
                         if (tag.contains("Shards")) {
                             int shardCount = tag.getInt("Shards");
