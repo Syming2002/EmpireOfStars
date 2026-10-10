@@ -28,7 +28,9 @@ public class EOSBiomeTagProvider extends BiomeTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
-        this.tag(EOSBiomeTagProvider.IS_TATOOINE).add(EOSBiome.TATOOINE_DESERT);
+        this.tag(EOSBiomeTagProvider.IS_TATOOINE)
+                .add(EOSBiome.TATOOINE_CANYON)
+                .add(EOSBiome.TATOOINE_DESERT);
     }
 
     @Override

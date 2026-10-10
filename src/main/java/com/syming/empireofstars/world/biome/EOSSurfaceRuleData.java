@@ -36,7 +36,7 @@ public class EOSSurfaceRuleData {
                 ),
 
                 SurfaceRules.ifTrue(
-                        SurfaceRules.isBiome(EOSBiome.TATOOINE_DESERT),
+                        SurfaceRules.isBiome(EOSBiome.TATOOINE_DESERT, EOSBiome.TATOOINE_CANYON),
                         SurfaceRules.sequence(
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.ON_FLOOR,

@@ -158,17 +158,17 @@ public class KyberCrystalClusterFeature extends GeodeFeature {
                     blockstate1 = blockstate1.setValue(BlockStateProperties.FACING, direction);
                 }
 
-                for (KyberCrystalColor color : KyberCrystalColor.values()) {
+                for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
 
                     int shards = 1 + randomsource.nextInt(5);
 
-                    if (blockstate1.is(EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get())) {
+                    if (blockstate1.is(EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get())) {
                         if (blockstate1.hasProperty(KyberCrystalBlock.SHARDS)) {
                             blockstate1 = blockstate1.setValue(KyberCrystalBlock.SHARDS, shards);
                         }
                     }
 
-                    System.out.println("A cluster has appeared at: " + pContext.origin().getX() + ' ' + pContext.origin().getY() + ' ' + pContext.origin().getZ() + ' ' + color + ' ' + shards);
+                    System.out.println("A cluster has appeared at: " + pContext.origin().getX() + ' ' + pContext.origin().getY() + ' ' + pContext.origin().getZ() + ' ' + kybercolor + ' ' + shards);
                 }
 
                 BlockPos blockpos5 = blockpos4.relative(direction);

@@ -19,14 +19,16 @@ public class EOSBlockTagsProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
-        for (KyberCrystalColor color : KyberCrystalColor.values()) {
+        for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
             for (int shardCount = 1; shardCount <= 5; shardCount++) {
                 tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                        .add(EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get());
+                        .add(EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get());
 
                 tag(BlockTags.NEEDS_IRON_TOOL)
-                        .add(EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get());
+                        .add(EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get());
             }
         }
+
+        tag(BlockTags.DEAD_BUSH_MAY_PLACE_ON).add(EOSBlock.TATOOINE_SAND.get());
     }
 }

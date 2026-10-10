@@ -85,7 +85,7 @@ public class EOSFeature {
                         List.of(RarityFilter.onAverageOnceEvery(32), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(8), VerticalAnchor.absolute(24)), BiomeFilter.biome())));
     }
 
-    private static ConfiguredFeature<GeodeConfiguration, ?> kyberGeode(KyberCrystalColor color) {
+    private static ConfiguredFeature<GeodeConfiguration, ?> kyberGeode(KyberCrystalColor kybercolor) {
         return new ConfiguredFeature<>(EOSFeature.KYBER_CRYSTAL_GEODE_FEATURE.get(),
                         new GeodeConfiguration(
                                 new GeodeBlockSettings(
@@ -94,7 +94,7 @@ public class EOSFeature {
                                         BlockStateProvider.simple(Blocks.STONE),
                                         BlockStateProvider.simple(Blocks.CALCITE),
                                         BlockStateProvider.simple(Blocks.SMOOTH_BASALT),
-                                        List.of(EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get().defaultBlockState()),
+                                        List.of(EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get().defaultBlockState()),
                                         BlockTags.FEATURES_CANNOT_REPLACE,
                                         BlockTags.GEODE_INVALID_BLOCKS),
                                 new GeodeLayerSettings(

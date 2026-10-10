@@ -20,9 +20,9 @@ public class EOSBlockEntity {
     public static final Map<KyberCrystalColor, RegistryObject<BlockEntityType<KyberCrystalBlockEntity>>> KYBER_CRYSTAL_BLOCK_ENTITY_TYPES = new HashMap<>();
 
     static {
-        for (KyberCrystalColor color : KyberCrystalColor.values()) {
-                KYBER_CRYSTAL_BLOCK_ENTITY_TYPES.put(color, BLOCK_ENTITIES.register(color.name().toLowerCase(Locale.ROOT) + '_' + "kyber_crystal",
-                        () -> BlockEntityType.Builder.of((pos, state) -> new KyberCrystalBlockEntity(pos, state, color), EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get()).build(null)));
+        for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
+                KYBER_CRYSTAL_BLOCK_ENTITY_TYPES.put(kybercolor, BLOCK_ENTITIES.register(kybercolor.name().toLowerCase() + '_' + "kyber_crystal",
+                        () -> BlockEntityType.Builder.of((pos, state) -> new KyberCrystalBlockEntity(pos, state, kybercolor), EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get()).build(null)));
             }
     }
 

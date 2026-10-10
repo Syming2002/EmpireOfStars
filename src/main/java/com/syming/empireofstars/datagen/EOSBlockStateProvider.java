@@ -27,8 +27,8 @@ public class EOSBlockStateProvider extends BlockStateProvider {
 
         simpleBlockWithItem(EOSBlock.TATOOINE_SANDSTONE.get(), models().cubeBottomTop("tatooine_sandstone", modLoc( "block/tatooine_sandstone"), modLoc("block/tatooine_sandstone_bottom"), modLoc("block/tatooine_sandstone_top")));
 
-        for (KyberCrystalColor color : KyberCrystalColor.values()) {
-            simpleBlock(EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get(), models().getExistingFile(modLoc("block/kyber_crystal")));
+        for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
+            simpleBlock(EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get(), models().getExistingFile(modLoc("block/kyber_crystal")));
         }
 
         getVariantBuilder(EOSBlock.SARLACC_SPEAR_TOOTH.get())

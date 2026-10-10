@@ -32,8 +32,8 @@ public class EOSItem {
     public static final Map<KyberCrystalColor, RegistryObject<KyberCrystalShardItem>> KYBER_CRYSTAL_SHARD_TYPES = new HashMap<>();
 
     static {
-        for (KyberCrystalColor color : KyberCrystalColor.values()) {
-            KYBER_CRYSTAL_SHARD_TYPES.put(color, ITEMS.register(color.name().toLowerCase(Locale.ROOT) + '_' + "kyber_crystal_shard", KyberCrystalShardItem::new));
+        for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
+            KYBER_CRYSTAL_SHARD_TYPES.put(kybercolor, ITEMS.register(kybercolor.name().toLowerCase(Locale.ROOT) + '_' + "kyber_crystal_shard", KyberCrystalShardItem::new));
         }
     }
 

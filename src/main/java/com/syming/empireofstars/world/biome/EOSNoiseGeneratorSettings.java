@@ -33,10 +33,10 @@ public class EOSNoiseGeneratorSettings {
 
 
     private static NoiseGeneratorSettings tatooine(BootstapContext<?> context) {
-        return new NoiseGeneratorSettings(TATOOINE_NOISE_SETTINGS, EOSBlock.TATOOINE_SAND.get().defaultBlockState(), Blocks.AIR.defaultBlockState(), NoiseRouterData.overworld(context.lookup(Registries.DENSITY_FUNCTION), context.lookup(Registries.NOISE), false, false), EOSSurfaceRuleData.tatooineSurface(), (new OverworldBiomeBuilder()).spawnTarget(), -64, false, false, true, false);
+        return new NoiseGeneratorSettings(TATOOINE_NOISE_SETTINGS, EOSBlock.TATOOINE_SAND.get().defaultBlockState(), Blocks.AIR.defaultBlockState(), NoiseRouterData.overworld(context.lookup(Registries.DENSITY_FUNCTION), context.lookup(Registries.NOISE), false, false), EOSSurfaceRuleData.tatooineSurface(), (new OverworldBiomeBuilder()).spawnTarget(), 63, false, false, true, false);
     }
 
     private static NoiseGeneratorSettings ghomrassen(BootstapContext<?> context) {
-        return new NoiseGeneratorSettings(GHOMRASSEN_NOISE_SETTINGS, CosmosModBlocks.MOON_CLAYDUST.get().defaultBlockState(), Blocks.AIR.defaultBlockState(), NoiseRouterData.overworld(context.lookup(Registries.DENSITY_FUNCTION), context.lookup(Registries.NOISE), false, false), EOSSurfaceRuleData.ghomrassenRockyDesertSurface(), (new OverworldBiomeBuilder()).spawnTarget(), -64, false, false, true, false);
+        return new NoiseGeneratorSettings(GHOMRASSEN_NOISE_SETTINGS, CosmosModBlocks.MOON_CLAYDUST.get().defaultBlockState(), Blocks.AIR.defaultBlockState(), NoiseRouterData.overworld(context.lookup(Registries.DENSITY_FUNCTION), context.lookup(Registries.NOISE), false, false), EOSSurfaceRuleData.ghomrassenRockyDesertSurface(), (new OverworldBiomeBuilder()).spawnTarget(), 63, false, false, true, false);
     }
 }

@@ -42,7 +42,7 @@ import java.util.Locale;
 public class KyberCrystalBlock extends Block implements EntityBlock {
 
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
-    public static final EnumProperty<KyberCrystalColor> COLOR = EnumProperty.create("color", KyberCrystalColor.class);
+    public static final EnumProperty<KyberCrystalColor> COLOR = EnumProperty.create("kybercolor", KyberCrystalColor.class);
     public static final IntegerProperty SHARDS = IntegerProperty.create("shards", 1, 5);
 
     protected final VoxelShape upShape;
@@ -126,7 +126,7 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
         ItemStack stack = new ItemStack(shardItem, totalShards);
 
         CompoundTag tag = new CompoundTag();
-        tag.putString("color", kyberCrystalBlockEntity.getColor().getName());
+        tag.putString("kybercolor", kyberCrystalBlockEntity.getColor().getName());
         stack.setTag(tag);
 
         return List.of(stack);
@@ -137,32 +137,32 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
 
         if (pStack.hasTag()) {
-            if (pStack.getTag() != null && pStack.getTag().contains("color")) {
+            if (pStack.getTag() != null && pStack.getTag().contains("kybercolor")) {
                 if (pStack.getItem() instanceof BlockItem blockItem) {
                     if (blockItem.getBlock() instanceof KyberCrystalBlock) {
-                        KyberCrystalColor color = getColor(pStack);
-                        if (color == KyberCrystalColor.AQUAMARINE) {
+                        KyberCrystalColor kybercolor = getColor(pStack);
+                        if (kybercolor == KyberCrystalColor.AQUAMARINE) {
                             pTooltip.add(Component.translatable("translation.empireofstars.aquamarine").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x7FFFD4))));
                         }
-                        if (color == KyberCrystalColor.BLACK) {
+                        if (kybercolor == KyberCrystalColor.BLACK) {
                             pTooltip.add(Component.translatable("translation.empireofstars.black").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x000000))));
                         }
-                        if (color == KyberCrystalColor.BLUE) {
+                        if (kybercolor == KyberCrystalColor.BLUE) {
                             pTooltip.add(Component.translatable("translation.empireofstars.blue").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x2E67F8))));
                         }
-                        if (color == KyberCrystalColor.GREEN) {
+                        if (kybercolor == KyberCrystalColor.GREEN) {
                             pTooltip.add(Component.translatable("translation.empireofstars.green").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x2FF924))));
                         }
-                        if (color == KyberCrystalColor.PURPLE) {
+                        if (kybercolor == KyberCrystalColor.PURPLE) {
                             pTooltip.add(Component.translatable("translation.empireofstars.purple").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0x730FF0))));
                         }
-                        if (color == KyberCrystalColor.RED) {
+                        if (kybercolor == KyberCrystalColor.RED) {
                             pTooltip.add(Component.translatable("translation.empireofstars.red").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xEB212E))));
                         }
-                        if (color == KyberCrystalColor.WHITE) {
+                        if (kybercolor == KyberCrystalColor.WHITE) {
                             pTooltip.add(Component.translatable("translation.empireofstars.white").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFFFFF))));
                         }
-                        if (color == KyberCrystalColor.YELLOW) {
+                        if (kybercolor == KyberCrystalColor.YELLOW) {
                             pTooltip.add(Component.translatable("translation.empireofstars.yellow").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(0xFFF738))));
                         }
                     }
@@ -179,11 +179,11 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
 
         if (tag == null) return;
 
-        if (tag.contains("Shards")) {
-            kyberCrystalBlockEntity.setShards(tag.getInt("Shards"));
+        if (tag.contains("shards")) {
+            kyberCrystalBlockEntity.setShards(tag.getInt("shards"));
         }
 
-        if (tag.contains("color")) {
+        if (tag.contains("kybercolor")) {
             kyberCrystalBlockEntity.setColor(getColor(pStack));
         }
     }
@@ -198,8 +198,8 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
         if (blockEntity instanceof KyberCrystalBlockEntity kyberCrystalBlockEntity) {
             CompoundTag tag = new CompoundTag();
 
-            tag.putString("color", kyberCrystalBlockEntity.getColor().getName());
-            tag.putInt("Shards", kyberCrystalBlockEntity.getShards());
+            tag.putString("kybercolor", kyberCrystalBlockEntity.getColor().getName());
+            tag.putInt("shards", kyberCrystalBlockEntity.getShards());
 
             stack.setTag(tag);
         }
@@ -217,8 +217,8 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
     }
 
     public KyberCrystalColor getColor(ItemStack pStack) {
-        if (pStack.getTag() != null && pStack.getTag().contains("color")) {
-            return KyberCrystalColor.fromSerialized(pStack.getTag().getString("color"));
+        if (pStack.getTag() != null && pStack.getTag().contains("kybercolor")) {
+            return KyberCrystalColor.fromSerialized(pStack.getTag().getString("kybercolor"));
         }
         return null;
     }

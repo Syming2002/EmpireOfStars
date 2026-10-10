@@ -56,28 +56,28 @@ public class EOSClientModEvent {
 
     @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
-        for (KyberCrystalColor color : KyberCrystalColor.values()) {
-            KyberCrystalShardItem kyberCrystalShardItem = EOSItem.KYBER_CRYSTAL_SHARD_TYPES.get(color).get();
-            event.register((pStack, pTintIndex) -> pTintIndex == 0 ? color.getColor() : 0xFFFFFFFF, kyberCrystalShardItem);
+        for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
+            KyberCrystalShardItem kyberCrystalShardItem = EOSItem.KYBER_CRYSTAL_SHARD_TYPES.get(kybercolor).get();
+            event.register((pStack, pTintIndex) -> pTintIndex == 0 ? kybercolor.getColor() : 0xFFFFFFFF, kyberCrystalShardItem);
         }
     }
 
     @SubscribeEvent
     public static void registerBlockEntitiesRenderer(EntityRenderersEvent.RegisterRenderers event) {
-        for (KyberCrystalColor color : KyberCrystalColor.values()) {
-            event.registerBlockEntityRenderer(EOSBlockEntity.KYBER_CRYSTAL_BLOCK_ENTITY_TYPES.get(color).get(), KyberCrystalBlockEntityRenderer::new);
+        for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
+            event.registerBlockEntityRenderer(EOSBlockEntity.KYBER_CRYSTAL_BLOCK_ENTITY_TYPES.get(kybercolor).get(), KyberCrystalBlockEntityRenderer::new);
         }
     }
 
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
-        for (KyberCrystalColor color : KyberCrystalColor.values()) {
+        for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
                 event.register((pState, pLevel, pBlockPos, pTintIndex) -> {
                     if (pState.getBlock() instanceof KyberCrystalBlock && pTintIndex == 0) {
-                        return color.getColor();
+                        return kybercolor.getColor();
                     }
                     return 0xFFFFFFFF;
-                }, EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get());
+                }, EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get());
         }
     }
 

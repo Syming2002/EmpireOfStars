@@ -20,7 +20,10 @@
     [],
     [],
     [
-      "minecraft:patch_dead_bush_2"
+      "minecraft:patch_dead_bush_2",
+      "minecraft:patch_sugar_cane_desert",
+      "minecraft:patch_pumpkin",
+      "minecraft:patch_cactus_desert"
     ]
   ],
   "has_precipitation": false,

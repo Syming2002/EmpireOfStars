@@ -18,15 +18,15 @@ public enum KyberCrystalColor implements StringRepresentable {
 
     private final float red, green, blue;
     private final String name;
-    private final int color;
+    private final int kybercolor;
 
-    KyberCrystalColor(String name, int color) {
+    KyberCrystalColor(String name, int kybercolor) {
         this.name = name;
-        this.color = color;
+        this.kybercolor = kybercolor;
 
-        this.red = ((color >> 16) & 0xFF) / 255.0F;
-        this.green = ((color >> 8) & 0xFF) / 255.0F;
-        this.blue = (color & 0xFF) / 255.0F;
+        this.red = ((kybercolor >> 16) & 0xFF) / 255.0F;
+        this.green = ((kybercolor >> 8) & 0xFF) / 255.0F;
+        this.blue = (kybercolor & 0xFF) / 255.0F;
     }
 
     public float getRed() {
@@ -46,7 +46,7 @@ public enum KyberCrystalColor implements StringRepresentable {
     }
 
     public int getColor() {
-        return this.color;
+        return this.kybercolor;
     }
 
     public static KyberCrystalColor fromSerialized(String name) {

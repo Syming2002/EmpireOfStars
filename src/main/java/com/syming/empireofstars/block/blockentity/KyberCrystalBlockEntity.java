@@ -9,13 +9,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class KyberCrystalBlockEntity extends BlockEntity {
-    private KyberCrystalColor color;
+    private KyberCrystalColor kybercolor;
     private int shards = 1;
 
     public KyberCrystalBlockEntity(BlockPos pPos, BlockState pBlockState, KyberCrystalColor pColor) {
         super(EOSBlockEntity.KYBER_CRYSTAL_BLOCK_ENTITY_TYPES.get(pColor).get(), pPos, pBlockState);
 
-        this.color = pColor;
+        this.kybercolor = pColor;
     }
 
     @Override
@@ -30,23 +30,23 @@ public class KyberCrystalBlockEntity extends BlockEntity {
     @Override
     public void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
-        tag.putInt("Shards", this.shards);
-        tag.putString("color", this.color.getName());
+        tag.putInt("shards", this.shards);
+        tag.putString("kybercolor", this.kybercolor.getName());
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
-        this.shards = tag.getInt("Shards");
-        this.color = KyberCrystalColor.fromSerialized(tag.getString("color"));
+        this.shards = tag.getInt("shards");
+        this.kybercolor = KyberCrystalColor.fromSerialized(tag.getString("kybercolor"));
     }
 
     public void setColor(KyberCrystalColor pColor) {
-        this.color = pColor;
+        this.kybercolor = pColor;
     }
 
     public KyberCrystalColor getColor() {
-        return this.color;
+        return this.kybercolor;
     }
 
     public int getShards() {

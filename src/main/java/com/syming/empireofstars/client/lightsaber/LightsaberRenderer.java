@@ -60,8 +60,8 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
             CompoundTag tag = pStack.getTag();
 
             if (LightsaberItem.isActive(pStack)) {
-                if (tag != null && tag.contains("color")) {
-                    KyberCrystalColor kyberCrystalColor = lightsaberItem.getColor(pStack);
+                if (tag != null && tag.contains("kybercolor")) {
+                    KyberCrystalColor kyberCrystalColor = lightsaberItem.getKyberColor(pStack);
 
                     pPoseStack.pushPose();
 

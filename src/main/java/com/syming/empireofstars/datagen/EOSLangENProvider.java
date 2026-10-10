@@ -25,78 +25,36 @@ public class EOSLangENProvider extends LanguageProvider {
     protected void addTranslations() {
         for (RegistryObject<Item> item : EOSItem.ITEMS.getEntries()) {
             if (item.getId() != null) {
-                addItem(item, getItemDisplayName(item));
+                addItem(item, getDisplayNameFromResourceLocation(item.getId()));
             }
         }
 
-        for (KyberCrystalColor color : KyberCrystalColor.values()) {
-            add("translation.empireofstars." + color.getSerializedName(), color.getSerializedName().substring(0, 1).toUpperCase() + color.getSerializedName().substring(1));
+        add("creativetab." + EmpireOfStarsMod.MOD_ID + "_tab", "Empire Of Stars");
+
+        for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
+            add("kybercolor.empireofstars." + kybercolor.getSerializedName(), kybercolor.getSerializedName().substring(0, 1).toUpperCase() + kybercolor.getSerializedName().substring(1));
         }
 
         for (RegistryObject<EntityType<?>> entity : EOSEntity.ENTITY_TYPES.getEntries()) {
             if (entity.getId() != null) {
-                addEntityType(entity, getEntityDisplayName(entity.getId()));
+                addEntityType(entity, getDisplayNameFromResourceLocation(entity.getId()));
             }
         }
 
         // Biomes
-
         for (ResourceKey<Biome> biome : EOSBiome.EOS_BIOMES_LIST) {
-            add("biome" + '.' + EmpireOfStarsMod.MOD_ID + '.' + biome.location().getPath(), getBiomeDisplayName(biome.location()));
+            add("biome" + '.' + EmpireOfStarsMod.MOD_ID + '.' + biome.location().getPath(), getDisplayNameFromResourceLocation(biome.location()));
         }
 
         // Sounds
-
         for (RegistryObject<SoundEvent> sound : EOSSound.SOUNDS.getEntries()) {
             if (sound.getId() != null) {
-                add("sounds.empireofstars" + '.' + sound.get().getLocation().getPath(), getSoundDisplayName(sound.getId()));
+                add("sounds.empireofstars" + '.' + sound.get().getLocation().getPath(), getDisplayNameFromResourceLocation(sound.getId()));
             }
         }
     }
 
-    private String getItemDisplayName(RegistryObject<Item> item) {
-        String raw = item.getId().getPath();
-        String[] parts = raw.split("_");
-        StringBuilder builder = new StringBuilder();
-
-        for (String part : parts) {
-            if (!builder.isEmpty()) builder.append(' ');
-            builder.append(Character.toUpperCase(part.charAt(0)))
-                    .append(part.substring(1));
-        }
-
-        return builder.toString();
-    }
-
-    private String getEntityDisplayName(ResourceLocation id) {
-        String raw = id.getPath();
-        String[] parts = raw.split("_");
-        StringBuilder builder = new StringBuilder();
-
-        for (String part : parts) {
-            if (!builder.isEmpty()) builder.append(' ');
-            builder.append(Character.toUpperCase(part.charAt(0)))
-                    .append(part.substring(1));
-        }
-
-        return builder.toString();
-    }
-
-    private String getBiomeDisplayName(ResourceLocation id) {
-        String raw = id.getPath();
-        String[] parts = raw.split("_");
-        StringBuilder builder = new StringBuilder();
-
-        for (String part : parts) {
-            if (!builder.isEmpty()) builder.append(' ');
-            builder.append(Character.toUpperCase(part.charAt(0)))
-                    .append(part.substring(1));
-        }
-
-        return builder.toString();
-    }
-
-    private String getSoundDisplayName(ResourceLocation id) {
+    private String getDisplayNameFromResourceLocation(ResourceLocation id) {
         String raw = id.getPath();
         String[] parts = raw.split("_");
         StringBuilder builder = new StringBuilder();

@@ -329,7 +329,7 @@
     }
   },
   "ore_veins_enabled": true,
-  "sea_level": -64,
+  "sea_level": 63,
   "spawn_target": [
     {
       "continentalness": [
@@ -484,6 +484,18 @@
               }
             }
           ]
+        }
+      },
+      {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:biome",
+          "biome_is": [
+            "empireofstars:tatooine_canyon"
+          ]
+        },
+        "then_run": {
+          "type": "minecraft:bandlands"
         }
       },
       {

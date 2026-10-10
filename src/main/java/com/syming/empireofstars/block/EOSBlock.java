@@ -33,8 +33,8 @@ public class EOSBlock {
     public static final Map<KyberCrystalColor, RegistryObject<Block>> KYBER_CRYSTAL_TYPES = new HashMap<>();
 
     static {
-        for (KyberCrystalColor color : KyberCrystalColor.values()) {
-            KYBER_CRYSTAL_TYPES.put(color, registerKyberCrystalBlock(color, () -> new KyberCrystalBlock(color)));
+        for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
+            KYBER_CRYSTAL_TYPES.put(kybercolor, registerKyberCrystalBlock(kybercolor, () -> new KyberCrystalBlock(kybercolor)));
         }
     }
 
@@ -50,9 +50,9 @@ public class EOSBlock {
         return blockToRegister;
     }
 
-    private static <T extends Block> RegistryObject<T> registerKyberCrystalBlock(KyberCrystalColor color, Supplier<T> block) {
-        RegistryObject<T> blockToRegister = BLOCKS.register(color.getSerializedName() + '_' + "kyber_crystal", block);
-        registerBlockItemKyberCrystal(color, blockToRegister);
+    private static <T extends Block> RegistryObject<T> registerKyberCrystalBlock(KyberCrystalColor kybercolor, Supplier<T> block) {
+        RegistryObject<T> blockToRegister = BLOCKS.register(kybercolor.getSerializedName() + '_' + "kyber_crystal", block);
+        registerBlockItemKyberCrystal(kybercolor, blockToRegister);
         return blockToRegister;
     }
 
@@ -60,8 +60,8 @@ public class EOSBlock {
         return EOSItem.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
-    private static <T extends Block> RegistryObject<Item> registerBlockItemKyberCrystal(KyberCrystalColor color, RegistryObject<T> block) {
-        return EOSItem.ITEMS.register(color.getSerializedName() + '_' + "kyber_crystal", () -> new BlockItem(block.get(), new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)) {
+    private static <T extends Block> RegistryObject<Item> registerBlockItemKyberCrystal(KyberCrystalColor kybercolor, RegistryObject<T> block) {
+        return EOSItem.ITEMS.register(kybercolor.getSerializedName() + '_' + "kyber_crystal", () -> new BlockItem(block.get(), new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)) {
             @Override
             public void initializeClient(Consumer<IClientItemExtensions> consumer) {
                 consumer.accept(new IClientItemExtensions() {

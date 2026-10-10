@@ -6,12 +6,24 @@
       "type": "minecraft:multi_noise",
       "biomes": [
         {
+          "biome": "empireofstars:tatooine_canyon",
+          "parameters": {
+            "continentalness": 0.5,
+            "depth": 0.0,
+            "erosion": -0.5,
+            "humidity": 0.0,
+            "offset": 0.0,
+            "temperature": 0.8,
+            "weirdness": 0.5
+          }
+        },
+        {
           "biome": "empireofstars:tatooine_desert",
           "parameters": {
             "continentalness": 0.0,
             "depth": 0.0,
             "erosion": 0.0,
-            "humidity": 0.2,
+            "humidity": 0.0,
             "offset": 0.0,
             "temperature": 0.8,
             "weirdness": 0.0

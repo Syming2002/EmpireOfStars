@@ -25,8 +25,8 @@
         {
           "Name": "empireofstars:blue_kyber_crystal",
           "Properties": {
-            "color": "blue",
             "facing": "up",
+            "kybercolor": "blue",
             "shards": "1"
           }
         }

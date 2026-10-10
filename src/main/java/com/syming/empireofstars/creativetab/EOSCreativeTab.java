@@ -30,7 +30,7 @@ public class EOSCreativeTab {
                             ItemStack standard = new ItemStack(EOSItem.LIGHTSABER_TYPES.get(type).get());
                             LightsaberItem.setColor(standard, KyberCrystalColor.BLUE);
                             standard.setTag(new CompoundTag());
-                            standard.getTag().putString("color", KyberCrystalColor.BLUE.getSerializedName());
+                            standard.getTag().putString("kybercolor", KyberCrystalColor.BLUE.getSerializedName());
                             standard.getTag().putString("type", LightsaberTypeBlade.SINGLE.toString());
                             standard.getTag().putBoolean("active", true);
                             return standard;
@@ -46,25 +46,25 @@ public class EOSCreativeTab {
                         output.accept(EOSBlock.TATOOINE_SAND.get());
                         output.accept(EOSBlock.TATOOINE_SANDSTONE.get());
 
-                        for (KyberCrystalColor color : KyberCrystalColor.values()) {
+                        for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
                             for (int shardCount = 1; shardCount <= 5; shardCount++) {
-                                ItemStack kyberCrystal = new ItemStack(EOSBlock.KYBER_CRYSTAL_TYPES.get(color).get());
+                                ItemStack kyberCrystal = new ItemStack(EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get());
 
                                 CompoundTag tag = new CompoundTag();
-                                tag.putString("color", color.getSerializedName());
-                                tag.putInt("Shards", shardCount);
+                                tag.putString("kybercolor", kybercolor.getSerializedName());
+                                tag.putInt("shards", shardCount);
 
                                 kyberCrystal.setTag(tag);
 
                                 output.accept(kyberCrystal);
                             }
 
-                            output.accept(EOSItem.KYBER_CRYSTAL_SHARD_TYPES.get(color).get());
+                            output.accept(EOSItem.KYBER_CRYSTAL_SHARD_TYPES.get(kybercolor).get());
 
                             for (LightsaberType type : LightsaberType.values()) {
                                 ItemStack standard = new ItemStack(EOSItem.LIGHTSABER_TYPES.get(type).get());
                                 standard.setTag(new CompoundTag());
-                                standard.getTag().putString("color", color.getSerializedName());
+                                standard.getTag().putString("kybercolor", kybercolor.getSerializedName());
                                 standard.getTag().putString("type", LightsaberTypeBlade.SINGLE.toString());
                                 standard.getTag().putBoolean("active", false);
                                 output.accept(standard);
