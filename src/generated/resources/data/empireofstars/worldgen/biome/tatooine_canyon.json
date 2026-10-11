@@ -11,23 +11,7 @@
     "water_color": 4159204,
     "water_fog_color": 4159204
   },
-  "features": [
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [
-      "minecraft:patch_dead_bush_2",
-      "minecraft:patch_sugar_cane_desert",
-      "minecraft:patch_pumpkin",
-      "minecraft:patch_cactus_desert"
-    ]
-  ],
+  "features": [],
   "has_precipitation": false,
   "spawn_costs": {},
   "spawners": {
@@ -42,7 +26,14 @@
       }
     ],
     "misc": [],
-    "monster": [],
+    "monster": [
+      {
+        "type": "minecraft:husk",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 80
+      }
+    ],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

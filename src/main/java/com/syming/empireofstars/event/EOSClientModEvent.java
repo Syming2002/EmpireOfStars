@@ -20,6 +20,7 @@ import com.syming.empireofstars.client.lightsaber.StandardLightsaberModel;
 import com.syming.empireofstars.entity.EOSEntity;
 import com.syming.empireofstars.item.EOSItem;
 import com.syming.empireofstars.item.KyberCrystalShardItem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -37,6 +38,13 @@ public class EOSClientModEvent {
     public static void clientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             ItemBlockRenderTypes.setRenderLayer(EOSBlock.SARLACC_SPEAR_TOOTH.get(), RenderType.cutout());
+
+            Minecraft.getInstance().getItemColors().register((pStack, pTintIndex) -> {
+                        if ((pStack.getItem() == EOSItem.SARLACC_STOMACH_ACID_BUCKET.get() || pStack.getItem() == EOSBlock.SARLACC_STOMACH_ACID_BLOCK.get().asItem()) && pTintIndex == 1) {
+                            return 0xFFB7D62B;
+                        }
+                        return 0xFFFFFFFF;
+                    }, EOSItem.SARLACC_STOMACH_ACID_BUCKET.get(), EOSBlock.SARLACC_STOMACH_ACID_BLOCK.get().asItem());
         });
     }
 

@@ -77,6 +77,9 @@ public class EOSCreativeTab {
                                 output.accept(spawnEggItem);
                             }
                         }
+
+                        // Bucket Items
+                        output.accept(EOSItem.SARLACC_STOMACH_ACID_BUCKET.get());
                     })
                     .build());
 

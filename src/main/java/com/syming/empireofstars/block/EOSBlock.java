@@ -1,7 +1,9 @@
 package com.syming.empireofstars.block;
 
 import com.syming.empireofstars.EmpireOfStarsMod;
+import com.syming.empireofstars.block.liquidblock.SarlaccStomachAcidLiquidBlock;
 import com.syming.empireofstars.client.kybercrystal.KyberCrystalItemRenderer;
+import com.syming.empireofstars.fluid.EOSFluid;
 import com.syming.empireofstars.item.EOSItem;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.item.BlockItem;
@@ -9,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -40,6 +43,8 @@ public class EOSBlock {
 
     public static final RegistryObject<Block> SARLACC_SPEAR_TOOTH = registerBlock("sarlacc_spear_tooth", () -> new SarlaccSpearToothBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).noOcclusion().sound(SoundType.POINTED_DRIPSTONE).randomTicks().strength(1.5F, 3.0F).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY).isRedstoneConductor(((pState, pLevel, pPos) -> false))));
 
+    public static final RegistryObject<LiquidBlock> SARLACC_STOMACH_ACID_BLOCK = registerLiquidBlock("sarlacc_stomach_acid_block", () -> new SarlaccStomachAcidLiquidBlock(BlockBehaviour.Properties.copy(Blocks.WATER)));
+
     public static final RegistryObject<Block> TATOOINE_SAND = registerBlock("tatooine_sand", () -> new TatooineSandBlock(0xE2B266, BlockBehaviour.Properties.copy(Blocks.SAND)));
 
     public static final RegistryObject<Block> TATOOINE_SANDSTONE = registerBlock("tatooine_sandstone", () -> new TatooineSandstoneBlock(BlockBehaviour.Properties.copy(Blocks.SANDSTONE)));
@@ -55,6 +60,11 @@ public class EOSBlock {
         registerBlockItemKyberCrystal(kybercolor, blockToRegister);
         return blockToRegister;
     }
+
+    private static <T extends Block> RegistryObject<T> registerLiquidBlock(String name, Supplier<T> block) {
+        return BLOCKS.register(name, block);
+    }
+
 
     private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
         return EOSItem.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));

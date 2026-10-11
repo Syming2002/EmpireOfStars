@@ -36,7 +36,7 @@ public class EOSSurfaceRuleData {
                 ),
 
                 SurfaceRules.ifTrue(
-                        SurfaceRules.isBiome(EOSBiome.TATOOINE_DESERT, EOSBiome.TATOOINE_CANYON),
+                        SurfaceRules.isBiome(EOSBiome.TATOOINE_DESERT),
                         SurfaceRules.sequence(
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.ON_FLOOR,
@@ -45,6 +45,24 @@ public class EOSSurfaceRuleData {
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.UNDER_FLOOR,
                                         SurfaceRules.state(EOSBlock.TATOOINE_SAND.get().defaultBlockState())
+                                ),
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.DEEP_UNDER_FLOOR,
+                                        SurfaceRules.state(EOSBlock.TATOOINE_SANDSTONE.get().defaultBlockState())
+                                )
+                        )
+                ),
+
+                SurfaceRules.ifTrue(
+                        SurfaceRules.isBiome(EOSBiome.TATOOINE_CANYON),
+                        SurfaceRules.sequence(
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.ON_FLOOR,
+                                        SurfaceRules.state(EOSBlock.TATOOINE_SANDSTONE.get().defaultBlockState())
+                                ),
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.UNDER_FLOOR,
+                                        SurfaceRules.state(EOSBlock.TATOOINE_SANDSTONE.get().defaultBlockState())
                                 ),
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.DEEP_UNDER_FLOOR,

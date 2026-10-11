@@ -3,9 +3,12 @@ package com.syming.empireofstars.item;
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.entity.EOSEntity;
+import com.syming.empireofstars.fluid.EOSFluid;
 import com.syming.empireofstars.item.lightsaber.LightsaberItem;
 import com.syming.empireofstars.item.lightsaber.LightsaberType;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -36,6 +39,10 @@ public class EOSItem {
             KYBER_CRYSTAL_SHARD_TYPES.put(kybercolor, ITEMS.register(kybercolor.name().toLowerCase(Locale.ROOT) + '_' + "kyber_crystal_shard", KyberCrystalShardItem::new));
         }
     }
+
+    // Bucket Items
+    public static final RegistryObject<Item> SARLACC_STOMACH_ACID_BUCKET = ITEMS.register("sarlacc_stomach_acid_bucket",
+            () -> new BucketItem(EOSFluid.SOURCE_SARLACC_STOMACH_ACID.get(), new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
 
     // Spawn Egg

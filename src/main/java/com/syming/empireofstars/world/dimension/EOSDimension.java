@@ -94,9 +94,12 @@ public class EOSDimension {
                                 List.of(
                                         Pair.of(
                                                 Climate.parameters(
-                                                        0.8F, 0.0F,
-                                                        Climate.Parameter.span(0.3F, 1.0F), -0.5F,
-                                                        0.0F, 0.2F,
+                                                        Climate.Parameter.span(0.55F, 1.0F),
+                                                        Climate.Parameter.span(-1.0F, -0.35F),
+                                                        Climate.Parameter.span(0.2F, 1.0F),
+                                                        Climate.Parameter.span(-1.0F, -0.375F),
+                                                        Climate.Parameter.point(0.0F),
+                                                        Climate.Parameter.span(-1.0F, 1.0F),
                                                         0.0F
                                                 ),
                                                 biomeHolderGetter.getOrThrow(
@@ -105,9 +108,12 @@ public class EOSDimension {
                                         ),
                                         Pair.of(
                                                 Climate.parameters(
-                                                        0.8F, 0.0F,
-                                                        0.0F, 0.0F,
-                                                        0.0F, 0.0F,
+                                                        Climate.Parameter.span(0.55F, 1.0F),
+                                                        Climate.Parameter.span(-1.0F, -0.35F),
+                                                        Climate.Parameter.span(-0.11F, 1.0F),
+                                                        Climate.Parameter.span(-0.375F, 1.0F),
+                                                        Climate.Parameter.point(0.0F),
+                                                        Climate.Parameter.span(-1.0F, 1.0F),
                                                         0.0F
                                                 ),
                                                 biomeHolderGetter.getOrThrow(

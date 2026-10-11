@@ -5,6 +5,8 @@ import com.syming.empireofstars.block.blockentity.EOSBlockEntity;
 import com.syming.empireofstars.creativetab.EOSCreativeTab;
 import com.syming.empireofstars.entity.EOSEntity;
 import com.syming.empireofstars.entity.animal.BanthaEntity;
+import com.syming.empireofstars.fluid.EOSFluid;
+import com.syming.empireofstars.fluid.EOSFluidType;
 import com.syming.empireofstars.item.EOSItem;
 import com.syming.empireofstars.network.EOSPacketHandler;
 import com.syming.empireofstars.sound.EOSSound;
@@ -35,6 +37,8 @@ public class EmpireOfStarsMod {
         EOSCreativeTab.register(modEventBus);
         EOSEntity.register(modEventBus);
         EOSFeature.register(modEventBus);
+        EOSFluid.register(modEventBus);
+        EOSFluidType.register(modEventBus);
         EOSItem.register(modEventBus);
 //        EOSStructurePlacement.register(modEventBus);
 //        EOSStructureProcessor.register(modEventBus);

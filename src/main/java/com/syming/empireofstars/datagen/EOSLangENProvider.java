@@ -3,6 +3,7 @@ package com.syming.empireofstars.datagen;
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.entity.EOSEntity;
+import com.syming.empireofstars.fluid.EOSFluidType;
 import com.syming.empireofstars.item.EOSItem;
 import com.syming.empireofstars.sound.EOSSound;
 import com.syming.empireofstars.world.biome.EOSBiome;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.registries.RegistryObject;
 
 public class EOSLangENProvider extends LanguageProvider {
@@ -30,6 +32,12 @@ public class EOSLangENProvider extends LanguageProvider {
         }
 
         add("creativetab." + EmpireOfStarsMod.MOD_ID + "_tab", "Empire Of Stars");
+
+        for (RegistryObject<FluidType> fluidType : EOSFluidType.FLUID_TYPES.getEntries()) {
+            if (fluidType.getId() != null) {
+                add("fluid" + '_' + "type" + '.' + EmpireOfStarsMod.MOD_ID + '.' + fluidType.getId().getPath(), getDisplayNameFromResourceLocation(fluidType.getId()));
+            }
+        }
 
         for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
             add("kybercolor.empireofstars." + kybercolor.getSerializedName(), kybercolor.getSerializedName().substring(0, 1).toUpperCase() + kybercolor.getSerializedName().substring(1));

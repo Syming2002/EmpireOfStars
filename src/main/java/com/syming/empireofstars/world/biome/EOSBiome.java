@@ -9,9 +9,11 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.Carvers;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.dimension.DimensionType;
@@ -53,8 +55,7 @@ public class EOSBiome {
 
         spawnSettings.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EOSEntity.BANTHA.get(), 25, 1, 2));
 
-        BiomeDefaultFeatures.addDesertVegetation(biomeGenerationSettings);
-        BiomeDefaultFeatures.addDesertExtraVegetation(biomeGenerationSettings);
+        spawnSettings.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.HUSK, 80, 4, 4));
 
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(false)
@@ -80,7 +81,8 @@ public class EOSBiome {
         spawnSettings.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EOSEntity.BANTHA.get(), 25, 1, 2));
 
         BiomeDefaultFeatures.addDesertVegetation(biomeGenerationSettings);
-        BiomeDefaultFeatures.addDesertExtraVegetation(biomeGenerationSettings);
+
+        spawnSettings.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.HUSK, 80, 4, 4));
 
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(false)
