@@ -46,7 +46,6 @@ public class EOSRenderType extends RenderStateShard {
                 .setOverlayState(RenderStateShard.NO_OVERLAY)
                 .setWriteMaskState(RenderStateShard.COLOR_WRITE)
                 .setDepthTestState(new DepthTestStateShard("lequal_depth", 515))
-//                .setOutputState(EOSRenderState.TRANSLUCENT_TARGET)
                 .createCompositeState(false);
 
         return RenderType.create("lightsaber_outer",

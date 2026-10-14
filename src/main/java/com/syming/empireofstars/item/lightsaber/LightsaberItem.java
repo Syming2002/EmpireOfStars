@@ -2,24 +2,16 @@ package com.syming.empireofstars.item.lightsaber;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.syming.empireofstars.block.KyberCrystalBlock;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.client.lightsaber.LightsaberRenderer;
-import com.syming.empireofstars.network.ActiveLightsaber;
-import com.syming.empireofstars.network.EOSPacketHandler;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
@@ -82,31 +74,34 @@ public class LightsaberItem extends Item {
             if (pStack.getTag() != null && pStack.getTag().contains("kybercolor")) {
                 KyberCrystalColor kybercolor = getKyberColor(pStack);
                 if (kybercolor == KyberCrystalColor.AQUAMARINE) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.aquamarine").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.AQUAMARINE.getColor()))));
+                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.aquamarine").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
                 }
                 if (kybercolor == KyberCrystalColor.BLACK) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.black").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.BLACK.getColor()))));
+                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.black").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
                 }
                 if (kybercolor == KyberCrystalColor.BLUE) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.blue").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.BLUE.getColor()))));
+                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.blue").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
                 }
                 if (kybercolor == KyberCrystalColor.GREEN) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.green").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.GREEN.getColor()))));
+                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.green").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
+                }
+                if (kybercolor == KyberCrystalColor.ORANGE) {
+                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.orange").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
                 }
                 if (kybercolor == KyberCrystalColor.PINK) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.pink").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.PINK.getColor()))));
+                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.pink").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
                 }
                 if (kybercolor == KyberCrystalColor.PURPLE) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.purple").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.PURPLE.getColor()))));
+                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.purple").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
                 }
                 if (kybercolor == KyberCrystalColor.RED) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.red").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.RED.getColor()))));
+                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.red").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
                 }
                 if (kybercolor == KyberCrystalColor.WHITE) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.white").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.WHITE.getColor()))));
+                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.white").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
                 }
                 if (kybercolor == KyberCrystalColor.YELLOW) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.yellow").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.YELLOW.getColor()))));
+                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.yellow").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
                 }
             }
         }
@@ -125,7 +120,7 @@ public class LightsaberItem extends Item {
         return this.attackSpeed;
     }
 
-    public static void setColor(ItemStack pStack, KyberCrystalColor pColor) {
+    public static void setKyberColor(ItemStack pStack, KyberCrystalColor pColor) {
         pStack.getOrCreateTag().putString("kybercolor", pColor.getSerializedName().toUpperCase(Locale.ROOT));
     }
 

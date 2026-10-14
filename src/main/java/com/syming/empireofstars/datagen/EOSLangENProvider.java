@@ -40,7 +40,7 @@ public class EOSLangENProvider extends LanguageProvider {
         }
 
         for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
-            add("kybercolor.empireofstars." + kybercolor.getSerializedName(), kybercolor.getSerializedName().substring(0, 1).toUpperCase() + kybercolor.getSerializedName().substring(1));
+            add("kybercolor.empireofstars." + kybercolor.getSerializedName(), getKyberColorDisplayName(kybercolor));
         }
 
         for (RegistryObject<EntityType<?>> entity : EOSEntity.ENTITY_TYPES.getEntries()) {
@@ -64,6 +64,20 @@ public class EOSLangENProvider extends LanguageProvider {
 
     private String getDisplayNameFromResourceLocation(ResourceLocation id) {
         String raw = id.getPath();
+        String[] parts = raw.split("_");
+        StringBuilder builder = new StringBuilder();
+
+        for (String part : parts) {
+            if (!builder.isEmpty()) builder.append(' ');
+            builder.append(Character.toUpperCase(part.charAt(0)))
+                    .append(part.substring(1));
+        }
+
+        return builder.toString();
+    }
+
+    private String getKyberColorDisplayName(KyberCrystalColor kybercolor) {
+        String raw = kybercolor.getSerializedName();
         String[] parts = raw.split("_");
         StringBuilder builder = new StringBuilder();
 

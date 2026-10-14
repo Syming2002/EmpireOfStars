@@ -9,6 +9,7 @@ public enum KyberCrystalColor implements StringRepresentable {
     BLACK("black", 0x000000),
     BLUE("blue",0x2E67F8),
     GREEN("green",0x2FF924),
+    ORANGE("orange", 0xFF7F00),
     PINK("pink",0xF4D4E1),
     PURPLE("purple", 0x730FF0),
     RED("red",0xEB212E),

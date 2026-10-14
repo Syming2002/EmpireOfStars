@@ -28,7 +28,7 @@ public class EOSCreativeTab {
                     .icon(() -> {
                         for (LightsaberType type : LightsaberType.values()) {
                             ItemStack standard = new ItemStack(EOSItem.LIGHTSABER_TYPES.get(type).get());
-                            LightsaberItem.setColor(standard, KyberCrystalColor.BLUE);
+                            LightsaberItem.setKyberColor(standard, KyberCrystalColor.BLUE);
                             standard.setTag(new CompoundTag());
                             standard.getTag().putString("kybercolor", KyberCrystalColor.BLUE.getSerializedName());
                             standard.getTag().putString("type", LightsaberTypeBlade.SINGLE.toString());
@@ -59,7 +59,12 @@ public class EOSCreativeTab {
                                 output.accept(kyberCrystal);
                             }
 
-                            output.accept(EOSItem.KYBER_CRYSTAL_SHARD_TYPES.get(kybercolor).get());
+                            ItemStack kyberShard = new ItemStack(EOSItem.KYBER_CRYSTAL_SHARD_TYPES.get(kybercolor).get());
+                            CompoundTag tag = new CompoundTag();
+                            tag.putString("kybercolor", kybercolor.getSerializedName());
+                            kyberShard.setTag(tag);
+                            output.accept(kyberShard);
+
 
                             for (LightsaberType type : LightsaberType.values()) {
                                 ItemStack standard = new ItemStack(EOSItem.LIGHTSABER_TYPES.get(type).get());
