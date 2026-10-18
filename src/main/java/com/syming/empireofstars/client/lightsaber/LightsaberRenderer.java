@@ -22,7 +22,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
-import static net.minecraft.world.item.ItemDisplayContext.FIRST_PERSON_RIGHT_HAND;
 
 @OnlyIn(Dist.CLIENT)
 public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
@@ -60,8 +59,12 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
             CompoundTag tag = pStack.getTag();
 
             if (LightsaberItem.isActive(pStack)) {
-                if (tag != null && tag.contains("kybercolor")) {
-                    KyberCrystalColor kyberCrystalColor = lightsaberItem.getKyberColor(pStack);
+                if (tag != null && tag.contains("kybercolorCode")) {
+                    int kyberCrystalColor = KyberCrystalColor.getKyberColorCodeFromStack(pStack);
+
+                    int red   = (kyberCrystalColor >> 16) & 0xFF;
+                    int green = (kyberCrystalColor >> 8) & 0xFF;
+                    int blue  = kyberCrystalColor & 0xFF;
 
                     pPoseStack.pushPose();
 
@@ -94,7 +97,7 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
 
                     RenderType glowType = EOSRenderType.lightsaberOuter();
                     VertexConsumer outer = pBuffer.getBuffer(glowType);
-                    this.bladeModel.renderOuter(pPoseStack, outer, pPackedLight, NO_OVERLAY, kyberCrystalColor.getRed(), kyberCrystalColor.getGreen(), kyberCrystalColor.getBlue());
+                    this.bladeModel.renderOuter(pPoseStack, outer, pPackedLight, NO_OVERLAY, red / 255.0F, green / 255.0F, blue / 255.0F);
 
                     RenderType solidType = EOSRenderType.lightsaberInner();
                     VertexConsumer inner = pBuffer.getBuffer(solidType);

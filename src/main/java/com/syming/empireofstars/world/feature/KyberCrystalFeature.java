@@ -42,21 +42,20 @@ public class KyberCrystalFeature extends Feature<NoneFeatureConfiguration> {
                 if (neighborState.isSolid()) {
                     Direction facing = dir.getOpposite();
 
-                    KyberCrystalColor kybercolor =
-                            KyberCrystalColor.values()[randomSource.nextInt(KyberCrystalColor.values().length)];
+                    KyberCrystalColor kyberColor = KyberCrystalColor.values()[randomSource.nextInt(KyberCrystalColor.values().length)];
 
                     int shards = 1 + randomSource.nextInt(5);
 
-                    BlockState crystalState = EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get()
+                    BlockState crystalState = EOSBlock.KYBER_CRYSTAL_TYPES.get(kyberColor).get()
                             .defaultBlockState()
                             .setValue(KyberCrystalBlock.FACING, facing)
-                            .setValue(KyberCrystalBlock.COLOR, kybercolor)
+                            .setValue(KyberCrystalBlock.COLOR, kyberColor)
                             .setValue(KyberCrystalBlock.SHARDS, shards);
 
                     worldGenLevel.setBlock(pos, crystalState, 3);
 
                     if (worldGenLevel.getBlockEntity(pos) instanceof KyberCrystalBlockEntity kyberCrystalBlockEntity) {
-                        kyberCrystalBlockEntity.setColor(kybercolor);
+                        kyberCrystalBlockEntity.setColor(kyberColor);
                         kyberCrystalBlockEntity.setShards(shards);
                     }
                     break;

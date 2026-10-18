@@ -32,13 +32,7 @@ public class EOSItem {
         }
     }
 
-    public static final Map<KyberCrystalColor, RegistryObject<KyberCrystalShardItem>> KYBER_CRYSTAL_SHARD_TYPES = new HashMap<>();
-
-    static {
-        for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
-            KYBER_CRYSTAL_SHARD_TYPES.put(kybercolor, ITEMS.register(kybercolor.name().toLowerCase(Locale.ROOT) + '_' + "kyber_crystal_shard", KyberCrystalShardItem::new));
-        }
-    }
+    public static final RegistryObject<KyberCrystalShardItem> KYBER_CRYSTAL_SHARD = ITEMS.register("kyber_crystal_shard", KyberCrystalShardItem::new);
 
     // Bucket Items
     public static final RegistryObject<Item> SARLACC_STOMACH_ACID_BUCKET = ITEMS.register("sarlacc_stomach_acid_bucket",

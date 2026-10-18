@@ -2,7 +2,6 @@ package com.syming.empireofstars.block;
 
 import com.syming.empireofstars.block.blockentity.KyberCrystalBlockEntity;
 import com.syming.empireofstars.item.EOSItem;
-import com.syming.empireofstars.item.KyberCrystalShardItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -19,7 +18,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -52,9 +50,9 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
     protected final VoxelShape eastShape;
     protected final VoxelShape westShape;
 
-    public KyberCrystalBlock(KyberCrystalColor pColor) {
+    public KyberCrystalBlock() {
         super(Properties.copy(Blocks.AMETHYST_BLOCK).requiresCorrectToolForDrops());
-        this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.UP).setValue(COLOR, pColor));
+        this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.UP));
 
         this.upShape = Block.box(5.5D, 0.0D, 5.5D, 10.5D, 8.0D, 10.5D);
         this.downShape = Block.box(5.5D, 8.0D, 5.5D, 10.5D, 16.0D, 10.5D);
@@ -122,11 +120,11 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
         int totalShards = kyberCrystalBlockEntity.getShards();
         if (totalShards <= 0) return Collections.emptyList();
 
-        Item shardItem = EOSItem.KYBER_CRYSTAL_SHARD_TYPES.get(kyberCrystalBlockEntity.getColor()).get();
+        Item shardItem = EOSItem.KYBER_CRYSTAL_SHARD.get();
         ItemStack stack = new ItemStack(shardItem, totalShards);
 
         CompoundTag tag = new CompoundTag();
-        tag.putString("kybercolor", kyberCrystalBlockEntity.getColor().getName());
+        tag.putString("kybercolorName", kyberCrystalBlockEntity.getKyberColor().getSerializedName());
         stack.setTag(tag);
 
         return List.of(stack);
@@ -137,40 +135,17 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
 
         if (pStack.hasTag()) {
-            if (pStack.getTag() != null && pStack.getTag().contains("kybercolor")) {
+            if (pStack.getTag() != null && pStack.getTag().contains("kybercolorName")) {
                 if (pStack.getItem() instanceof BlockItem blockItem) {
                     if (blockItem.getBlock() instanceof KyberCrystalBlock) {
-                        KyberCrystalColor kybercolor = getColor(pStack);
-                        if (kybercolor == KyberCrystalColor.AQUAMARINE) {
-                            pTooltip.add(Component.translatable("kybercolor.empireofstars.aquamarine").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
-                        }
-                        if (kybercolor == KyberCrystalColor.BLACK) {
-                            pTooltip.add(Component.translatable("kybercolor.empireofstars.black").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
-                        }
-                        if (kybercolor == KyberCrystalColor.BLUE) {
-                            pTooltip.add(Component.translatable("kybercolor.empireofstars.blue").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
-                        }
-                        if (kybercolor == KyberCrystalColor.GREEN) {
-                            pTooltip.add(Component.translatable("kybercolor.empireofstars.green").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
-                        }
-                        if (kybercolor == KyberCrystalColor.ORANGE) {
-                            pTooltip.add(Component.translatable("kybercolor.empireofstars.orange").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
-                        }
-                        if (kybercolor == KyberCrystalColor.PINK) {
-                            pTooltip.add(Component.translatable("kybercolor.empireofstars.pink").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
-                        }
-                        if (kybercolor == KyberCrystalColor.PURPLE) {
-                            pTooltip.add(Component.translatable("kybercolor.empireofstars.purple").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
-                        }
-                        if (kybercolor == KyberCrystalColor.RED) {
-                            pTooltip.add(Component.translatable("kybercolor.empireofstars.red").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
-                        }
-                        if (kybercolor == KyberCrystalColor.WHITE) {
-                            pTooltip.add(Component.translatable("kybercolor.empireofstars.white").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
-                        }
-                        if (kybercolor == KyberCrystalColor.YELLOW) {
-                            pTooltip.add(Component.translatable("kybercolor.empireofstars.yellow").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kybercolor.getColor()))));
-                        }
+                        KyberCrystalColor kyberColor = KyberCrystalColor.getKyberColorNameFromStack(pStack);
+                        String hex = String.format(Locale.ROOT, "#%06X", kyberColor.getKyberColor());
+                        pTooltip.add(Component.translatable("kybercolor.empireofstars").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kyberColor.getKyberColor())))
+                                .append(Component.literal(hex)
+                                        .withStyle(style ->
+                                                style.withColor(TextColor.fromRgb(kyberColor.getKyberColor()))
+                                        )
+                                ));
                     }
                 }
             }
@@ -189,28 +164,31 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
             kyberCrystalBlockEntity.setShards(tag.getInt("shards"));
         }
 
-        if (tag.contains("kybercolor")) {
-            kyberCrystalBlockEntity.setColor(getColor(pStack));
+        if (tag.contains("kybercolorName")) {
+            kyberCrystalBlockEntity.setColor(KyberCrystalColor.getKyberColorNameFromStack(pStack));
         }
     }
 
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
 
-        ItemStack stack = new ItemStack(EOSBlock.KYBER_CRYSTAL_TYPES.get(state.getValue(COLOR)).get());
+        for (KyberCrystalColor kyberCrystalColor : KyberCrystalColor.values()) {
+            ItemStack stack = new ItemStack(EOSBlock.KYBER_CRYSTAL_TYPES.get(kyberCrystalColor).get());
 
-        BlockEntity blockEntity = level.getBlockEntity(pos);
+            BlockEntity blockEntity = level.getBlockEntity(pos);
 
-        if (blockEntity instanceof KyberCrystalBlockEntity kyberCrystalBlockEntity) {
-            CompoundTag tag = new CompoundTag();
+            if (blockEntity instanceof KyberCrystalBlockEntity kyberCrystalBlockEntity) {
+                CompoundTag tag = new CompoundTag();
 
-            tag.putString("kybercolor", kyberCrystalBlockEntity.getColor().getName());
-            tag.putInt("shards", kyberCrystalBlockEntity.getShards());
+                tag.putString("kybercolorName", kyberCrystalBlockEntity.getKyberColor().getSerializedName());
+                tag.putInt("shards", kyberCrystalBlockEntity.getShards());
 
-            stack.setTag(tag);
+                stack.setTag(tag);
+            }
+
+            return stack;
         }
-
-        return stack;
+        return ItemStack.EMPTY;
     }
 
 //    @Override
@@ -221,11 +199,4 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
 //
 //        return pLevel.getBlockState(blockPos).isFaceSturdy(pLevel, blockPos, facing.getOpposite());
 //    }
-
-    public KyberCrystalColor getColor(ItemStack pStack) {
-        if (pStack.getTag() != null && pStack.getTag().contains("kybercolor")) {
-            return KyberCrystalColor.fromSerialized(pStack.getTag().getString("kybercolor"));
-        }
-        return null;
-    }
 }

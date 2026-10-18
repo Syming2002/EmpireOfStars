@@ -2,6 +2,8 @@ package com.syming.empireofstars.datagen;
 
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.datagen.tag.EOSBiomeTagProvider;
+import com.syming.empireofstars.datagen.tag.EOSItemTagProvider;
+import com.syming.empireofstars.item.EOSItem;
 import com.syming.empireofstars.world.feature.EOSFeature;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -38,7 +40,11 @@ public class EOSDataGenerator {
 
         generator.addProvider(event.includeServer(), new EOSBiomeTagProvider(packOutput, providerCompletableFuture, existingFileHelper));
         generator.addProvider(event.includeServer(), worldGen);
-        generator.addProvider(event.includeServer(), new EOSBlockTagsProvider(packOutput, lookupProvider, existingFileHelper));
+        EOSBlockTagsProvider blockTagGenerator = generator.addProvider(event.includeServer(), new EOSBlockTagsProvider(packOutput, lookupProvider, existingFileHelper));
+
+        generator.addProvider(event.includeServer(), new EOSItemTagProvider(packOutput, lookupProvider, blockTagGenerator.contentsGetter(), existingFileHelper));
+
+        generator.addProvider(event.includeServer(), new EOSRecipeProvider(packOutput));
     }
 
 }

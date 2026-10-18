@@ -1,6 +1,8 @@
 package com.syming.empireofstars.item.lightsaber;
 
-public enum LightsaberTypeBlade {
+import net.minecraft.util.StringRepresentable;
+
+public enum LightsaberTypeBlade implements StringRepresentable {
     SINGLE("single"),
     DOUBLE("double");
 
@@ -11,6 +13,11 @@ public enum LightsaberTypeBlade {
     }
 
     public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String getSerializedName() {
         return this.name;
     }
 }

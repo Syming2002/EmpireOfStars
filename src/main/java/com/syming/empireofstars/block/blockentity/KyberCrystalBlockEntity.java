@@ -12,10 +12,10 @@ public class KyberCrystalBlockEntity extends BlockEntity {
     private KyberCrystalColor kybercolor;
     private int shards = 1;
 
-    public KyberCrystalBlockEntity(BlockPos pPos, BlockState pBlockState, KyberCrystalColor pColor) {
-        super(EOSBlockEntity.KYBER_CRYSTAL_BLOCK_ENTITY_TYPES.get(pColor).get(), pPos, pBlockState);
+    public KyberCrystalBlockEntity(BlockPos pPos, BlockState pBlockState, KyberCrystalColor kyberCrystalColor) {
+        super(EOSBlockEntity.KYBER_CRYSTAL_BLOCK_ENTITY_TYPES.get(kyberCrystalColor).get(), pPos, pBlockState);
 
-        this.kybercolor = pColor;
+        this.kybercolor = kyberCrystalColor;
     }
 
     @Override
@@ -31,21 +31,21 @@ public class KyberCrystalBlockEntity extends BlockEntity {
     public void saveAdditional(CompoundTag tag) {
         super.saveAdditional(tag);
         tag.putInt("shards", this.shards);
-        tag.putString("kybercolor", this.kybercolor.getName());
+        tag.putString("kybercolorName", this.kybercolor.getSerializedName());
     }
 
     @Override
     public void load(CompoundTag tag) {
         super.load(tag);
         this.shards = tag.getInt("shards");
-        this.kybercolor = KyberCrystalColor.fromSerialized(tag.getString("kybercolor"));
+        this.kybercolor = KyberCrystalColor.fromSerialized(tag.getString("kybercolorName"));
     }
 
-    public void setColor(KyberCrystalColor pColor) {
-        this.kybercolor = pColor;
+    public void setColor(KyberCrystalColor kyberColor) {
+        this.kybercolor = kyberColor;
     }
 
-    public KyberCrystalColor getColor() {
+    public KyberCrystalColor getKyberColor() {
         return this.kybercolor;
     }
 

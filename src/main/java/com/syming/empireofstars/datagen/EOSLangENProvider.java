@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.fluids.FluidType;
@@ -31,6 +32,8 @@ public class EOSLangENProvider extends LanguageProvider {
             }
         }
 
+        add("item.empireofstars.kyber_crystal_shard.tooltip", "You can mix other shard color to get custom color in the crafting table for custom lightsaber color blade");
+
         add("creativetab." + EmpireOfStarsMod.MOD_ID + "_tab", "Empire Of Stars");
 
         for (RegistryObject<FluidType> fluidType : EOSFluidType.FLUID_TYPES.getEntries()) {
@@ -39,9 +42,7 @@ public class EOSLangENProvider extends LanguageProvider {
             }
         }
 
-        for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
-            add("kybercolor.empireofstars." + kybercolor.getSerializedName(), getKyberColorDisplayName(kybercolor));
-        }
+        add("kybercolor.empireofstars", "Kyber Color: ");
 
         for (RegistryObject<EntityType<?>> entity : EOSEntity.ENTITY_TYPES.getEntries()) {
             if (entity.getId() != null) {
@@ -64,20 +65,6 @@ public class EOSLangENProvider extends LanguageProvider {
 
     private String getDisplayNameFromResourceLocation(ResourceLocation id) {
         String raw = id.getPath();
-        String[] parts = raw.split("_");
-        StringBuilder builder = new StringBuilder();
-
-        for (String part : parts) {
-            if (!builder.isEmpty()) builder.append(' ');
-            builder.append(Character.toUpperCase(part.charAt(0)))
-                    .append(part.substring(1));
-        }
-
-        return builder.toString();
-    }
-
-    private String getKyberColorDisplayName(KyberCrystalColor kybercolor) {
-        String raw = kybercolor.getSerializedName();
         String[] parts = raw.split("_");
         StringBuilder builder = new StringBuilder();
 

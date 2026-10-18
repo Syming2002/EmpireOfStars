@@ -9,6 +9,7 @@ import com.syming.empireofstars.fluid.EOSFluid;
 import com.syming.empireofstars.fluid.EOSFluidType;
 import com.syming.empireofstars.item.EOSItem;
 import com.syming.empireofstars.network.EOSPacketHandler;
+import com.syming.empireofstars.recipe.EOSRecipe;
 import com.syming.empireofstars.sound.EOSSound;
 import com.syming.empireofstars.world.feature.EOSFeature;
 //import com.syming.empireofstars.world.structure.EOSStructurePlacement;
@@ -40,6 +41,7 @@ public class EmpireOfStarsMod {
         EOSFluid.register(modEventBus);
         EOSFluidType.register(modEventBus);
         EOSItem.register(modEventBus);
+        EOSRecipe.register(modEventBus);
 //        EOSStructurePlacement.register(modEventBus);
 //        EOSStructureProcessor.register(modEventBus);
         EOSStructureTypes.register(modEventBus);

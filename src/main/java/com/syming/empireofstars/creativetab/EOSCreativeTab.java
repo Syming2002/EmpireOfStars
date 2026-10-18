@@ -4,7 +4,6 @@ import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.EOSBlock;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.item.EOSItem;
-import com.syming.empireofstars.item.lightsaber.LightsaberItem;
 import com.syming.empireofstars.item.lightsaber.LightsaberType;
 import com.syming.empireofstars.item.lightsaber.LightsaberTypeBlade;
 import net.minecraft.core.registries.Registries;
@@ -26,17 +25,12 @@ public class EOSCreativeTab {
     public static final RegistryObject<CreativeModeTab> EMPIREOFSTARS_TAB = CREATIVE_MODE_TAB.register("empireofstars_tab",
             () -> CreativeModeTab.builder()
                     .icon(() -> {
-                        for (LightsaberType type : LightsaberType.values()) {
-                            ItemStack standard = new ItemStack(EOSItem.LIGHTSABER_TYPES.get(type).get());
-                            LightsaberItem.setKyberColor(standard, KyberCrystalColor.BLUE);
-                            standard.setTag(new CompoundTag());
-                            standard.getTag().putString("kybercolor", KyberCrystalColor.BLUE.getSerializedName());
-                            standard.getTag().putString("type", LightsaberTypeBlade.SINGLE.toString());
-                            standard.getTag().putBoolean("active", true);
-                            return standard;
-                        }
-                        return null;
-                    }
+                                ItemStack standard = new ItemStack(EOSItem.LIGHTSABER_TYPES.get(LightsaberType.STANDARD).get());
+                                standard.getOrCreateTag().putInt("kybercolorCode", KyberCrystalColor.BLUE.getKyberColor());
+                                standard.getOrCreateTag().putString("type", LightsaberTypeBlade.SINGLE.getSerializedName());
+                                standard.getOrCreateTag().putBoolean("active", true);
+                                return standard;
+                            }
                     )
                     .title(Component.translatable("creativetab.empireofstars_tab"))
 
@@ -51,7 +45,7 @@ public class EOSCreativeTab {
                                 ItemStack kyberCrystal = new ItemStack(EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get());
 
                                 CompoundTag tag = new CompoundTag();
-                                tag.putString("kybercolor", kybercolor.getSerializedName());
+                                tag.putString("kybercolorName", kybercolor.getSerializedName());
                                 tag.putInt("shards", shardCount);
 
                                 kyberCrystal.setTag(tag);
@@ -59,20 +53,17 @@ public class EOSCreativeTab {
                                 output.accept(kyberCrystal);
                             }
 
-                            ItemStack kyberShard = new ItemStack(EOSItem.KYBER_CRYSTAL_SHARD_TYPES.get(kybercolor).get());
-                            CompoundTag tag = new CompoundTag();
-                            tag.putString("kybercolor", kybercolor.getSerializedName());
-                            kyberShard.setTag(tag);
+                            ItemStack kyberShard = new ItemStack(EOSItem.KYBER_CRYSTAL_SHARD.get());
+                            kyberShard.getOrCreateTag().putInt("kybercolorCode", kybercolor.getKyberColor());
                             output.accept(kyberShard);
 
 
                             for (LightsaberType type : LightsaberType.values()) {
-                                ItemStack standard = new ItemStack(EOSItem.LIGHTSABER_TYPES.get(type).get());
-                                standard.setTag(new CompoundTag());
-                                standard.getTag().putString("kybercolor", kybercolor.getSerializedName());
-                                standard.getTag().putString("type", LightsaberTypeBlade.SINGLE.toString());
-                                standard.getTag().putBoolean("active", false);
-                                output.accept(standard);
+                                ItemStack lightsaber = new ItemStack(EOSItem.LIGHTSABER_TYPES.get(type).get());
+                                lightsaber.getOrCreateTag().putInt("kybercolorCode", kybercolor.getKyberColor());
+                                lightsaber.getOrCreateTag().putString("type", LightsaberTypeBlade.SINGLE.getSerializedName());
+                                lightsaber.getOrCreateTag().putBoolean("active", false);
+                                output.accept(lightsaber);
                             }
                         }
 

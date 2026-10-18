@@ -12,11 +12,9 @@ import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -50,8 +48,8 @@ public class KyberCrystalItemRenderer extends BlockEntityWithoutLevelRenderer {
         if (pStack.getItem() instanceof BlockItem blockItem) {
             if (blockItem.getBlock() instanceof KyberCrystalBlock kyberCrystalBlock) {
                 if (tag != null) {
-                    if (tag.contains("kybercolor")) {
-                        KyberCrystalColor kyberCrystalColor = kyberCrystalBlock.getColor(pStack);
+                    if (tag.contains("kybercolorName")) {
+                        KyberCrystalColor kyberCrystalColor = KyberCrystalColor.getKyberColorNameFromStack(pStack);
                         if (tag.contains("shards")) {
                             int shardCount = tag.getInt("shards");
                             KyberCrystalBlockEntity tempEntity = new KyberCrystalBlockEntity(BlockPos.ZERO, kyberCrystalBlock.defaultBlockState(), kyberCrystalColor);

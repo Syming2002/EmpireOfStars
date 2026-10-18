@@ -64,10 +64,8 @@ public class EOSClientModEvent {
 
     @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
-        for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
-            KyberCrystalShardItem kyberCrystalShardItem = EOSItem.KYBER_CRYSTAL_SHARD_TYPES.get(kybercolor).get();
-            event.register((pStack, pTintIndex) -> pTintIndex == 0 ? kybercolor.getColor() : 0xFFFFFFFF, kyberCrystalShardItem);
-        }
+        KyberCrystalShardItem kyberCrystalShardItem = EOSItem.KYBER_CRYSTAL_SHARD.get();
+        event.register((pStack, pTintIndex) -> pTintIndex == 0 ? KyberCrystalColor.getKyberColorCodeFromStack(pStack) : 0xFFFFFF, kyberCrystalShardItem);
     }
 
     @SubscribeEvent
@@ -82,7 +80,7 @@ public class EOSClientModEvent {
         for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
                 event.register((pState, pLevel, pBlockPos, pTintIndex) -> {
                     if (pState.getBlock() instanceof KyberCrystalBlock && pTintIndex == 0) {
-                        return kybercolor.getColor();
+                        return kybercolor.getKyberColor();
                     }
                     return 0xFFFFFFFF;
                 }, EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get());
