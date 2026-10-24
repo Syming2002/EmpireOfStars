@@ -1,10 +1,7 @@
 package com.syming.empireofstars.datagen;
 
 import com.syming.empireofstars.EmpireOfStarsMod;
-import com.syming.empireofstars.block.EOSBlock;
-import com.syming.empireofstars.block.KyberCrystalBlock;
-import com.syming.empireofstars.block.SarlaccSpearToothBlock;
-import com.syming.empireofstars.block.TatooineSandBlock;
+import com.syming.empireofstars.block.*;
 import com.syming.empireofstars.item.EOSItem;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;

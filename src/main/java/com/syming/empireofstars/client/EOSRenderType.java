@@ -1,11 +1,13 @@
 package com.syming.empireofstars.client;
 
+import com.ibm.icu.text.DisplayContext;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.irisshaders.iris.api.v0.IrisApi;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
 
 public class EOSRenderType extends RenderStateShard {
 
@@ -36,11 +38,11 @@ public class EOSRenderType extends RenderStateShard {
                 state);
     }
 
-    public static RenderType lightsaberOuter() {
+    public static RenderType lightsaberOuter(ItemDisplayContext itemDisplayContext) {
         RenderType.CompositeState state = RenderType.CompositeState.builder()
                 .setShaderState(RenderStateShard.POSITION_COLOR_SHADER)
                 .setTextureState(RenderStateShard.NO_TEXTURE)
-                .setTransparencyState(IrisApi.getInstance().isShaderPackInUse() ? RenderStateShard.GLINT_TRANSPARENCY : EOSRenderState.VANILLA_LIGHTSABER_OUTER)
+                .setTransparencyState(itemDisplayContext == ItemDisplayContext.GUI ? EOSRenderState.VANILLA_LIGHTSABER_OUTER : IrisApi.getInstance().isShaderPackInUse() ? RenderStateShard.GLINT_TRANSPARENCY : EOSRenderState.VANILLA_LIGHTSABER_OUTER)
                 .setCullState(RenderStateShard.NO_CULL)
                 .setLightmapState(RenderStateShard.LIGHTMAP)
                 .setOverlayState(RenderStateShard.NO_OVERLAY)

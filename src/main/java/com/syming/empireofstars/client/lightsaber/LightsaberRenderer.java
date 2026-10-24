@@ -6,6 +6,7 @@ import com.mojang.math.Axis;
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.client.EOSRenderType;
+import com.syming.empireofstars.item.lightsaber.LightsaberEmptyItem;
 import com.syming.empireofstars.item.lightsaber.LightsaberItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -30,9 +31,6 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
     private final LightsaberBladeModel bladeModel;
     private final StandardLightsaberModel standardLightsaberModel;
 
-//    private static final ResourceLocation INNER_BLADE = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/inner_blade.png");
-//    private static final ResourceLocation OUTER_BLADE = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/outer_blade.png");
-
     private static final ResourceLocation STANDARD_LIGHTSABER_LIGHTSABER = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/item/lightsaber/standard_lightsaber.png");
 
 
@@ -55,16 +53,16 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
     public void renderByItem(ItemStack pStack, ItemDisplayContext pDisplayContext, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
         super.renderByItem(pStack, pDisplayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
 
-        if (pStack.getItem() instanceof LightsaberItem lightsaberItem) {
+        if (pStack.getItem() instanceof LightsaberItem || pStack.getItem() instanceof LightsaberEmptyItem) {
             CompoundTag tag = pStack.getTag();
 
             if (LightsaberItem.isActive(pStack)) {
                 if (tag != null && tag.contains("kybercolorCode")) {
                     int kyberCrystalColor = KyberCrystalColor.getKyberColorCodeFromStack(pStack);
 
-                    int red   = (kyberCrystalColor >> 16) & 0xFF;
+                    int red = (kyberCrystalColor >> 16) & 0xFF;
                     int green = (kyberCrystalColor >> 8) & 0xFF;
-                    int blue  = kyberCrystalColor & 0xFF;
+                    int blue = kyberCrystalColor & 0xFF;
 
                     pPoseStack.pushPose();
 
@@ -95,7 +93,7 @@ public class LightsaberRenderer extends BlockEntityWithoutLevelRenderer {
                         }
                     }
 
-                    RenderType glowType = EOSRenderType.lightsaberOuter();
+                    RenderType glowType = EOSRenderType.lightsaberOuter(pDisplayContext);
                     VertexConsumer outer = pBuffer.getBuffer(glowType);
                     this.bladeModel.renderOuter(pPoseStack, outer, pPackedLight, NO_OVERLAY, red / 255.0F, green / 255.0F, blue / 255.0F);
 

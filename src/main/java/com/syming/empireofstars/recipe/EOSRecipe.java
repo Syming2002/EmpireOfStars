@@ -13,7 +13,7 @@ public class EOSRecipe {
             DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, EmpireOfStarsMod.MOD_ID);
 
 
-    public static final RegistryObject<RecipeSerializer<?>> KYBER_COLOR_SHARD_RECIPE = RECIPE_SERIALIZERS.register("kyber_color_shard_recipe", ShapelessKyberShardColorRecipe.KyberShardColorRecipeSerializer::new);
+    public static final RegistryObject<RecipeSerializer<?>> ITEM_COLOR_RECIPE = RECIPE_SERIALIZERS.register("item_color_recipe", ShapelessItemColorRecipe.ItemColorRecipeSerializer::new);
 
 
     public static void register(IEventBus eventBus) {

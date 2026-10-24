@@ -39,6 +39,7 @@ public class EOSCreativeTab {
                         output.accept(EOSBlock.SARLACC_SPEAR_TOOTH.get());
                         output.accept(EOSBlock.TATOOINE_SAND.get());
                         output.accept(EOSBlock.TATOOINE_SANDSTONE.get());
+                        output.accept(EOSBlock.SARLACC_STOMACH_ACID_OUTPUT.get());
 
                         for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
                             for (int shardCount = 1; shardCount <= 5; shardCount++) {
@@ -59,6 +60,8 @@ public class EOSCreativeTab {
 
 
                             for (LightsaberType type : LightsaberType.values()) {
+                                output.accept(EOSItem.EMPTY_LIGHTSABER_TYPES.get(type).get());
+
                                 ItemStack lightsaber = new ItemStack(EOSItem.LIGHTSABER_TYPES.get(type).get());
                                 lightsaber.getOrCreateTag().putInt("kybercolorCode", kybercolor.getKyberColor());
                                 lightsaber.getOrCreateTag().putString("type", LightsaberTypeBlade.SINGLE.getSerializedName());

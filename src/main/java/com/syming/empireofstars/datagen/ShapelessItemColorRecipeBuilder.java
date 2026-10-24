@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.recipe.EOSRecipe;
-import com.syming.empireofstars.recipe.ShapelessKyberShardColorRecipe;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -18,12 +17,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Consumer;
 
-public class ShapelessKyberShardRecipeBuilder implements RecipeBuilder {
+public class ShapelessItemColorRecipeBuilder implements RecipeBuilder {
 
     private final Item result;
     private final int count;
@@ -32,16 +30,16 @@ public class ShapelessKyberShardRecipeBuilder implements RecipeBuilder {
 
     private String group = "";
 
-    public ShapelessKyberShardRecipeBuilder(Item result, int count) {
+    public ShapelessItemColorRecipeBuilder(Item result, int count) {
         this.result = result.asItem();
         this.count = count;
     }
 
-    public static ShapelessKyberShardRecipeBuilder shardColor(Item result) {
-        return new ShapelessKyberShardRecipeBuilder(result, 1);
+    public static ShapelessItemColorRecipeBuilder shardColor(Item result) {
+        return new ShapelessItemColorRecipeBuilder(result, 1);
     }
 
-    public static ShapelessKyberShardRecipeBuilder shardColor(Item result, int count) {
+    public static ShapelessItemColorRecipeBuilder shardColor(Item result, int count) {
 
         ItemStack stack = new ItemStack(result);
 
@@ -65,15 +63,19 @@ public class ShapelessKyberShardRecipeBuilder implements RecipeBuilder {
 
         KyberCrystalColor.setKyberColorCodeFromStack(stack, mixedColor);
 
-        return new ShapelessKyberShardRecipeBuilder(result, count);
+        return new ShapelessItemColorRecipeBuilder(result, count);
     }
 
-    public ShapelessKyberShardRecipeBuilder requires(Ingredient ingredient) {
+    public static ShapelessItemColorRecipeBuilder ligthsaberColor(Item result) {
+        return new ShapelessItemColorRecipeBuilder(result, 1);
+    }
+
+    public ShapelessItemColorRecipeBuilder requires(Ingredient ingredient) {
         this.ingredients.add(ingredient);
         return this;
     }
 
-    public ShapelessKyberShardRecipeBuilder requires(
+    public ShapelessItemColorRecipeBuilder requires(
             Item item,
             int count
     ) {
@@ -83,7 +85,7 @@ public class ShapelessKyberShardRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
-    public ShapelessKyberShardRecipeBuilder requires(
+    public ShapelessItemColorRecipeBuilder requires(
             TagKey<Item> tag,
             int count
     ) {
@@ -100,7 +102,7 @@ public class ShapelessKyberShardRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public ShapelessKyberShardRecipeBuilder group(String group) {
+    public ShapelessItemColorRecipeBuilder group(String group) {
         this.group = group;
         return this;
     }
@@ -200,7 +202,7 @@ public class ShapelessKyberShardRecipeBuilder implements RecipeBuilder {
 
         @Override
         public RecipeSerializer<?> getType() {
-            return EOSRecipe.KYBER_COLOR_SHARD_RECIPE.get();
+            return EOSRecipe.ITEM_COLOR_RECIPE.get();
         }
 
         @Override

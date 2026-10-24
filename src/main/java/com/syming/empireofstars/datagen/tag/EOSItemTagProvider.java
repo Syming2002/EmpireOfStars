@@ -2,6 +2,7 @@ package com.syming.empireofstars.datagen.tag;
 
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.item.EOSItem;
+import com.syming.empireofstars.item.lightsaber.LightsaberType;
 import com.syming.empireofstars.tag.EOSTag;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
@@ -26,5 +27,10 @@ public class EOSItemTagProvider extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider pProvider) {
         tag(EOSTag.Items.KYBER_SHARDS_ITEMS)
                 .add(EOSItem.KYBER_CRYSTAL_SHARD.get());
+
+        for (LightsaberType type : LightsaberType.values()) {
+            tag(EOSTag.Items.LIGHTSABER_ITEMS)
+                    .add(EOSItem.EMPTY_LIGHTSABER_TYPES.get(type).get());
+        }
     }
 }

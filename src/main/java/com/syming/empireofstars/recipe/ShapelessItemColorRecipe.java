@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.item.KyberCrystalShardItem;
+import com.syming.empireofstars.item.lightsaber.LightsaberItem;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
@@ -14,10 +15,9 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
-import org.jetbrains.annotations.Nullable;
 
-public class ShapelessKyberShardColorRecipe extends ShapelessRecipe {
-    public ShapelessKyberShardColorRecipe(ResourceLocation pId, String pGroup, ItemStack pResult, NonNullList<Ingredient> pIngredients) {
+public class ShapelessItemColorRecipe extends ShapelessRecipe {
+    public ShapelessItemColorRecipe(ResourceLocation pId, String pGroup, ItemStack pResult, NonNullList<Ingredient> pIngredients) {
         super(pId, pGroup, CraftingBookCategory.MISC, pResult, pIngredients);
     }
 
@@ -36,7 +36,7 @@ public class ShapelessKyberShardColorRecipe extends ShapelessRecipe {
             if (stack.isEmpty()) continue;
 
 
-            if (stack.getItem() instanceof KyberCrystalShardItem kyberCrystalShardItem) {
+            if (stack.getItem() instanceof KyberCrystalShardItem || stack.getItem() instanceof LightsaberItem) {
                 int color = KyberCrystalColor.getKyberColorCodeFromStack(stack);
 
                 red += (color >> 16) & 0xFF;
@@ -64,17 +64,17 @@ public class ShapelessKyberShardColorRecipe extends ShapelessRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return EOSRecipe.KYBER_COLOR_SHARD_RECIPE.get();
+        return EOSRecipe.ITEM_COLOR_RECIPE.get();
     }
 
-    public static class KyberShardColorRecipeSerializer implements RecipeSerializer<ShapelessKyberShardColorRecipe> {
+    public static class ItemColorRecipeSerializer implements RecipeSerializer<ShapelessItemColorRecipe> {
 
-        public KyberShardColorRecipeSerializer() {
+        public ItemColorRecipeSerializer() {
 
         }
 
         @Override
-        public ShapelessKyberShardColorRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
+        public ShapelessItemColorRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
             String group = GsonHelper.getAsString(pSerializedRecipe, "group", "");
 
             CraftingBookCategory craftingBookCategory = CraftingBookCategory.MISC;
@@ -115,7 +115,7 @@ public class ShapelessKyberShardColorRecipe extends ShapelessRecipe {
                 }
             }
 
-            return new ShapelessKyberShardColorRecipe(
+            return new ShapelessItemColorRecipe(
                     pRecipeId,
                     group,
                     result,
@@ -124,7 +124,7 @@ public class ShapelessKyberShardColorRecipe extends ShapelessRecipe {
         }
 
         @Override
-        public ShapelessKyberShardColorRecipe fromNetwork(
+        public ShapelessItemColorRecipe fromNetwork(
                 ResourceLocation id,
                 FriendlyByteBuf buffer
         ) {
@@ -140,7 +140,7 @@ public class ShapelessKyberShardColorRecipe extends ShapelessRecipe {
 
             ItemStack result = buffer.readItem();
 
-            return new ShapelessKyberShardColorRecipe(
+            return new ShapelessItemColorRecipe(
                     id,
                     group,
                     result,
@@ -151,7 +151,7 @@ public class ShapelessKyberShardColorRecipe extends ShapelessRecipe {
         @Override
         public void toNetwork(
                 FriendlyByteBuf buffer,
-                ShapelessKyberShardColorRecipe recipe
+                ShapelessItemColorRecipe recipe
         ) {
             buffer.writeUtf(recipe.getGroup());
             buffer.writeVarInt(recipe.getIngredients().size());

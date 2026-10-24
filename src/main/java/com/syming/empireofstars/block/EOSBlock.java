@@ -43,7 +43,9 @@ public class EOSBlock {
 
     public static final RegistryObject<Block> SARLACC_SPEAR_TOOTH = registerBlock("sarlacc_spear_tooth", () -> new SarlaccSpearToothBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).forceSolidOn().instrument(NoteBlockInstrument.BASEDRUM).noOcclusion().sound(SoundType.POINTED_DRIPSTONE).randomTicks().strength(1.5F, 3.0F).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY).isRedstoneConductor(((pState, pLevel, pPos) -> false))));
 
-    public static final RegistryObject<LiquidBlock> SARLACC_STOMACH_ACID_BLOCK = registerLiquidBlock("sarlacc_stomach_acid_block", () -> new SarlaccStomachAcidLiquidBlock(BlockBehaviour.Properties.copy(Blocks.WATER)));
+    public static final RegistryObject<Block> SARLACC_STOMACH_ACID_OUTPUT = registerBlock("sarlacc_stomach_acid_output", SarlaccStomachAcidOutputBlock::new);
+
+    public static final RegistryObject<LiquidBlock> SARLACC_STOMACH_ACID_BLOCK = registerLiquidBlock("sarlacc_stomach_acid", () -> new SarlaccStomachAcidLiquidBlock(BlockBehaviour.Properties.copy(Blocks.WATER)));
 
     public static final RegistryObject<Block> TATOOINE_SAND = registerBlock("tatooine_sand", () -> new TatooineSandBlock(0xE2B266, BlockBehaviour.Properties.copy(Blocks.SAND)));
 

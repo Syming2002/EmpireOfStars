@@ -4,6 +4,7 @@ import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.entity.EOSEntity;
 import com.syming.empireofstars.fluid.EOSFluid;
+import com.syming.empireofstars.item.lightsaber.LightsaberEmptyItem;
 import com.syming.empireofstars.item.lightsaber.LightsaberItem;
 import com.syming.empireofstars.item.lightsaber.LightsaberType;
 import net.minecraft.world.item.BucketItem;
@@ -24,11 +25,14 @@ public class EOSItem {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, EmpireOfStarsMod.MOD_ID);
 
+    public static final Map<LightsaberType, RegistryObject<LightsaberEmptyItem>> EMPTY_LIGHTSABER_TYPES = new HashMap<>();
     public static final Map<LightsaberType, RegistryObject<LightsaberItem>> LIGHTSABER_TYPES = new HashMap<>();
+
 
     static {
         for (LightsaberType type : LightsaberType.values()) {
-            LIGHTSABER_TYPES.put(type, ITEMS.register(type.name().toLowerCase(Locale.ROOT) + '_' + "lightsaber", LightsaberItem::new));
+            EMPTY_LIGHTSABER_TYPES.put(type, ITEMS.register(type.getSerializedName() + '_' + "empty_lightsaber", LightsaberEmptyItem::new));
+            LIGHTSABER_TYPES.put(type, ITEMS.register(type.getSerializedName() + '_' + "lightsaber", LightsaberItem::new));
         }
     }
 

@@ -61,7 +61,7 @@ public class EOSDimension {
                 -64,
                 384, 384,
                 BlockTags.INFINIBURN_OVERWORLD,
-                new ResourceLocation(CosmosMod.MODID, "solar_system"),
+                new ResourceLocation(EmpireOfStarsMod.MOD_ID, "tatooine_effects"),
                 0.0F,
                 new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 7), 0)));
 
