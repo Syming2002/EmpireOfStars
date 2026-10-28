@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class SarlaccTentacleRenderer extends MobRenderer<SarlaccTentacleEntity, SarlaccTentacleModel<SarlaccTentacleEntity>> {
 
-    public static final ResourceLocation SARLACC_TENTACLE_TEXTURE = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/entity/sarlacc/sarlacc_tentacle.png");
+    public static final ResourceLocation SARLACC_TENTACLE_TEXTURE = ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "textures/entity/sarlacc/sarlacc_tentacle.png");
 
     public SarlaccTentacleRenderer(EntityRendererProvider.Context pContext) {
         super(pContext, new SarlaccTentacleModel<>(pContext.bakeLayer(SarlaccTentacleModel.SARLACC_TENTACLE_LAYER)), 0.15F);

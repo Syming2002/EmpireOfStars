@@ -10,7 +10,7 @@
 //
 //public class EOSProcessorList {
 //
-//    public static final ResourceKey<StructureProcessorList> SARLACC_PIT_PROCESSOR = ResourceKey.create(Registries.PROCESSOR_LIST, new ResourceLocation(EmpireOfStarsMod.MOD_ID, "sarlacc_pit"));
+//    public static final ResourceKey<StructureProcessorList> SARLACC_PIT_PROCESSOR = ResourceKey.create(Registries.PROCESSOR_LIST, ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "sarlacc_pit"));
 //
 //    public static void bootstrap(BootstapContext<StructureProcessorList> context) {
 //        context.register(SARLACC_PIT_PROCESSOR, new StructureProcessorList(ImmutableList.of(SarlaccPitStructureProcessor.INSTANCE)));

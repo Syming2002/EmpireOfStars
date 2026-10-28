@@ -15,7 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 public class SarlaccTentacleModel<T extends SarlaccTentacleEntity> extends HierarchicalModel<T> {
 
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation SARLACC_TENTACLE_LAYER = new ModelLayerLocation(new ResourceLocation(EmpireOfStarsMod.MOD_ID, "sarlacc_tantacle"), "main");
+    public static final ModelLayerLocation SARLACC_TENTACLE_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "sarlacc_tantacle"), "main");
     private final ModelPart sarlaccTentacle;
     private final ModelPart firstPartTentacle;
     private final ModelPart secondPartTentacle;
@@ -56,8 +56,8 @@ public class SarlaccTentacleModel<T extends SarlaccTentacleEntity> extends Hiera
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
-        this.sarlaccTentacle.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+        this.sarlaccTentacle.render(poseStack, buffer, packedLight, packedOverlay, color);
     }
 
     @Override

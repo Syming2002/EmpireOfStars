@@ -12,14 +12,15 @@ import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 
 public class KyberCrystalItemRenderer extends BlockEntityWithoutLevelRenderer {
 
@@ -42,57 +43,58 @@ public class KyberCrystalItemRenderer extends BlockEntityWithoutLevelRenderer {
     }
 
     @Override
-    public void renderByItem(ItemStack pStack, ItemDisplayContext pDisplayContext, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
-        super.renderByItem(pStack, pDisplayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+    public void renderByItem(ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight, int packedOverlay) {
+        super.renderByItem(stack, displayContext, poseStack, multiBufferSource, packedLight, packedOverlay);
 
-        CompoundTag tag = pStack.getTag();
 
-        if (pStack.getItem() instanceof BlockItem blockItem) {
+        if (stack.getItem() instanceof BlockItem blockItem) {
             if (blockItem.getBlock() instanceof KyberCrystalBlock kyberCrystalBlock) {
-                if (tag != null) {
-                    if (tag.contains("kybercolor")) {
-                        KyberCrystalColor kyberCrystalColor = kyberCrystalBlock.getColor(pStack);
-                        if (tag.contains("shards")) {
-                            int shardCount = tag.getInt("shards");
-                            KyberCrystalBlockEntity tempEntity = new KyberCrystalBlockEntity(BlockPos.ZERO, kyberCrystalBlock.defaultBlockState(), kyberCrystalColor);
-                            tempEntity.setShards(shardCount);
+                KyberCrystalColor kyberCrystalColor = KyberCrystalColor.getKyberColorNameFromStack(stack);
+                if (kyberCrystalColor != null) {
+                    int shardCount = KyberCrystalColor.getShardCountFromStack(stack);
+                    KyberCrystalBlockEntity tempEntity = new KyberCrystalBlockEntity(BlockPos.ZERO, kyberCrystalBlock.defaultBlockState(), kyberCrystalColor);
+                    tempEntity.setShards(shardCount);
+                    tempEntity.setKyberColor(kyberCrystalColor);
 
-                            pPoseStack.pushPose();
+                    poseStack.pushPose();
 
-                            VertexConsumer emissiveConsumer = pBuffer.getBuffer(EOSRenderType.kyberCrystalEmissive(KyberCrystalBlockEntityRenderer.KYBER_CRYSTAL_TEXTURE));
-
-
-                            switch (pDisplayContext) {
-                                case FIRST_PERSON_LEFT_HAND, FIRST_PERSON_RIGHT_HAND, THIRD_PERSON_LEFT_HAND,
-                                     THIRD_PERSON_RIGHT_HAND -> {
-                                    pPoseStack.translate(0.5D, 0.65D, 0.5D);
-                                    pPoseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
-                                }
-                                case GUI -> {
-                                    pPoseStack.translate(0.5D, 0.5D, 0.5D);
-                                    pPoseStack.mulPose(Axis.XP.rotationDegrees(210.0F));
-                                    pPoseStack.mulPose(Axis.YP.rotationDegrees(45.0F));
-                                }
-                                case FIXED -> {
-                                    pPoseStack.translate(0.5D, 0.5D, 0.5D);
-                                    pPoseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
-                                }
-                                case GROUND -> {
-                                    pPoseStack.translate(0.5D, 0.4D, 0.5D);
-                                    pPoseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
-                                    pPoseStack.scale(0.5F, 0.5F, 0.5F);
-                                }
-                            }
+                    VertexConsumer emissiveConsumer = multiBufferSource.getBuffer(EOSRenderType.kyberCrystalEmissive(KyberCrystalBlockEntityRenderer.KYBER_CRYSTAL_TEXTURE));
 
 
-
-                            this.kyberCrystalModel.renderShards(pPoseStack, emissiveConsumer, LightTexture.FULL_BRIGHT, pPackedOverlay, kyberCrystalColor.getRed(), kyberCrystalColor.getGreen(), kyberCrystalColor.getBlue(), 0.75F, tempEntity);
-
-                            pPoseStack.popPose();
+                    switch (displayContext) {
+                        case FIRST_PERSON_LEFT_HAND, FIRST_PERSON_RIGHT_HAND, THIRD_PERSON_LEFT_HAND,
+                             THIRD_PERSON_RIGHT_HAND -> {
+                            poseStack.translate(0.5D, 0.65D, 0.5D);
+                            poseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
+                        }
+                        case GUI -> {
+                            poseStack.translate(0.5D, 0.5D, 0.5D);
+                            poseStack.mulPose(Axis.XP.rotationDegrees(210.0F));
+                            poseStack.mulPose(Axis.YP.rotationDegrees(45.0F));
+                        }
+                        case FIXED -> {
+                            poseStack.translate(0.5D, 0.5D, 0.5D);
+                            poseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
+                        }
+                        case GROUND -> {
+                            poseStack.translate(0.5D, 0.4D, 0.5D);
+                            poseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
+                            poseStack.scale(0.5F, 0.5F, 0.5F);
                         }
                     }
+
+                    int color = FastColor.ARGB32.color(
+                            191,
+                            (int) (kyberCrystalColor.getRed() * 255.0F),
+                            (int) (kyberCrystalColor.getGreen() * 255.0F),
+                            (int) (kyberCrystalColor.getBlue() * 255.0F));
+
+                    this.kyberCrystalModel.renderShards(poseStack, emissiveConsumer, LightTexture.FULL_BRIGHT, packedOverlay, color, tempEntity);
+
+                    poseStack.popPose();
                 }
             }
         }
     }
 }
+

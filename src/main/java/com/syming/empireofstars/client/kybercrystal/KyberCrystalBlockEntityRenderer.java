@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.syming.empireofstars.EmpireOfStarsMod;
+import com.syming.empireofstars.block.EOSBlock;
 import com.syming.empireofstars.block.KyberCrystalBlock;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.block.blockentity.KyberCrystalBlockEntity;
@@ -14,10 +15,12 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
+import net.minecraft.world.item.ItemStack;
 
 public class KyberCrystalBlockEntityRenderer implements BlockEntityRenderer<KyberCrystalBlockEntity> {
 
-    public static final ResourceLocation KYBER_CRYSTAL_TEXTURE = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/block/kyber_crystal.png");
+    public static final ResourceLocation KYBER_CRYSTAL_TEXTURE = ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "textures/block/kyber_crystal.png");
     private final KyberCrystalModel kyberCrystalModel;
 
 
@@ -33,7 +36,7 @@ public class KyberCrystalBlockEntityRenderer implements BlockEntityRenderer<Kybe
 
         Direction direction = pBlockEntity.getBlockState().getValue(KyberCrystalBlock.FACING);
 
-        if (pBlockEntity.getBlockState().getBlock() instanceof KyberCrystalBlock kyberCrystalBlock) {
+        if (pBlockEntity.getBlockState().getBlock() instanceof KyberCrystalBlock) {
             pPoseStack.pushPose();
 
             switch (direction) {
@@ -62,16 +65,17 @@ public class KyberCrystalBlockEntityRenderer implements BlockEntityRenderer<Kybe
                     break;
             }
 
-            KyberCrystalColor kyberCrystalColor = pBlockEntity.getColor();
-
-            float red = kyberCrystalColor.getRed();
-            float blue = kyberCrystalColor.getBlue();
-            float green = kyberCrystalColor.getGreen();
-            float alpha = 0.75F;
+            KyberCrystalColor kyberCrystalColor = pBlockEntity.getKyberColor();
 
             VertexConsumer emissive = pBuffer.getBuffer(EOSRenderType.kyberCrystalEmissive(KYBER_CRYSTAL_TEXTURE));
 
-            this.kyberCrystalModel.renderShards(pPoseStack, emissive, LightTexture.FULL_BRIGHT, pPackedOverlay, red, green, blue, alpha, pBlockEntity);
+            int color = FastColor.ARGB32.color(
+                    191,
+                    (int) (kyberCrystalColor.getRed() * 255.0F),
+                    (int) (kyberCrystalColor.getGreen() * 255.0F),
+                    (int) (kyberCrystalColor.getBlue() * 255.0F));
+
+            this.kyberCrystalModel.renderShards(pPoseStack, emissive, LightTexture.FULL_BRIGHT, pPackedOverlay, color, pBlockEntity);
 
             pPoseStack.popPose();
         }

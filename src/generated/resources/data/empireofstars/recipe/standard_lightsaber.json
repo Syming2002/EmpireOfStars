@@ -1,0 +1,16 @@
+{
+  "type": "empireofstars:item_color_recipe",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "empireofstars:standard_empty_lightsaber"
+    },
+    {
+      "item": "empireofstars:kyber_crystal_shard"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "empireofstars:standard_lightsaber"
+  }
+}

@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 public class KyberCrystalModel extends Model {
 
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation KYBER_CRYSTAL_LAYER = new ModelLayerLocation(new ResourceLocation(EmpireOfStarsMod.MOD_ID, "kyber_crystal"), "main");
+    public static final ModelLayerLocation KYBER_CRYSTAL_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "kyber_crystal"), "main");
 
     protected final ModelPart kyberCrystal;
 
@@ -54,14 +54,14 @@ public class KyberCrystalModel extends Model {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        this.kyberCrystal.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+        this.kyberCrystal.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
     }
 
     public void renderShards(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay,
-                             float red, float green, float blue, float alpha, KyberCrystalBlockEntity kyberCrystalBlockEntity) {
+                             int color, KyberCrystalBlockEntity kyberCrystalBlockEntity) {
         for (int i = 0; i < kyberCrystalBlockEntity.getShards(); i++) {
-            this.shards[i].render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+            this.shards[i].render(poseStack, buffer, packedLight, packedOverlay, color);
         }
     }
 }

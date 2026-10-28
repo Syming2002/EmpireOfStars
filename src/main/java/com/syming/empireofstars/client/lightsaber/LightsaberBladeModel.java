@@ -56,35 +56,34 @@ public class LightsaberBladeModel {
                             float minX, float minY, float minZ,
                             float maxX, float maxY, float maxZ) {
         Matrix4f mat = poseStack.last().pose();
-        Matrix3f normal = poseStack.last().normal();
 
         // Front
-        quad(consumer, mat, normal, packedLight, packedOverlay, r, g, b, a,
+        quad(consumer, mat, poseStack, packedLight, packedOverlay, r, g, b, a,
                 minX, minY, maxZ, maxX, minY, maxZ, maxX, maxY, maxZ, minX, maxY, maxZ,
                 0, 0, 1);
         // Back
-        quad(consumer, mat, normal, packedLight, packedOverlay, r, g, b, a,
+        quad(consumer, mat, poseStack, packedLight, packedOverlay, r, g, b, a,
                 maxX, minY, minZ, minX, minY, minZ, minX, maxY, minZ, maxX, maxY, minZ,
                 0, 0, -1);
         // Left
-        quad(consumer, mat, normal, packedLight, packedOverlay, r, g, b, a,
+        quad(consumer, mat, poseStack, packedLight, packedOverlay, r, g, b, a,
                 minX, minY, minZ, minX, minY, maxZ, minX, maxY, maxZ, minX, maxY, minZ,
                 -1, 0, 0);
         // Right
-        quad(consumer, mat, normal, packedLight, packedOverlay, r, g, b, a,
+        quad(consumer, mat, poseStack, packedLight, packedOverlay, r, g, b, a,
                 maxX, minY, maxZ, maxX, minY, minZ, maxX, maxY, minZ, maxX, maxY, maxZ,
                 1, 0, 0);
         // Top
-        quad(consumer, mat, normal, packedLight, packedOverlay, r, g, b, a,
+        quad(consumer, mat, poseStack, packedLight, packedOverlay, r, g, b, a,
                 minX, maxY, maxZ, maxX, maxY, maxZ, maxX, maxY, minZ, minX, maxY, minZ,
                 0, 1, 0);
         // Bottom
-        quad(consumer, mat, normal, packedLight, packedOverlay, r, g, b, a,
+        quad(consumer, mat, poseStack, packedLight, packedOverlay, r, g, b, a,
                 minX, minY, minZ, maxX, minY, minZ, maxX, minY, maxZ, minX, minY, maxZ,
                 0, -1, 0);
     }
 
-    private void quad(VertexConsumer vertexConsumer, Matrix4f mat, Matrix3f normal,
+    private void quad(VertexConsumer vertexConsumer, Matrix4f mat, PoseStack poseStack,
                       int packedLight, int packedOverlay,
                       float r, float g, float b, float a,
                       float x1, float y1, float z1,
@@ -92,9 +91,9 @@ public class LightsaberBladeModel {
                       float x3, float y3, float z3,
                       float x4, float y4, float z4,
                       float nx, float ny, float nz) {
-        vertexConsumer.vertex(mat, x1, y1, z1).color(r, g, b, a).uv(0, 0).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
-        vertexConsumer.vertex(mat, x2, y2, z2).color(r, g, b, a).uv(1, 0).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
-        vertexConsumer.vertex(mat, x3, y3, z3).color(r, g, b, a).uv(1, 1).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
-        vertexConsumer.vertex(mat, x4, y4, z4).color(r, g, b, a).uv(0, 1).overlayCoords(packedOverlay).uv2(packedLight).normal(normal, nx, ny, nz).endVertex();
+        vertexConsumer.addVertex(mat, x1, y1, z1).setColor(r, g, b, a).setUv(0, 0).setOverlay(packedOverlay).setLight(packedLight).setNormal(poseStack.last(), nx, ny, nz);
+        vertexConsumer.addVertex(mat, x2, y2, z2).setColor(r, g, b, a).setUv(1, 0).setOverlay(packedOverlay).setLight(packedLight).setNormal(poseStack.last(), nx, ny, nz);
+        vertexConsumer.addVertex(mat, x3, y3, z3).setColor(r, g, b, a).setUv(1, 1).setOverlay(packedOverlay).setLight(packedLight).setNormal(poseStack.last(), nx, ny, nz);
+        vertexConsumer.addVertex(mat, x4, y4, z4).setColor(r, g, b, a).setUv(0, 1).setOverlay(packedOverlay).setLight(packedLight).setNormal(poseStack.last(), nx, ny, nz);
     }
 }

@@ -15,7 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 public class TuskenModel<T extends TuskenEntity> extends HumanoidModel<T> {
 
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation TUSKEN_LAYER = new ModelLayerLocation(new ResourceLocation(EmpireOfStarsMod.MOD_ID, "tusken"), "main");
+    public static final ModelLayerLocation TUSKEN_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "tusken"), "main");
 
     public TuskenModel(ModelPart pRoot) {
         super(pRoot);
@@ -48,7 +48,7 @@ public class TuskenModel<T extends TuskenEntity> extends HumanoidModel<T> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
-        super.renderToBuffer(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+        super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, color);
     }
 }

@@ -2,9 +2,10 @@ package com.syming.empireofstars.world.feature;
 
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.EOSBlock;
+import com.syming.empireofstars.block.KyberCrystalBlock;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -17,34 +18,34 @@ import net.minecraft.world.level.levelgen.feature.configurations.GeodeConfigurat
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.placement.*;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class EOSFeature {
 
     public static final DeferredRegister<Feature<?>> FEATURES =
-            DeferredRegister.create(ForgeRegistries.FEATURES, EmpireOfStarsMod.MOD_ID);
+            DeferredRegister.create(Registries.FEATURE, EmpireOfStarsMod.MOD_ID);
 
-    public static final RegistryObject<KyberCrystalFeature> KYBER_CRYSTAL_FEATURE = FEATURES.register("kyber_crystal", () -> new KyberCrystalFeature(NoneFeatureConfiguration.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> KYBER_CRYSTAL_FEATURE = FEATURES.register("kyber_crystal", () -> new KyberCrystalFeature(NoneFeatureConfiguration.CODEC));
 
-    public static final RegistryObject<KyberCrystalClusterFeature> KYBER_CRYSTAL_GEODE_FEATURE = FEATURES.register("kyber_crystal_geode", () -> new KyberCrystalClusterFeature(GeodeConfiguration.CODEC));
+    public static final DeferredHolder<Feature<?>, Feature<GeodeConfiguration>> KYBER_CRYSTAL_GEODE_FEATURE = FEATURES.register("kyber_crystal_geode", () -> new KyberCrystalClusterFeature(GeodeConfiguration.CODEC));
 
 
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> KYBER_CRYSTAL_CONFIGURED =
-            ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(EmpireOfStarsMod.MOD_ID, "kyber_crystal"));
+            ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "kyber_crystal"));
 
 
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> GREEN_KYBER_CRYSTAL_GEODE_CONFIGURED =
-            ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(EmpireOfStarsMod.MOD_ID, "green_kyber_crystal_geode"));
+            ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "green_kyber_crystal_geode"));
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> BLUE_KYBER_CRYSTAL_GEODE_CONFIGURED =
-            ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(EmpireOfStarsMod.MOD_ID, "blue_kyber_crystal_geode"));
+            ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "blue_kyber_crystal_geode"));
 
 
 
@@ -52,26 +53,26 @@ public class EOSFeature {
 
 
     public static final ResourceKey<PlacedFeature> KYBER_CRYSTAL_PLACED =
-            ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(EmpireOfStarsMod.MOD_ID, "kyber_crystal_placed"));
+            ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "kyber_crystal_placed"));
 
 
 
 
     public static final ResourceKey<PlacedFeature> GREEN_KYBER_CRYSTAL_GEODE_PLACED =
-            ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(EmpireOfStarsMod.MOD_ID, "green_kyber_crystal_geode_placed"));
+            ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "green_kyber_crystal_geode_placed"));
 
     public static final ResourceKey<PlacedFeature> BLUE_KYBER_CRYSTAL_GEODE_PLACED =
-            ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(EmpireOfStarsMod.MOD_ID, "blue_kyber_crystal_geode_placed"));
+            ResourceKey.create(Registries.PLACED_FEATURE, ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "blue_kyber_crystal_geode_placed"));
 
 
 
-    public static void bootstrapConfiguredFeature(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public static void bootstrapConfiguredFeature(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         context.register(KYBER_CRYSTAL_CONFIGURED, new ConfiguredFeature<>(EOSFeature.KYBER_CRYSTAL_FEATURE.get(), NoneFeatureConfiguration.INSTANCE));
         context.register(GREEN_KYBER_CRYSTAL_GEODE_CONFIGURED, kyberGeode(KyberCrystalColor.GREEN));
         context.register(BLUE_KYBER_CRYSTAL_GEODE_CONFIGURED, kyberGeode(KyberCrystalColor.BLUE));
     }
 
-    public static void bootstrapPlacedFeature(BootstapContext<PlacedFeature> context) {
+    public static void bootstrapPlacedFeature(BootstrapContext<PlacedFeature> context) {
         context.register(KYBER_CRYSTAL_PLACED,
                 new PlacedFeature(context.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(KYBER_CRYSTAL_CONFIGURED),
                         List.of(CountPlacement.of(2), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(40)), BiomeFilter.biome())));
@@ -94,7 +95,8 @@ public class EOSFeature {
                                         BlockStateProvider.simple(Blocks.STONE),
                                         BlockStateProvider.simple(Blocks.CALCITE),
                                         BlockStateProvider.simple(Blocks.SMOOTH_BASALT),
-                                        List.of(EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get().defaultBlockState()),
+                                        List.of(EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get().defaultBlockState()
+                                                .setValue(KyberCrystalBlock.COLOR, kybercolor)),
                                         BlockTags.FEATURES_CANNOT_REPLACE,
                                         BlockTags.GEODE_INVALID_BLOCKS),
                                 new GeodeLayerSettings(

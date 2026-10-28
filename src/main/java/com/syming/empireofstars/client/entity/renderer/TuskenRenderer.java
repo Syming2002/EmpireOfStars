@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class TuskenRenderer extends MobRenderer<TuskenEntity, TuskenModel<TuskenEntity>> {
 
-    public static final ResourceLocation RAIDER_TUSKEN = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/entity/tusken/raider.png");
+    public static final ResourceLocation RAIDER_TUSKEN = ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "textures/entity/tusken/raider.png");
 
     public TuskenRenderer(EntityRendererProvider.Context pContext) {
         super(pContext, new TuskenModel<>(pContext.bakeLayer(TuskenModel.TUSKEN_LAYER)), 0.25F);

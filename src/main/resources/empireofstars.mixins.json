@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "com.syming.empireofstars.mixin",
+  "plugin": "com.syming.empireofstars.mixin.EmpireOfStarsMixinPlugin",
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "empireofstars.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

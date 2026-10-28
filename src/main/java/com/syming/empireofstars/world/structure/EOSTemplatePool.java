@@ -6,7 +6,7 @@ import com.syming.empireofstars.EmpireOfStarsMod;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.data.worldgen.ProcessorLists;
 import net.minecraft.resources.ResourceKey;
@@ -19,12 +19,12 @@ import java.util.List;
 
 public class EOSTemplatePool {
 
-    public static final ResourceKey<StructureTemplatePool> SARLACC_PIT = ResourceKey.create(Registries.TEMPLATE_POOL, new ResourceLocation(EmpireOfStarsMod.MOD_ID, "sarlacc_pit"));
-    public static final ResourceKey<StructureTemplatePool> SARLACC_PIT_BEAK = ResourceKey.create(Registries.TEMPLATE_POOL, new ResourceLocation(EmpireOfStarsMod.MOD_ID, "sarlacc_beak"));
-    public static final ResourceKey<StructureTemplatePool> SARLACC_PIT_TENTACLES = ResourceKey.create(Registries.TEMPLATE_POOL, new ResourceLocation(EmpireOfStarsMod.MOD_ID, "sarlacc_tentacles"));
+    public static final ResourceKey<StructureTemplatePool> SARLACC_PIT = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "sarlacc_pit"));
+    public static final ResourceKey<StructureTemplatePool> SARLACC_PIT_BEAK = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "sarlacc_beak"));
+    public static final ResourceKey<StructureTemplatePool> SARLACC_PIT_TENTACLES = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "sarlacc_tentacles"));
 
 
-    public static void bootstrap(BootstapContext<StructureTemplatePool> context) {
+    public static void bootstrap(BootstrapContext<StructureTemplatePool> context) {
         HolderGetter<StructureTemplatePool> pools = context.lookup(Registries.TEMPLATE_POOL);
         HolderGetter<StructureProcessorList> processorListHolderGetter = context.lookup(Registries.PROCESSOR_LIST);
 

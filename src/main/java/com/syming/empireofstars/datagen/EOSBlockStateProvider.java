@@ -8,12 +8,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public class EOSBlockStateProvider extends BlockStateProvider {
     public EOSBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -25,7 +23,34 @@ public class EOSBlockStateProvider extends BlockStateProvider {
 
         simpleBlockWithItem(EOSBlock.TATOOINE_SAND.get(), cubeAll(EOSBlock.TATOOINE_SAND.get()));
 
-        simpleBlockWithItem(EOSBlock.TATOOINE_SANDSTONE.get(), models().cubeBottomTop("tatooine_sandstone", modLoc( "block/tatooine_sandstone"), modLoc("block/tatooine_sandstone_bottom"), modLoc("block/tatooine_sandstone_top")));
+        simpleBlockWithItem(EOSBlock.TATOOINE_SANDSTONE.get(), models().cubeBottomTop("tatooine_sandstone", modLoc("block/tatooine_sandstone"), modLoc("block/tatooine_sandstone_bottom"), modLoc("block/tatooine_sandstone_top")));
+
+        ModelFile model = models()
+                .getBuilder("sarlacc_acid_stomach_output")
+                .renderType(mcLoc("cutout"))
+                .parent(new ModelFile.UncheckedModelFile(
+                        mcLoc("block/block")
+                ))
+                .texture("particle", mcLoc("block/nether_wart_block"))
+                .texture("base", mcLoc("block/nether_wart_block"))
+                .texture("overlay", modLoc("block/sarlacc_acid_stomach_output"))
+                .element()
+                .from(0, 0, 0)
+                .to(16, 16, 16)
+                .allFaces((direction, face) -> face
+                        .texture("#base")
+                        .cullface(direction)
+                )
+                .end()
+                .element()
+                .from(0, 0, 0)
+                .to(16, 16, 16)
+                .face(Direction.UP)
+                .texture("#overlay")
+                .end()
+                .end();
+
+        simpleBlockWithItem(EOSBlock.SARLACC_STOMACH_ACID_OUTPUT.get(), model);
 
         for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
             simpleBlock(EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get(), models().getExistingFile(modLoc("block/kyber_crystal")));

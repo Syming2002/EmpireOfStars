@@ -19,8 +19,8 @@ import net.minecraft.util.Mth;
 public class BanthaModel<T extends BanthaEntity> extends QuadrupedModel<T> {
 
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation BANTHA_LAYER = new ModelLayerLocation(new ResourceLocation(EmpireOfStarsMod.MOD_ID, "bantha"), "main");
-    public static final ModelLayerLocation BANTHA_SADDLE_LAYER = new ModelLayerLocation(new ResourceLocation(EmpireOfStarsMod.MOD_ID, "bantha"), "saddle");
+    public static final ModelLayerLocation BANTHA_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "bantha"), "main");
+    public static final ModelLayerLocation BANTHA_SADDLE_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "bantha"), "saddle");
 
 
     private final ModelPart beard;
@@ -116,8 +116,8 @@ public class BanthaModel<T extends BanthaEntity> extends QuadrupedModel<T> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        super.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+        super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, color);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.syming.empireofstars.entity.tusken;
 
 import com.syming.empireofstars.entity.EOSEntity;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 
@@ -14,8 +15,8 @@ public class RaiderTuskenEntity extends TuskenEntity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
     }
 
     @Override

@@ -1,7 +1,7 @@
 {
   "aquifers_enabled": false,
   "default_block": {
-    "Name": "cosmos:moon_claydust"
+    "Name": "ad_astra:moon_sand"
   },
   "default_fluid": {
     "Name": "minecraft:air"
@@ -447,7 +447,7 @@
               "then_run": {
                 "type": "minecraft:block",
                 "result_state": {
-                  "Name": "cosmos:moon_claydust"
+                  "Name": "ad_astra:moon_sand"
                 }
               }
             },
@@ -463,7 +463,7 @@
               "then_run": {
                 "type": "minecraft:block",
                 "result_state": {
-                  "Name": "cosmos:siliconedmoonclay"
+                  "Name": "ad_astra:moon_stone"
                 }
               }
             }
@@ -473,7 +473,7 @@
       {
         "type": "minecraft:block",
         "result_state": {
-          "Name": "cosmos:siliconedmoonclay"
+          "Name": "ad_astra:moon_stone"
         }
       }
     ]

@@ -15,7 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 public class SarlaccBeakModel<T extends SarlaccBeakEntity> extends HierarchicalModel<T> {
 
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation SARLACC_BEAK_LAYER = new ModelLayerLocation(new ResourceLocation(EmpireOfStarsMod.MOD_ID, "sarlacc_beak"), "main");
+    public static final ModelLayerLocation SARLACC_BEAK_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "sarlacc_beak"), "main");
     private final ModelPart sarlaccBeak;
     private final ModelPart topBeak;
     private final ModelPart bottomBeak;
@@ -56,7 +56,7 @@ public class SarlaccBeakModel<T extends SarlaccBeakEntity> extends HierarchicalM
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
-        this.sarlaccBeak.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+        this.sarlaccBeak.render(poseStack, buffer, packedLight, packedOverlay, color);
     }
 }

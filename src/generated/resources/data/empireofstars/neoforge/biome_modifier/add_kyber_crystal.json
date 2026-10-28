@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "empireofstars:kyber_crystal_placed",
+  "step": "underground_decoration"
+}

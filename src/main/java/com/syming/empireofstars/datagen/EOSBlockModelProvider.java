@@ -1,28 +1,15 @@
 package com.syming.empireofstars.datagen;
 
 import com.syming.empireofstars.EmpireOfStarsMod;
-import com.syming.empireofstars.block.EOSBlock;
-import com.syming.empireofstars.block.KyberCrystalBlock;
-import com.syming.empireofstars.block.SarlaccSpearToothBlock;
-import com.syming.empireofstars.block.TatooineSandBlock;
-import com.syming.empireofstars.item.EOSItem;
+import com.syming.empireofstars.block.*;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.models.blockstates.Variant;
-import net.minecraft.data.models.blockstates.VariantProperties;
-import net.minecraft.data.models.model.ModelTemplates;
-import net.minecraft.data.models.model.TextureMapping;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.client.model.generators.BlockModelProvider;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
-
-import java.util.Map;
+import net.neoforged.neoforge.client.model.generators.BlockModelProvider;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class EOSBlockModelProvider extends BlockModelProvider {
     public EOSBlockModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -31,10 +18,10 @@ public class EOSBlockModelProvider extends BlockModelProvider {
 
     @Override
     protected void registerModels() {
-        for (RegistryObject<Block> registryObject : EOSBlock.BLOCKS.getEntries()) {
+        for (DeferredHolder<Block, ? extends Block> blockDeferredHolder : EOSBlock.BLOCKS.getEntries()) {
 
-            final Block block = registryObject.get();
-            final String path = ForgeRegistries.BLOCKS.getKey(block).getPath();
+            final Block block = blockDeferredHolder.get();
+            final String path = blockDeferredHolder.getId().getPath();
             if (block instanceof KyberCrystalBlock) {
                 registerKyberCrystalBlock(path);
             }
@@ -45,6 +32,31 @@ public class EOSBlockModelProvider extends BlockModelProvider {
                         registerSarlaccSpearToothBlock(path);
                     }
                 }
+            }
+            if (block instanceof SarlaccStomachAcidOutputBlock) {
+                getBuilder(path)
+                        .renderType(mcLoc("cutout"))
+                        .parent(new ModelFile.UncheckedModelFile(
+                                mcLoc("block/block")
+                        ))
+                        .texture("particle", mcLoc("block/nether_wart_block"))
+                        .texture("base", mcLoc("block/nether_wart_block"))
+                        .texture("overlay", modLoc("block/sarlacc_acid_stomach_output"))
+                        .element()
+                        .from(0, 0, 0)
+                        .to(16, 16, 16)
+                        .allFaces((direction, face) -> face
+                                .texture("#base")
+                                .cullface(direction)
+                        )
+                        .end()
+                        .element()
+                        .from(0, 0, 0)
+                        .to(16, 16, 16)
+                        .face(Direction.UP)
+                        .texture("#overlay")
+                        .end()
+                        .end();
             }
         }
     }

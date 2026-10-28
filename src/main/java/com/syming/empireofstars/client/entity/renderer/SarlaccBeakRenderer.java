@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class SarlaccBeakRenderer extends MobRenderer<SarlaccBeakEntity, SarlaccBeakModel<SarlaccBeakEntity>> {
 
-    public static final ResourceLocation SARLACC_BEAK_TEXTURE = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/entity/sarlacc/sarlacc_beak.png");
+    public static final ResourceLocation SARLACC_BEAK_TEXTURE = ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "textures/entity/sarlacc/sarlacc_beak.png");
 
     public SarlaccBeakRenderer(EntityRendererProvider.Context pContext) {
         super(pContext, new SarlaccBeakModel<>(pContext.bakeLayer(SarlaccBeakModel.SARLACC_BEAK_LAYER)), 0.25F);

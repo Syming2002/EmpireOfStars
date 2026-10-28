@@ -7,11 +7,13 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Carvers;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.dimension.DimensionType;
@@ -24,16 +26,16 @@ import java.util.List;
 
 public class EOSBiome {
 
-    public static final ResourceKey<Biome> TATOOINE_CANYON = ResourceKey.create(Registries.BIOME, new ResourceLocation(EmpireOfStarsMod.MOD_ID, "tatooine_canyon"));
-    public static final ResourceKey<Biome> TATOOINE_DESERT = ResourceKey.create(Registries.BIOME, new ResourceLocation(EmpireOfStarsMod.MOD_ID, "tatooine_desert"));
+    public static final ResourceKey<Biome> TATOOINE_CANYON = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "tatooine_canyon"));
+    public static final ResourceKey<Biome> TATOOINE_DESERT = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "tatooine_desert"));
 
-    public static final ResourceKey<Biome> GHOMRASSEN_ROCKY_DESERT = ResourceKey.create(Registries.BIOME, new ResourceLocation(EmpireOfStarsMod.MOD_ID, "ghomrassen_rocky_desert"));
+    public static final ResourceKey<Biome> GHOMRASSEN_ROCKY_DESERT = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "ghomrassen_rocky_desert"));
 
 
     public static List<ResourceKey<Biome>> EOS_BIOMES_LIST = List.of(TATOOINE_CANYON, TATOOINE_DESERT, GHOMRASSEN_ROCKY_DESERT);
 
 
-    public static void bootstrapBiome(BootstapContext<Biome> context) {
+    public static void bootstrapBiome(BootstrapContext<Biome> context) {
         HolderGetter<PlacedFeature> placedFeatureHolderGetter = context.lookup(Registries.PLACED_FEATURE);
         HolderGetter<ConfiguredWorldCarver<?>> carver = context.lookup(Registries.CONFIGURED_CARVER);
 
@@ -53,8 +55,7 @@ public class EOSBiome {
 
         spawnSettings.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EOSEntity.BANTHA.get(), 25, 1, 2));
 
-        BiomeDefaultFeatures.addDesertVegetation(biomeGenerationSettings);
-        BiomeDefaultFeatures.addDesertExtraVegetation(biomeGenerationSettings);
+        spawnSettings.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.HUSK, 80, 4, 4));
 
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(false)
@@ -80,7 +81,8 @@ public class EOSBiome {
         spawnSettings.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EOSEntity.BANTHA.get(), 25, 1, 2));
 
         BiomeDefaultFeatures.addDesertVegetation(biomeGenerationSettings);
-        BiomeDefaultFeatures.addDesertExtraVegetation(biomeGenerationSettings);
+
+        spawnSettings.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.HUSK, 80, 4, 4));
 
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(false)

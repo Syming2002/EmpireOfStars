@@ -49,13 +49,13 @@ public class SarlaccTentacleEntity extends PathfinderMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
 
-        this.entityData.define(ANIMATION, IDLE_ANIMATION);
-        this.entityData.define(TENTACLE_HEIGHT_SCALE, 1.0F);
+        builder.define(ANIMATION, IDLE_ANIMATION);
+        builder.define(TENTACLE_HEIGHT_SCALE, 1.0F);
 
-        this.entityData.define(TARGET_ID, -1);
+        builder.define(TARGET_ID, -1);
     }
 
     public void setAnimation(byte pAnimation) {
@@ -167,11 +167,10 @@ public class SarlaccTentacleEntity extends PathfinderMob {
         }));
     }
 
-
     @Override
-    public EntityDimensions getDimensions(Pose pPose) {
-        EntityDimensions dimensions = super.getDimensions(pPose);
-        return EntityDimensions.scalable(dimensions.width, dimensions.height * getTentacleHeightScale());
+    protected EntityDimensions getDefaultDimensions(Pose pose) {
+        EntityDimensions dimensions = super.getDefaultDimensions(pose);
+        return EntityDimensions.scalable(dimensions.width(), dimensions.height() * getTentacleHeightScale());
     }
 
     @Override
@@ -180,11 +179,11 @@ public class SarlaccTentacleEntity extends PathfinderMob {
     }
 
     @Override
-    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
         float tentacleScaleHeight = Mth.nextFloat(this.random, 1.0F, 5.0F);
         setTentacleHeightScale(tentacleScaleHeight);
-        return pSpawnData;
+        return spawnGroupData;
     }
 
     public float getTentacleHeightScale() {

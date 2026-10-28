@@ -2,6 +2,7 @@ package com.syming.empireofstars.entity.tusken;
 
 import com.syming.empireofstars.entity.EOSEntity;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -20,8 +21,8 @@ public abstract class TuskenEntity extends PathfinderMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
     }
 
     @Override

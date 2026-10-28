@@ -1,31 +1,22 @@
 package com.syming.empireofstars.item.lightsaber;
 
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-import com.syming.empireofstars.block.KyberCrystalBlock;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.client.lightsaber.LightsaberRenderer;
-import com.syming.empireofstars.network.ActiveLightsaber;
-import com.syming.empireofstars.network.EOSPacketHandler;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
 import java.util.List;
 import java.util.Locale;
@@ -37,24 +28,23 @@ public class LightsaberItem extends Item {
     private float attackSpeed;
 
     public LightsaberItem() {
-        super(new Properties().stacksTo(1));
+        super(new Properties()
+                .stacksTo(1));
+    }
+
+    public static ItemAttributeModifiers createAttributes(float attackDamage, float attackSpeed) {
+        return ItemAttributeModifiers.builder()
+                .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, attackDamage, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+                .build();
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-
-        if (slot == EquipmentSlot.MAINHAND) {
-            ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-
-            this.attackDamage = isActive(stack) ? 15 : 2;
-            this.attackSpeed = -2.5F;
-
-
-            builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", (double)this.attackDamage, AttributeModifier.Operation.ADDITION));
-            builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", (double)this.attackSpeed, AttributeModifier.Operation.ADDITION));
-            return builder.build();
-        }
-        return super.getAttributeModifiers(slot, stack);
+    public ItemAttributeModifiers getDefaultAttributeModifiers(ItemStack stack) {
+        return createAttributes(
+                isActiveFromStack(stack) ? 15 : 2,
+                -2.5F
+        );
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -75,46 +65,23 @@ public class LightsaberItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
 
-        if (pStack.hasTag()) {
-            if (pStack.getTag() != null && pStack.getTag().contains("kybercolor")) {
-                KyberCrystalColor kybercolor = getKyberColor(pStack);
-                if (kybercolor == KyberCrystalColor.AQUAMARINE) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.aquamarine").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.AQUAMARINE.getColor()))));
-                }
-                if (kybercolor == KyberCrystalColor.BLACK) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.black").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.BLACK.getColor()))));
-                }
-                if (kybercolor == KyberCrystalColor.BLUE) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.blue").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.BLUE.getColor()))));
-                }
-                if (kybercolor == KyberCrystalColor.GREEN) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.green").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.GREEN.getColor()))));
-                }
-                if (kybercolor == KyberCrystalColor.PINK) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.pink").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.PINK.getColor()))));
-                }
-                if (kybercolor == KyberCrystalColor.PURPLE) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.purple").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.PURPLE.getColor()))));
-                }
-                if (kybercolor == KyberCrystalColor.RED) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.red").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.RED.getColor()))));
-                }
-                if (kybercolor == KyberCrystalColor.WHITE) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.white").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.WHITE.getColor()))));
-                }
-                if (kybercolor == KyberCrystalColor.YELLOW) {
-                    pTooltipComponents.add(Component.translatable("kybercolor.empireofstars.yellow").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.YELLOW.getColor()))));
-                }
-            }
-        }
+        int kyberColor = KyberCrystalColor.getKyberColorCodeFromStack(stack);
+        String hex = String.format(Locale.ROOT, "#%06X", kyberColor);
+        tooltipComponents.add(Component.translatable("kybercolor.empireofstars").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(kyberColor)))
+                .append(Component.literal(hex)
+                        .withStyle(style ->
+                                style.withColor(TextColor.fromRgb(kyberColor))
+                        )
+                ));
     }
 
+
     @Override
-    public Component getName(ItemStack pStack) {
-        return pStack.getTag() != null && pStack.getTag().contains("kybercolor") ? Component.translatable("item.empireofstars.standard_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(getKyberColor(pStack).getColor()))) : super.getName(pStack);
+    public Component getName(ItemStack stack) {
+        return Component.translatable("item.empireofstars.standard_lightsaber").setStyle(Style.EMPTY.withColor(TextColor.fromRgb(KyberCrystalColor.getKyberColorCodeFromStack(stack))));
     }
 
     public float getAttackDamage() {
@@ -125,22 +92,33 @@ public class LightsaberItem extends Item {
         return this.attackSpeed;
     }
 
-    public static void setColor(ItemStack pStack, KyberCrystalColor pColor) {
-        pStack.getOrCreateTag().putString("kybercolor", pColor.getSerializedName().toUpperCase(Locale.ROOT));
+    public static void setActiveFromStack(ItemStack stack, boolean isActive) {
+        CustomData.update(DataComponents.CUSTOM_DATA, stack, compoundTag -> compoundTag.putBoolean("active", isActive));
     }
 
-    public KyberCrystalColor getKyberColor(ItemStack pStack) {
-        if (pStack.getTag() != null && pStack.getTag().contains("kybercolor")) {
-            return KyberCrystalColor.valueOf(pStack.getTag().getString("kybercolor").toUpperCase(Locale.ROOT));
+    public static boolean isActiveFromStack(ItemStack stack) {
+        CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
+        if (customData != null) {
+            CompoundTag tag = customData.copyTag();
+            if (tag.contains("active")) {
+                return tag.getBoolean("active");
+            }
+        }
+        return false;
+    }
+
+    public static void setBladeTypeFromStack(ItemStack stack, String bladeType) {
+        CustomData.update(DataComponents.CUSTOM_DATA, stack, compoundTag -> compoundTag.putString("bladeType", bladeType));
+    }
+
+    public static String getBladeTypeFromStack(ItemStack stack) {
+        CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
+        if (customData != null) {
+            CompoundTag tag = customData.copyTag();
+            if (tag.contains("bladeType")) {
+                return tag.getString("bladeType");
+            }
         }
         return null;
-    }
-
-    public static boolean isActive(ItemStack stack) {
-        return stack.hasTag() && stack.getOrCreateTag().getBoolean("active");
-    }
-
-    public static void setActive(ItemStack stack, boolean isActive) {
-        stack.getOrCreateTag().putBoolean("active", isActive);
     }
 }

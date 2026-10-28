@@ -1,9 +1,14 @@
 package com.syming.empireofstars.block;
 
-import net.minecraft.world.level.block.SandBlock;
 
-public class TatooineSandBlock extends SandBlock {
-    public TatooineSandBlock(int pDustColor, Properties pProperties) {
-        super(pDustColor, pProperties);
+import net.minecraft.util.ColorRGBA;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ColoredFallingBlock;
+
+import java.util.Properties;
+
+public class TatooineSandBlock extends ColoredFallingBlock {
+    public TatooineSandBlock(Properties pProperties) {
+        super(new ColorRGBA(0xE2B266), pProperties);
     }
 }

@@ -20,23 +20,36 @@ import com.syming.empireofstars.client.lightsaber.StandardLightsaberModel;
 import com.syming.empireofstars.entity.EOSEntity;
 import com.syming.empireofstars.item.EOSItem;
 import com.syming.empireofstars.item.KyberCrystalShardItem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.component.CustomData;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 
-@Mod.EventBusSubscriber(modid = EmpireOfStarsMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = EmpireOfStarsMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class EOSClientModEvent {
 
     @SubscribeEvent
     public static void clientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             ItemBlockRenderTypes.setRenderLayer(EOSBlock.SARLACC_SPEAR_TOOTH.get(), RenderType.cutout());
+
+            Minecraft.getInstance().getItemColors().register((pStack, pTintIndex) -> {
+                if ((pStack.getItem() == EOSItem.SARLACC_STOMACH_ACID_BUCKET.get() || pStack.getItem() == EOSBlock.SARLACC_STOMACH_ACID_BLOCK.get().asItem()) && pTintIndex == 1) {
+                    return 0xFFB7D62B;
+                }
+                return 0xFFFFFFFF;
+            }, EOSItem.SARLACC_STOMACH_ACID_BUCKET.get(), EOSBlock.SARLACC_STOMACH_ACID_BLOCK.get().asItem());
         });
     }
 
@@ -56,10 +69,20 @@ public class EOSClientModEvent {
 
     @SubscribeEvent
     public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
-        for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
-            KyberCrystalShardItem kyberCrystalShardItem = EOSItem.KYBER_CRYSTAL_SHARD_TYPES.get(kybercolor).get();
-            event.register((pStack, pTintIndex) -> pTintIndex == 0 ? kybercolor.getColor() : 0xFFFFFFFF, kyberCrystalShardItem);
-        }
+        KyberCrystalShardItem kyberCrystalShardItem = EOSItem.KYBER_CRYSTAL_SHARD.get();
+
+        event.register((stack, tintIndex) -> {
+            if (tintIndex != 0) {
+                return 0xFFFFFF;
+            }
+
+            CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
+
+            if (customData != null) {
+                return KyberCrystalColor.getKyberColorCodeFromStack(stack);
+            }
+            return 0xFFFFFF;
+        }, kyberCrystalShardItem);
     }
 
     @SubscribeEvent
@@ -72,12 +95,12 @@ public class EOSClientModEvent {
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
         for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
-                event.register((pState, pLevel, pBlockPos, pTintIndex) -> {
-                    if (pState.getBlock() instanceof KyberCrystalBlock && pTintIndex == 0) {
-                        return kybercolor.getColor();
-                    }
-                    return 0xFFFFFFFF;
-                }, EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get());
+            event.register((pState, pLevel, pBlockPos, pTintIndex) -> {
+                if (pState.getBlock() instanceof KyberCrystalBlock && pTintIndex == 0) {
+                    return kybercolor.getKyberColor();
+                }
+                return 0xFFFFFFFF;
+            }, EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get());
         }
     }
 

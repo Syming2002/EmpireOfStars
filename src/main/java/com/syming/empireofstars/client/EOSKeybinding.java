@@ -3,7 +3,6 @@ package com.syming.empireofstars.client;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.syming.empireofstars.EmpireOfStarsMod;
 import net.minecraft.client.KeyMapping;
-import net.minecraftforge.client.settings.KeyConflictContext;
 
 public final class EOSKeybinding {
 

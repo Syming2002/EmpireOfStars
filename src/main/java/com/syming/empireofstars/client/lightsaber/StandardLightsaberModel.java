@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class StandardLightsaberModel extends Model {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation STANDARD_LIGHTSABER_LAYER = new ModelLayerLocation(new ResourceLocation(EmpireOfStarsMod.MOD_ID, "standard_lightsaber"), "main");
+    public static final ModelLayerLocation STANDARD_LIGHTSABER_LAYER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "standard_lightsaber"), "main");
     private final ModelPart standardLightsaber;
     private final ModelPart bottomGrip;
     private final ModelPart ring;
@@ -59,7 +59,7 @@ public class StandardLightsaberModel extends Model {
     }
 
     @Override
-    public void renderToBuffer(PoseStack pPoseStack, VertexConsumer pBuffer, int pPackedLight, int pPackedOverlay, float pRed, float pGreen, float pBlue, float pAlpha) {
-        this.standardLightsaber.render(pPoseStack, pBuffer, pPackedLight, pPackedOverlay, pRed, pGreen, pBlue, pAlpha);
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+        this.standardLightsaber.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
     }
 }

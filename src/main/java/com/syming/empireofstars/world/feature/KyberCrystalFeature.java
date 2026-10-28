@@ -9,12 +9,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+
+import java.util.function.Predicate;
 
 public class KyberCrystalFeature extends Feature<NoneFeatureConfiguration> {
     public KyberCrystalFeature(Codec<NoneFeatureConfiguration> pCodec) {
@@ -42,21 +45,20 @@ public class KyberCrystalFeature extends Feature<NoneFeatureConfiguration> {
                 if (neighborState.isSolid()) {
                     Direction facing = dir.getOpposite();
 
-                    KyberCrystalColor kybercolor =
-                            KyberCrystalColor.values()[randomSource.nextInt(KyberCrystalColor.values().length)];
+                    KyberCrystalColor kyberColor = KyberCrystalColor.values()[randomSource.nextInt(KyberCrystalColor.values().length)];
 
                     int shards = 1 + randomSource.nextInt(5);
 
-                    BlockState crystalState = EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get()
+                    BlockState crystalState = EOSBlock.KYBER_CRYSTAL_TYPES.get(kyberColor).get()
                             .defaultBlockState()
                             .setValue(KyberCrystalBlock.FACING, facing)
-                            .setValue(KyberCrystalBlock.COLOR, kybercolor)
+                            .setValue(KyberCrystalBlock.COLOR, kyberColor)
                             .setValue(KyberCrystalBlock.SHARDS, shards);
 
-                    worldGenLevel.setBlock(pos, crystalState, 3);
+                    this.safeSetBlock(worldGenLevel, pos, crystalState, BlockBehaviour.BlockStateBase::isAir);
 
                     if (worldGenLevel.getBlockEntity(pos) instanceof KyberCrystalBlockEntity kyberCrystalBlockEntity) {
-                        kyberCrystalBlockEntity.setColor(kybercolor);
+                        kyberCrystalBlockEntity.setKyberColor(kyberColor);
                         kyberCrystalBlockEntity.setShards(shards);
                     }
                     break;

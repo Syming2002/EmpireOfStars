@@ -1,8 +1,7 @@
 package com.syming.empireofstars.world.biome;
 
-import com.google.common.collect.ImmutableList;
 import com.syming.empireofstars.block.EOSBlock;
-import net.lointain.cosmos.init.CosmosModBlocks;
+import earth.terrarium.adastra.common.registry.ModBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SurfaceRules;
@@ -36,7 +35,7 @@ public class EOSSurfaceRuleData {
                 ),
 
                 SurfaceRules.ifTrue(
-                        SurfaceRules.isBiome(EOSBiome.TATOOINE_DESERT, EOSBiome.TATOOINE_CANYON),
+                        SurfaceRules.isBiome(EOSBiome.TATOOINE_DESERT),
                         SurfaceRules.sequence(
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.ON_FLOOR,
@@ -45,6 +44,24 @@ public class EOSSurfaceRuleData {
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.UNDER_FLOOR,
                                         SurfaceRules.state(EOSBlock.TATOOINE_SAND.get().defaultBlockState())
+                                ),
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.DEEP_UNDER_FLOOR,
+                                        SurfaceRules.state(EOSBlock.TATOOINE_SANDSTONE.get().defaultBlockState())
+                                )
+                        )
+                ),
+
+                SurfaceRules.ifTrue(
+                        SurfaceRules.isBiome(EOSBiome.TATOOINE_CANYON),
+                        SurfaceRules.sequence(
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.ON_FLOOR,
+                                        SurfaceRules.state(EOSBlock.TATOOINE_SANDSTONE.get().defaultBlockState())
+                                ),
+                                SurfaceRules.ifTrue(
+                                        SurfaceRules.UNDER_FLOOR,
+                                        SurfaceRules.state(EOSBlock.TATOOINE_SANDSTONE.get().defaultBlockState())
                                 ),
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.DEEP_UNDER_FLOOR,
@@ -84,16 +101,16 @@ public class EOSSurfaceRuleData {
                         SurfaceRules.sequence(
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.ON_FLOOR,
-                                        SurfaceRules.state(CosmosModBlocks.MOON_CLAYDUST.get().defaultBlockState())
+                                        SurfaceRules.state(ModBlocks.MOON_SAND.get().defaultBlockState())
                                 ),
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.UNDER_FLOOR,
-                                        SurfaceRules.state(CosmosModBlocks.SILICONEDMOONCLAY.get().defaultBlockState())
+                                        SurfaceRules.state(ModBlocks.MOON_STONE.get().defaultBlockState())
                                 )
                         )
                 ),
 
-                SurfaceRules.state(CosmosModBlocks.SILICONEDMOONCLAY.get().defaultBlockState())
+                SurfaceRules.state(ModBlocks.MOON_STONE.get().defaultBlockState())
         );
     }
 

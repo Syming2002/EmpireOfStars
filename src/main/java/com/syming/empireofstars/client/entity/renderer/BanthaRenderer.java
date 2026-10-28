@@ -13,12 +13,12 @@ import net.minecraft.resources.ResourceLocation;
 
 public class BanthaRenderer<T extends BanthaEntity> extends MobRenderer<T, BanthaModel<T>> {
 
-    public static final ResourceLocation BANTHA_TEXTURE = new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/entity/bantha/bantha.png");
+    public static final ResourceLocation BANTHA_TEXTURE = ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "textures/entity/bantha/bantha.png");
 
     public BanthaRenderer(EntityRendererProvider.Context pContext) {
         super(pContext, new BanthaModel<>(pContext.bakeLayer(BanthaModel.BANTHA_LAYER)), 0.75F);
 
-        addLayer(new SaddleLayer<>(this, new BanthaModel<>(pContext.bakeLayer(BanthaModel.BANTHA_SADDLE_LAYER)), new ResourceLocation(EmpireOfStarsMod.MOD_ID, "textures/entity/bantha/bantha_saddle.png")));
+        addLayer(new SaddleLayer<>(this, new BanthaModel<>(pContext.bakeLayer(BanthaModel.BANTHA_SADDLE_LAYER)), ResourceLocation.fromNamespaceAndPath(EmpireOfStarsMod.MOD_ID, "textures/entity/bantha/bantha_saddle.png")));
     }
 
     @Override

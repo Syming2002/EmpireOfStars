@@ -3,6 +3,7 @@ package com.syming.empireofstars.datagen;
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.KyberCrystalColor;
 import com.syming.empireofstars.entity.EOSEntity;
+import com.syming.empireofstars.fluid.EOSFluidType;
 import com.syming.empireofstars.item.EOSItem;
 import com.syming.empireofstars.sound.EOSSound;
 import com.syming.empireofstars.world.biome.EOSBiome;
@@ -12,9 +13,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraftforge.common.data.LanguageProvider;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class EOSLangENProvider extends LanguageProvider {
     public EOSLangENProvider(PackOutput output) {
@@ -23,19 +26,25 @@ public class EOSLangENProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        for (RegistryObject<Item> item : EOSItem.ITEMS.getEntries()) {
+        for (DeferredHolder<Item, ? extends Item> item : EOSItem.ITEMS.getEntries()) {
             if (item.getId() != null) {
                 addItem(item, getDisplayNameFromResourceLocation(item.getId()));
             }
         }
 
+        add("item.empireofstars.kyber_crystal_shard.tooltip", "You can mix other shard color to get custom color in the crafting table for custom lightsaber color blade");
+
         add("creativetab." + EmpireOfStarsMod.MOD_ID + "_tab", "Empire Of Stars");
 
-        for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
-            add("kybercolor.empireofstars." + kybercolor.getSerializedName(), kybercolor.getSerializedName().substring(0, 1).toUpperCase() + kybercolor.getSerializedName().substring(1));
+        for (DeferredHolder<FluidType, ? extends FluidType> fluidType : EOSFluidType.FLUID_TYPES.getEntries()) {
+            if (fluidType.getId() != null) {
+                add("fluid" + '_' + "type" + '.' + EmpireOfStarsMod.MOD_ID + '.' + fluidType.getId().getPath(), getDisplayNameFromResourceLocation(fluidType.getId()));
+            }
         }
 
-        for (RegistryObject<EntityType<?>> entity : EOSEntity.ENTITY_TYPES.getEntries()) {
+        add("kybercolor.empireofstars", "Kyber Color: ");
+
+        for (DeferredHolder<EntityType<?>, ? extends EntityType<?>> entity : EOSEntity.ENTITY_TYPES.getEntries()) {
             if (entity.getId() != null) {
                 addEntityType(entity, getDisplayNameFromResourceLocation(entity.getId()));
             }
@@ -47,7 +56,7 @@ public class EOSLangENProvider extends LanguageProvider {
         }
 
         // Sounds
-        for (RegistryObject<SoundEvent> sound : EOSSound.SOUNDS.getEntries()) {
+        for (DeferredHolder<SoundEvent, ? extends SoundEvent> sound : EOSSound.SOUNDS.getEntries()) {
             if (sound.getId() != null) {
                 add("sounds.empireofstars" + '.' + sound.get().getLocation().getPath(), getDisplayNameFromResourceLocation(sound.getId()));
             }

@@ -32,10 +32,10 @@ public class SarlaccBeakEntity extends PathfinderMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
 
-        this.entityData.define(ANIMATION, IDLE_ANIMATION);
+        builder.define(ANIMATION, IDLE_ANIMATION);
     }
 
     public void setAnimation(byte pAnimation) {
