@@ -33,31 +33,6 @@ public class EOSBlockModelProvider extends BlockModelProvider {
                     }
                 }
             }
-            if (block instanceof SarlaccStomachAcidOutputBlock) {
-                getBuilder(path)
-                        .renderType(mcLoc("cutout"))
-                        .parent(new ModelFile.UncheckedModelFile(
-                                mcLoc("block/block")
-                        ))
-                        .texture("particle", mcLoc("block/nether_wart_block"))
-                        .texture("base", mcLoc("block/nether_wart_block"))
-                        .texture("overlay", modLoc("block/sarlacc_acid_stomach_output"))
-                        .element()
-                        .from(0, 0, 0)
-                        .to(16, 16, 16)
-                        .allFaces((direction, face) -> face
-                                .texture("#base")
-                                .cullface(direction)
-                        )
-                        .end()
-                        .element()
-                        .from(0, 0, 0)
-                        .to(16, 16, 16)
-                        .face(Direction.UP)
-                        .texture("#overlay")
-                        .end()
-                        .end();
-            }
         }
     }
 

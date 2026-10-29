@@ -13,14 +13,14 @@ public class SarlaccStomachAcidOutputBlock extends Block {
     }
 
     @Override
-    public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
-        if (!pLevel.isClientSide()) {
-            BlockPos blockPos = pPos.above();
+    public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
+        if (!level.isClientSide()) {
+            BlockPos blockPos = pos.above();
 
-            if (pLevel.isEmptyBlock(blockPos)) {
-                pLevel.setBlockAndUpdate(blockPos, EOSBlock.SARLACC_STOMACH_ACID_BLOCK.get().defaultBlockState());
+            if (level.isEmptyBlock(blockPos)) {
+                level.setBlockAndUpdate(blockPos, EOSBlock.SARLACC_STOMACH_ACID_BLOCK.get().defaultBlockState());
             }
         }
-        super.stepOn(pLevel, pPos, pState, pEntity);
+        super.stepOn(level, pos, state, entity);
     }
 }

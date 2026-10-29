@@ -8,6 +8,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
@@ -25,25 +27,25 @@ public class EOSBlockStateProvider extends BlockStateProvider {
 
         simpleBlockWithItem(EOSBlock.TATOOINE_SANDSTONE.get(), models().cubeBottomTop("tatooine_sandstone", modLoc("block/tatooine_sandstone"), modLoc("block/tatooine_sandstone_bottom"), modLoc("block/tatooine_sandstone_top")));
 
-        ModelFile model = models()
-                .getBuilder("sarlacc_acid_stomach_output")
-                .renderType(mcLoc("cutout"))
-                .parent(new ModelFile.UncheckedModelFile(
-                        mcLoc("block/block")
-                ))
-                .texture("particle", mcLoc("block/nether_wart_block"))
-                .texture("base", mcLoc("block/nether_wart_block"))
-                .texture("overlay", modLoc("block/sarlacc_acid_stomach_output"))
+        Block block = Blocks.NETHER_WART_BLOCK;
+
+        BlockModelBuilder model = models()
+                .getBuilder("sarlacc_stomach_acid_output")
+                .parent(new ModelFile.UncheckedModelFile(mcLoc("block/block")))
+                .texture("all", blockTexture(block))
+                .texture("overlay", modLoc("block/sarlacc_stomach_acid_output"))
+                .texture("particle", blockTexture(block))
+                .renderType("cutout")
+
                 .element()
                 .from(0, 0, 0)
                 .to(16, 16, 16)
-                .allFaces((direction, face) -> face
-                        .texture("#base")
-                        .cullface(direction)
-                )
+                .allFaces((direction, faceBuilder) ->
+                        faceBuilder.texture("#all"))
                 .end()
+
                 .element()
-                .from(0, 0, 0)
+                .from(0, 16, 0)
                 .to(16, 16, 16)
                 .face(Direction.UP)
                 .texture("#overlay")

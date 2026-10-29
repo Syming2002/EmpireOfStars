@@ -4,28 +4,22 @@
     {
       "faces": {
         "down": {
-          "cullface": "down",
-          "texture": "#base"
+          "texture": "#all"
         },
         "east": {
-          "cullface": "east",
-          "texture": "#base"
+          "texture": "#all"
         },
         "north": {
-          "cullface": "north",
-          "texture": "#base"
+          "texture": "#all"
         },
         "south": {
-          "cullface": "south",
-          "texture": "#base"
+          "texture": "#all"
         },
         "up": {
-          "cullface": "up",
-          "texture": "#base"
+          "texture": "#all"
         },
         "west": {
-          "cullface": "west",
-          "texture": "#base"
+          "texture": "#all"
         }
       },
       "from": [
@@ -47,7 +41,7 @@
       },
       "from": [
         0,
-        0,
+        16,
         0
       ],
       "to": [
@@ -59,8 +53,8 @@
   ],
   "render_type": "minecraft:cutout",
   "textures": {
-    "base": "minecraft:block/nether_wart_block",
-    "overlay": "empireofstars:block/sarlacc_acid_stomach_output",
+    "all": "minecraft:block/nether_wart_block",
+    "overlay": "empireofstars:block/sarlacc_stomach_acid_output",
     "particle": "minecraft:block/nether_wart_block"
   }
 }
