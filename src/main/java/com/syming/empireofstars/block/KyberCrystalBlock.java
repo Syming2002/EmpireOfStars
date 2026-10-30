@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -50,9 +51,12 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
     protected final VoxelShape eastShape;
     protected final VoxelShape westShape;
 
-    public KyberCrystalBlock() {
+    public KyberCrystalBlock(KyberCrystalColor kyberCrystalColor) {
         super(Properties.copy(Blocks.AMETHYST_BLOCK).requiresCorrectToolForDrops());
-        this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.UP));
+        this.registerDefaultState(this.defaultBlockState()
+                .setValue(KyberCrystalBlock.FACING, Direction.UP)
+                .setValue(KyberCrystalBlock.COLOR, kyberCrystalColor)
+                .setValue(KyberCrystalBlock.SHARDS, 1));
 
         this.upShape = Block.box(5.5D, 0.0D, 5.5D, 10.5D, 8.0D, 10.5D);
         this.downShape = Block.box(5.5D, 8.0D, 5.5D, 10.5D, 16.0D, 10.5D);
@@ -118,14 +122,12 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
         if (!(blockEntity instanceof KyberCrystalBlockEntity kyberCrystalBlockEntity)) return Collections.emptyList();
 
         int totalShards = kyberCrystalBlockEntity.getShards();
-        if (totalShards <= 0) return Collections.emptyList();
 
         Item shardItem = EOSItem.KYBER_CRYSTAL_SHARD.get();
         ItemStack stack = new ItemStack(shardItem, totalShards);
 
-        CompoundTag tag = new CompoundTag();
-        tag.putString("kybercolorName", kyberCrystalBlockEntity.getKyberColor().getSerializedName());
-        stack.setTag(tag);
+        KyberCrystalColor.setKyberColorNameFromStack(stack, kyberCrystalBlockEntity.getKyberColor());
+        KyberCrystalColor.setKyberShardFromStack(stack, totalShards);
 
         return List.of(stack);
     }
@@ -154,49 +156,42 @@ public class KyberCrystalBlock extends Block implements EntityBlock {
 
     @Override
     public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
-        if (!(pLevel.getBlockEntity(pPos) instanceof KyberCrystalBlockEntity kyberCrystalBlockEntity)) return;
+        KyberCrystalColor color = KyberCrystalColor.getKyberColorNameFromStack(pStack);
 
-        CompoundTag tag = pStack.getTag();
+        int shardCount = KyberCrystalColor.getKyberShardFromStack(pStack);
 
-        if (tag == null) return;
-
-        if (tag.contains("shards")) {
-            kyberCrystalBlockEntity.setShards(tag.getInt("shards"));
+        if (color == null) {
+            color = pState.getValue(COLOR);
         }
 
-        if (tag.contains("kybercolorName")) {
-            kyberCrystalBlockEntity.setColor(KyberCrystalColor.getKyberColorNameFromStack(pStack));
+        shardCount = Mth.clamp(shardCount, 1, 5);
+
+        BlockState newState = pState
+                .setValue(COLOR, color)
+                .setValue(SHARDS, shardCount);
+
+        pLevel.setBlockAndUpdate(pPos, newState);
+
+        BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+
+        if (blockEntity instanceof KyberCrystalBlockEntity kyberBlockEntity) {
+            kyberBlockEntity.setColor(color);
+            kyberBlockEntity.setShards(shardCount);
+            kyberBlockEntity.setChanged();
         }
     }
 
     @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
 
-        for (KyberCrystalColor kyberCrystalColor : KyberCrystalColor.values()) {
-            ItemStack stack = new ItemStack(EOSBlock.KYBER_CRYSTAL_TYPES.get(kyberCrystalColor).get());
+        ItemStack stack = super.getCloneItemStack(state, target, level, pos, player);
 
-            BlockEntity blockEntity = level.getBlockEntity(pos);
+        KyberCrystalColor color = state.getValue(COLOR);
+        int shardCount = state.getValue(SHARDS);
 
-            if (blockEntity instanceof KyberCrystalBlockEntity kyberCrystalBlockEntity) {
-                CompoundTag tag = new CompoundTag();
+        KyberCrystalColor.setKyberColorNameFromStack(stack, color);
+        KyberCrystalColor.setKyberShardFromStack(stack, shardCount);
 
-                tag.putString("kybercolorName", kyberCrystalBlockEntity.getKyberColor().getSerializedName());
-                tag.putInt("shards", kyberCrystalBlockEntity.getShards());
-
-                stack.setTag(tag);
-            }
-
-            return stack;
-        }
-        return ItemStack.EMPTY;
+        return stack;
     }
-
-//    @Override
-//    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-//        Direction facing = pState.getValue(FACING);
-//
-//        BlockPos blockPos = pPos.relative(facing);
-//
-//        return pLevel.getBlockState(blockPos).isFaceSturdy(pLevel, blockPos, facing.getOpposite());
-//    }
 }

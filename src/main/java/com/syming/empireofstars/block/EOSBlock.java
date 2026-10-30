@@ -37,7 +37,7 @@ public class EOSBlock {
 
     static {
         for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
-            KYBER_CRYSTAL_TYPES.put(kybercolor, registerKyberCrystalBlock(kybercolor, KyberCrystalBlock::new));
+            KYBER_CRYSTAL_TYPES.put(kybercolor, registerKyberCrystalBlock(kybercolor, () -> new KyberCrystalBlock(kybercolor)));
         }
     }
 

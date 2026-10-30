@@ -77,6 +77,17 @@ public enum KyberCrystalColor implements StringRepresentable {
         return 0xFFFFFF;
     }
 
+    public static void setKyberShardFromStack(ItemStack stack, int kyberColor) {
+        stack.getOrCreateTag().putInt("shards", kyberColor);
+    }
+
+    public static int getKyberShardFromStack(ItemStack stack) {
+        if (stack.getTag() != null && stack.getTag().contains("shards")) {
+            return stack.getTag().getInt("shards");
+        }
+        return 1;
+    }
+
     @Override
     public String getSerializedName() {
         return this.name;

@@ -45,11 +45,8 @@ public class EOSCreativeTab {
                             for (int shardCount = 1; shardCount <= 5; shardCount++) {
                                 ItemStack kyberCrystal = new ItemStack(EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get());
 
-                                CompoundTag tag = new CompoundTag();
-                                tag.putString("kybercolorName", kybercolor.getSerializedName());
-                                tag.putInt("shards", shardCount);
-
-                                kyberCrystal.setTag(tag);
+                                KyberCrystalColor.setKyberColorNameFromStack(kyberCrystal, kybercolor);
+                                KyberCrystalColor.setKyberShardFromStack(kyberCrystal, shardCount);
 
                                 output.accept(kyberCrystal);
                             }

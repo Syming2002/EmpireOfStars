@@ -40,11 +40,11 @@ public class EOSClientModEvent {
             ItemBlockRenderTypes.setRenderLayer(EOSBlock.SARLACC_SPEAR_TOOTH.get(), RenderType.cutout());
 
             Minecraft.getInstance().getItemColors().register((pStack, pTintIndex) -> {
-                        if ((pStack.getItem() == EOSItem.SARLACC_STOMACH_ACID_BUCKET.get() || pStack.getItem() == EOSBlock.SARLACC_STOMACH_ACID_BLOCK.get().asItem()) && pTintIndex == 1) {
-                            return 0xFFB7D62B;
-                        }
-                        return 0xFFFFFFFF;
-                    }, EOSItem.SARLACC_STOMACH_ACID_BUCKET.get(), EOSBlock.SARLACC_STOMACH_ACID_BLOCK.get().asItem());
+                if ((pStack.getItem() == EOSItem.SARLACC_STOMACH_ACID_BUCKET.get() || pStack.getItem() == EOSBlock.SARLACC_STOMACH_ACID_BLOCK.get().asItem()) && pTintIndex == 1) {
+                    return 0xFFB7D62B;
+                }
+                return 0xFFFFFFFF;
+            }, EOSItem.SARLACC_STOMACH_ACID_BUCKET.get(), EOSBlock.SARLACC_STOMACH_ACID_BLOCK.get().asItem());
         });
     }
 
@@ -78,12 +78,12 @@ public class EOSClientModEvent {
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
         for (KyberCrystalColor kybercolor : KyberCrystalColor.values()) {
-                event.register((pState, pLevel, pBlockPos, pTintIndex) -> {
-                    if (pState.getBlock() instanceof KyberCrystalBlock && pTintIndex == 0) {
-                        return kybercolor.getKyberColor();
-                    }
-                    return 0xFFFFFFFF;
-                }, EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get());
+            event.register((pState, pLevel, pBlockPos, pTintIndex) -> {
+                if (pState.getBlock() instanceof KyberCrystalBlock && pTintIndex == 0) {
+                    return kybercolor.getKyberColor();
+                }
+                return 0xFFFFFFFF;
+            }, EOSBlock.KYBER_CRYSTAL_TYPES.get(kybercolor).get());
         }
     }
 

@@ -29,14 +29,14 @@ public class EOSBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(EOSBlock.TATOOINE_SANDSTONE.get(), models().cubeBottomTop("tatooine_sandstone", modLoc("block/tatooine_sandstone"), modLoc("block/tatooine_sandstone_bottom"), modLoc("block/tatooine_sandstone_top")));
 
         ModelFile model = models()
-                .getBuilder("sarlacc_acid_stomach_output")
+                .getBuilder("sarlacc_stomach_acid_output")
                 .renderType(mcLoc("cutout"))
                 .parent(new ModelFile.UncheckedModelFile(
                         mcLoc("block/block")
                 ))
                 .texture("particle", mcLoc("block/nether_wart_block"))
                 .texture("base", mcLoc("block/nether_wart_block"))
-                .texture("overlay", modLoc("block/sarlacc_acid_stomach_output"))
+                .texture("overlay", modLoc("block/sarlacc_stomach_acid_output"))
                 .element()
                 .from(0, 0, 0)
                 .to(16, 16, 16)
