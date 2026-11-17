@@ -1,7 +1,7 @@
 package com.syming.empireofstars.world.biome;
 
 import com.syming.empireofstars.block.EOSBlock;
-import earth.terrarium.adastra.common.registry.ModBlocks;
+import net.distant.cosmos.core.registry.CosmosBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SurfaceRules;
@@ -101,16 +101,16 @@ public class EOSSurfaceRuleData {
                         SurfaceRules.sequence(
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.ON_FLOOR,
-                                        SurfaceRules.state(ModBlocks.MOON_SAND.get().defaultBlockState())
+                                        SurfaceRules.state(CosmosBlocks.LUNAR_DUST.get().defaultBlockState())
                                 ),
                                 SurfaceRules.ifTrue(
                                         SurfaceRules.UNDER_FLOOR,
-                                        SurfaceRules.state(ModBlocks.MOON_STONE.get().defaultBlockState())
+                                        SurfaceRules.state(CosmosBlocks.LUNAR_STONE.get().defaultBlockState())
                                 )
                         )
                 ),
 
-                SurfaceRules.state(ModBlocks.MOON_STONE.get().defaultBlockState())
+                SurfaceRules.state(CosmosBlocks.LUNAR_STONE.get().defaultBlockState())
         );
     }
 

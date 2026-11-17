@@ -3,7 +3,6 @@ package com.syming.empireofstars.block.blockentity;
 import com.syming.empireofstars.EmpireOfStarsMod;
 import com.syming.empireofstars.block.EOSBlock;
 import com.syming.empireofstars.block.KyberCrystalColor;
-import kroppeb.stareval.function.Type;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;

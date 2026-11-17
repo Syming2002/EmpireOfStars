@@ -14,6 +14,7 @@ import com.syming.empireofstars.world.feature.EOSFeature;
 //import com.syming.empireofstars.world.structure.EOSStructurePlacement;
 //import com.syming.empireofstars.world.structure.EOSStructureProcessor;
 import com.syming.empireofstars.world.structure.EOSStructureTypes;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;

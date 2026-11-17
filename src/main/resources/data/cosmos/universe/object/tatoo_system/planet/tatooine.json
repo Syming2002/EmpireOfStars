@@ -1,0 +1,101 @@
+{
+  "name": "Tatooine",
+  "type": "NORMAL",
+  "model": {
+    "shard": {
+      "cosmos": "cosmos:shape/cube",
+      "spheromatic": "spheromatic:shape/sphere"
+    },
+    "position": [
+      48000,
+      1250,
+      -48000
+    ],
+    "rotation": [
+      0,
+      5,
+      2
+    ],
+    "scale": 915
+  },
+  "textures": {
+    "basic": "cosmos:textures/universe/system/tatoo_system/tatooine/basic.png",
+    "emissive_day": true,
+    "emissive_day_strength": 0.2
+  },
+  "atmosphere": {
+    "height_falloff": 3.5,
+    "scatter_intensity": 20,
+    "wavelength": [
+      400,
+      575,
+      700
+    ]
+  },
+  "dimension": {
+    "id": "empireofstars:tatooine",
+    "escape_radius": 1000,
+    "gravity": 1,
+    "relative_ring_rotation": [70,0,25],
+    "relative_planet_rotation": [0,0,0],
+    "skybox" : {
+      "initial_rotation": [-15,10,15],
+      "rotation_speed": [0,0.3,1],
+      "fade": "DAY",
+      "shooting_stars": true
+    },
+    "atmosphere": {
+      "day_color": [1.00, 0.68, 0.38],
+      "night_color": [0.015, 0.008, 0.005],
+      "glow_color": [1.00, 0.45, 0.15],
+      "haze_color": [0.85, 0.52, 0.28],
+      "density": 1.5
+    },
+    "sky": [
+      {
+        "object": "tatoo_system/star/tatoo_1",
+        "scale": 1,
+        "rotation": [10,20,5],
+        "orbit": {
+          "initial_rotation": [0,0,0],
+          "rotation_speed": [0,0,1],
+          "distance": 3.9
+        }
+      }
+    ]
+  },
+  "info": {
+    "classification": "Planet",
+    "type": "Barren",
+    "composition": "Rocky",
+    "life": 0.5,
+    "temperature": 42
+  },
+  "weather": {
+    "aurora": {
+      "color1": [0,0,0],
+      "color2": [0,0.15,0.3],
+      "color3": [0,0.55,0.35],
+      "color4": [0.1,0.9,0.45],
+      "gradient": 0.04,
+      "biomes": [
+        "empireofstars:tatooine_canyon",
+        "empireofstars:tatooine_desert"
+      ]
+    },
+    "meteor": {
+      "shower": 0.3,
+      "crash" : 0.4,
+      "fall" : 0.1,
+      "timer": 600,
+      "atmosphere": true
+    },
+    "storm": {
+      "twister": 0.4,
+      "tornado" : 0.3,
+      "thunder" : 0.1,
+      "color": [1.562, 0.846, 0.277],
+      "timer": 600
+    }
+  }
+}

@@ -10,7 +10,6 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.*;
@@ -18,10 +17,8 @@ import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.OptionalLong;
 
 public class EOSDimension {
@@ -123,7 +120,7 @@ public class EOSDimension {
                                                         Climate.Parameter.span(0.55F, 1.0F),
                                                         Climate.Parameter.span(-1.0F, -0.35F),
                                                         Climate.Parameter.span(0.2F, 1.0F),
-                                                        Climate.Parameter.span(-1.0F, -0.375F),
+                                                        Climate.Parameter.span(-1.0F, -0.78F),
                                                         Climate.Parameter.point(0.0F),
                                                         Climate.Parameter.span(-1.0F, 1.0F),
                                                         0.0F
@@ -136,8 +133,8 @@ public class EOSDimension {
                                                 Climate.parameters(
                                                         Climate.Parameter.span(0.55F, 1.0F),
                                                         Climate.Parameter.span(-1.0F, -0.35F),
-                                                        Climate.Parameter.span(-0.11F, 1.0F),
-                                                        Climate.Parameter.span(-0.375F, 1.0F),
+                                                        Climate.Parameter.span(0.03F, 1.0F),
+                                                        Climate.Parameter.span(0.55F, 1.0F),
                                                         Climate.Parameter.point(0.0F),
                                                         Climate.Parameter.span(-1.0F, 1.0F),
                                                         0.0F

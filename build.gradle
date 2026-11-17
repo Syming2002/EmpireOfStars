@@ -66,6 +66,13 @@ repositories {
     maven {
         url = "https://maven.teamresourceful.com/repository/maven-public/"
     }
+    maven {
+        url "https://maven.sinytra.org"
+    }
+    maven {
+        name "CaffeineMC"
+        url "https://maven.caffeinemc.net/releases" // or /snapshots
+    }
 }
 
 base {
@@ -187,19 +194,11 @@ dependencies {
     // at runtime, use the full JEI jar for Forge
     runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
-    implementation "curse.maven:common-storage-lib-1028211:8421542"
-    implementation "curse.maven:resourceful-config-714059:6467772"
-    implementation "curse.maven:resourceful-lib-570073:5973188"
-    implementation "curse.maven:ad-astra-635042:8874894"
-
-//    implementation "curse.maven:architectury-api-419699:8492726"
-//    implementation "curse.maven:potentials-1165185:6912628"
-//    implementation "curse.maven:stellaris-1036270:8402909"
+    implementation files("libs/SoulShade-Port29-Iris-Compat-v2.0.jar")
+    implementation files("libs/CosmicHorizons-Port34-ReentryFix-UniversalPlanets-v0.5-GasEscapeFix-TEST.jar")
 
     // Xaeros's Minimap
     implementation "curse.maven:xaeros-minimap-263420:9067173"
-
-//    implementation fg.deobf("curse.maven:nbt-autocomplete-813557:5957924")
 
     // Ferrite Core
     implementation "curse.maven:ferritecore-429235:7524151"
@@ -208,13 +207,16 @@ dependencies {
     implementation "curse.maven:modernfix-790626:9101836"
 
     // Embeddium
-    implementation "curse.maven:embeddium-908741:6118392"
+//    implementation "curse.maven:embeddium-908741:6118392"
+    implementation "maven.modrinth:sodium:mc1.21.1-0.8.13-neoforge"
+    implementation "maven.modrinth:iris:1.8.14-beta.1+1.21.1-neoforge"
+
 
     // NeoPoculus
-    implementation "curse.maven:neopoculus-1643416:8596152"
+//    implementation "curse.maven:neopoculus-1643416:8596152"
 
     // Euphoria Patches
-    implementation "curse.maven:euphoria-patches-915902:8884680"
+//    implementation "curse.maven:euphoria-patches-915902:8884680"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

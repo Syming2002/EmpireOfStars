@@ -1,0 +1,22 @@
+{
+  "name": "Tatoo System",
+  "type": "PRE",
+  "dimension": {
+    "id": "cosmos:tatoo_system",
+    "gravity": 0.0
+  },
+  "skybox": {
+    "type": "GEN",
+    "class": "CLASSIC",
+    "seed": 0
+  },
+  "objects": {
+    "stars": [
+      "tatoo_system/star/tatoo_1"
+    ],
+    "planets": [
+      "tatoo_system/planet/tatooine"
+    ]
+  },
+  "light_color": [1.2,1.1,0.8321]
+}
