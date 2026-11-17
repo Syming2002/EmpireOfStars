@@ -23,7 +23,7 @@ public class EOSRenderState {
 
     public static final RenderStateShard.TransparencyStateShard SHADER_LIGHTSABER_OUTER =
             new RenderStateShard.TransparencyStateShard(
-                    "lightsaber_outer_blade",
+                    "shader_lightsaber_outer",
                     () -> {
                         RenderSystem.enableBlend();
                         RenderSystem.blendFunc(
