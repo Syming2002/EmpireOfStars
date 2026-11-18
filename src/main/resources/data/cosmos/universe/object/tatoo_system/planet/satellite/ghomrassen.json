@@ -1,0 +1,86 @@
+{
+  "name": "Ghomrassen",
+  "type": "NORMAL",
+  "model": {
+    "shard": {
+      "cosmos": "cosmos:shape/cube",
+      "spheromatic": "spheromatic:shape/sphere"
+    },
+    "position": [
+      52000,
+      550,
+      -44000
+    ],
+    "rotation": [
+      2,
+      4,
+      3
+    ],
+    "scale": 300
+  },
+  "textures": {
+    "basic": "cosmos:textures/universe/system/tatoo_system/ghomrassen/basic.png",
+    "emissive_day": true,
+    "emissive_day_strength": 0.15
+  },
+  "dimension": {
+    "id": "empireofstars:ghomrassen",
+    "escape_radius": 1000,
+    "gravity": 0.17,
+    "relative_ring_rotation": [70, 0, 25],
+    "relative_planet_rotation": [0, 0, 0],
+    "skybox": {
+      "initial_rotation": [25, 60, 0],
+      "rotation_speed": [0, 0, 0],
+      "fade": "NEVER"
+    },
+    "sky": [
+      {
+        "object": "tatoo_system/planet/tatooine",
+        "scale": 1.35,
+        "rotation": [-10, -20, 15],
+        "orbit": {
+          "initial_rotation": [0, 0, 180],
+          "rotation_speed": [0, 0, 0.35],
+          "distance": 1.35
+        }
+      },
+      {
+        "object": "tatoo_system/star/tatoo_1",
+        "scale": 1.1,
+        "rotation": [15, -20, 25],
+        "orbit": {
+          "initial_rotation": [0, 0, 0],
+          "rotation_speed": [0, 0, 0.8],
+          "distance": 3.5
+        }
+      },
+      {
+        "object": "tatoo_system/star/tatoo_2",
+        "scale": 1.0,
+        "rotation": [15, -20, 25],
+        "orbit": {
+          "initial_rotation": [0, 0, 0],
+          "rotation_speed": [0, 0, 0.8],
+          "distance": 2.5
+        }
+      }
+    ]
+  },
+  "info": {
+    "classification": "Satellite",
+    "type": "Barren",
+    "composition": "Rocky",
+    "life": 0,
+    "temperature": -80
+  },
+  "weather": {
+    "meteor": {
+      "shower": 0.15,
+      "crash": 0.2,
+      "fall": 0.05,
+      "timer": 900,
+      "atmosphere": false
+    }
+  }
+}

@@ -1,20 +1,20 @@
 {
   "name": "Tatoo I",
   "type": "TEMP",
-  "temperature": 5800,
-  "light_color": [1,1,1],
+  "temperature": 5900,
+  "light_color": [1.0, 0.96, 0.88],
   "model": {
-    "position" : [0, 0, 0],
-    "rotation" : [7,6,5],
-    "scale" : 8000
+    "position" : [-11500, 0, 0],
+    "rotation" : [7, 6, 5],
+    "scale" : 8200
   },
   "info":{
-    "class": "G",
-    "luminosity ": 5
+    "class": "G1",
+    "luminosity ": 1.10
   },
   "objects": {
-    "planets": [
-      "tatoo_system/planet/tatooine"
+    "stars": [
+      "tatoo_system/star/tatoo_2"
     ]
   }
 }

@@ -8,7 +8,7 @@
     },
     "position": [
       48000,
-      1250,
+      0,
       -48000
     ],
     "rotation": [
@@ -21,11 +21,11 @@
   "textures": {
     "basic": "cosmos:textures/universe/system/tatoo_system/tatooine/basic.png",
     "emissive_day": true,
-    "emissive_day_strength": 0.2
+    "emissive_day_strength": 0.15
   },
   "atmosphere": {
     "height_falloff": 3.5,
-    "scatter_intensity": 20,
+    "scatter_intensity": 16,
     "wavelength": [
       400,
       575,
@@ -35,12 +35,12 @@
   "dimension": {
     "id": "empireofstars:tatooine",
     "escape_radius": 1000,
-    "gravity": 1,
-    "relative_ring_rotation": [70,0,25],
-    "relative_planet_rotation": [0,0,0],
-    "skybox" : {
-      "initial_rotation": [-15,10,15],
-      "rotation_speed": [0,0.3,1],
+    "gravity": 1.0,
+    "relative_ring_rotation": [70, 0, 25],
+    "relative_planet_rotation": [0, 0, 0],
+    "skybox": {
+      "initial_rotation": [-15, 10, 15],
+      "rotation_speed": [0, 0.3, 1],
       "fade": "DAY",
       "shooting_stars": true
     },
@@ -55,11 +55,31 @@
       {
         "object": "tatoo_system/star/tatoo_1",
         "scale": 1,
-        "rotation": [10,20,5],
+        "rotation": [10, 20, 5],
         "orbit": {
-          "initial_rotation": [0,0,0],
-          "rotation_speed": [0,0,1],
+          "initial_rotation": [0, 0, 0],
+          "rotation_speed": [0, 0, 1],
           "distance": 3.9
+        }
+      },
+      {
+        "object": "tatoo_system/star/tatoo_2",
+        "scale": 0.95,
+        "rotation": [10, 35, 14],
+        "orbit": {
+          "initial_rotation": [0, 0, 180],
+          "rotation_speed": [0, 0, 1],
+          "distance": 4.2
+        }
+      },
+      {
+        "object": "tatoo_system/planet/satellite/ghomrassen",
+        "scale": 1,
+        "rotation": [10, 35, 14],
+        "orbit": {
+          "initial_rotation": [0, 0, 180],
+          "rotation_speed": [0, 0, 1],
+          "distance": 4.2
         }
       }
     ]
@@ -68,15 +88,15 @@
     "classification": "Planet",
     "type": "Barren",
     "composition": "Rocky",
-    "life": 0.5,
+    "life": 0.15,
     "temperature": 42
   },
   "weather": {
     "aurora": {
-      "color1": [0,0,0],
-      "color2": [0,0.15,0.3],
-      "color3": [0,0.55,0.35],
-      "color4": [0.1,0.9,0.45],
+      "color1": [0, 0, 0],
+      "color2": [0, 0.15, 0.3],
+      "color3": [0, 0.55, 0.35],
+      "color4": [0.1, 0.9, 0.45],
       "gradient": 0.04,
       "biomes": [
         "empireofstars:tatooine_canyon",
@@ -85,16 +105,16 @@
     },
     "meteor": {
       "shower": 0.3,
-      "crash" : 0.4,
-      "fall" : 0.1,
+      "crash": 0.4,
+      "fall": 0.1,
       "timer": 600,
       "atmosphere": true
     },
     "storm": {
       "twister": 0.4,
-      "tornado" : 0.3,
-      "thunder" : 0.1,
-      "color": [1.562, 0.846, 0.277],
+      "tornado": 0.3,
+      "thunder": 0.1,
+      "color": [1.0, 0.55, 0.18],
       "timer": 600
     }
   }

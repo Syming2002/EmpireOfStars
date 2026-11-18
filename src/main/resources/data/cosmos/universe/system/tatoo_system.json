@@ -12,9 +12,11 @@
   },
   "objects": {
     "stars": [
-      "tatoo_system/star/tatoo_1"
+      "tatoo_system/star/tatoo_1",
+      "tatoo_system/star/tatoo_2"
     ],
     "planets": [
+      "tatoo_system/planet/satellite/ghomrassen",
       "tatoo_system/planet/tatooine"
     ]
   },
