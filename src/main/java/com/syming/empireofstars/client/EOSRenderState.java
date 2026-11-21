@@ -26,9 +26,11 @@ public class EOSRenderState {
                     "shader_lightsaber_outer",
                     () -> {
                         RenderSystem.enableBlend();
-                        RenderSystem.blendFunc(
+                        RenderSystem.blendFuncSeparate(
                                 GlStateManager.SourceFactor.SRC_ALPHA,
-                                GlStateManager.DestFactor.ONE
+                                GlStateManager.DestFactor.ONE,
+                                GlStateManager.SourceFactor.ONE,
+                                GlStateManager.DestFactor.ZERO
                         );
                     },
                     () -> {
