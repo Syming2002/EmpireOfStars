@@ -18,6 +18,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Comparator;
+
 public class SarlaccTentacleEntity extends PathfinderMob {
     private static final EntityDataAccessor<Byte> ANIMATION = SynchedEntityData.defineId(SarlaccTentacleEntity.class, EntityDataSerializers.BYTE);
     private static final EntityDataAccessor<Float> TENTACLE_HEIGHT_SCALE = SynchedEntityData.defineId(SarlaccTentacleEntity.class, EntityDataSerializers.FLOAT);
@@ -39,6 +41,8 @@ public class SarlaccTentacleEntity extends PathfinderMob {
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState grabAnimationState = new AnimationState();
+
+    private Vec3 pullDirection = Vec3.ZERO;
 
     public SarlaccTentacleEntity(EntityType<? extends PathfinderMob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -116,7 +120,7 @@ public class SarlaccTentacleEntity extends PathfinderMob {
                     }
 
                     if (this.attackTick == 40) {
-                        throwTargetOpposite(target);
+                        throwTargetToNearestBeak(target);
                     }
 
                     if (this.attackTick >= 100) {
@@ -199,15 +203,20 @@ public class SarlaccTentacleEntity extends PathfinderMob {
         Vec3 tentaclePos = this.position();
         Vec3 direction = tentaclePos.subtract(target.position());
 
+        this.pullDirection = direction.normalize();
+
         Vec3 motion = direction.normalize().scale(0.1D);
         target.setDeltaMovement(motion);
     }
 
-    private void throwTargetOpposite(LivingEntity target) {
-        Vec3 forward = this.getLookAngle().normalize();
-        Vec3 throwDirection = forward.scale(-1.0D);
+    private void throwTargetToNearestBeak(LivingEntity target) {
+        SarlaccBeakEntity sarlaccBeak = getNearestBeak();
 
-        Vec3 velocity = throwDirection.scale(0.5D);
+        if (sarlaccBeak == null) return;
+
+        Vec3 direction = sarlaccBeak.position().subtract(target.position()).normalize();
+
+        Vec3 velocity = direction.scale(this.getTentacleHeightScale() * 0.75D);
 
         target.setDeltaMovement(velocity);
     }
@@ -228,5 +237,14 @@ public class SarlaccTentacleEntity extends PathfinderMob {
         if (nearest != null && nearest.distanceTo(this) <= getTentacleHeightScale()) {
             setAnimation(GRAB_ANIMATION);
         }
+    }
+
+    private SarlaccBeakEntity getNearestBeak() {
+        return this.level().getEntitiesOfClass(
+                SarlaccBeakEntity.class,
+                this.getBoundingBox().inflate(16.0D)
+        ).stream()
+                .min(Comparator.comparingDouble(this::distanceToSqr))
+                .orElse(null);
     }
 }
